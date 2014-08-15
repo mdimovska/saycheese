@@ -23,6 +23,8 @@ AVCaptureVideoDataOutputSampleBufferDelegate>
 	UIView *flashView;
 	UIImage *square;
 	BOOL isUsingFrontFacingCamera;
+    CGImageRef cgImageResult;
+    BOOL isPictureTaken;
 	CIDetector *faceDetector;
     CIDetector *smileDetector;
 	CGFloat beginGestureScale;

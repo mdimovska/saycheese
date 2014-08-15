@@ -12,6 +12,7 @@
 #import <AssertMacros.h>
 #import <AssetsLibrary/AssetsLibrary.h>
 
+#import "BIDImageViewController.h"
 
 #pragma mark-
 
@@ -164,6 +165,7 @@ static CGContextRef CreateCGBitmapContextForSize(CGSize size)
 	require( error == nil, bail );
 	
     isUsingFrontFacingCamera = NO;
+    isPictureTaken = NO;
 	if ( [session canAddInput:deviceInput] )
 		[session addInput:deviceInput];
 	
@@ -195,7 +197,7 @@ static CGContextRef CreateCGBitmapContextForSize(CGSize size)
 	effectiveScale = 1.0;
 	previewLayer = [[AVCaptureVideoPreviewLayer alloc] initWithSession:session];
 	[previewLayer setBackgroundColor:[[UIColor blackColor] CGColor]];
-	[previewLayer setVideoGravity:AVLayerVideoGravityResizeAspect];
+	[previewLayer setVideoGravity:AVLayerVideoGravityResizeAspectFill];
 	CALayer *rootLayer = [previewView layer];
 	[rootLayer setMasksToBounds:YES];
 	[previewLayer setFrame:[rootLayer bounds]];
@@ -366,6 +368,15 @@ bail:
 	
 	CGRect videoBox;
 	videoBox.size = size;
+    
+    
+    //NEW !
+    //size.width = frameSize.width;
+    //size.height = frameSize.height;
+    //videoBox.size = size;
+    //END NEW
+    
+   
 	if (size.width < frameSize.width)
 		videoBox.origin.x = (frameSize.width - size.width) / 2;
 	else
@@ -403,7 +414,10 @@ bail:
     
 	CGSize parentFrameSize = [previewView frame].size;
 	NSString *gravity = [previewLayer videoGravity];
-	BOOL isMirrored = [previewLayer isMirrored];
+    //OLD:
+    //BOOL isMirrored = [previewLayer isMirrored];
+
+	BOOL isMirrored = [previewLayer.connection isVideoMirrored];
 	CGRect previewBox = [BIDViewController videoPreviewBoxForGravity:gravity
                                                                  frameSize:parentFrameSize
                                                               apertureSize:clap.size];
@@ -604,7 +618,10 @@ bail:
         [self drawFaceBoxesForFeatures:featuresSmileDetectionMutable forVideoBox:clap orientation:curDeviceOrientation];
         if(featuresSmileDetectionMutable.count>0 && featuresSmileDetectionMutable.count==featuresSmileDetection.count)
         {
-            [self takePictureAfterSmileDetection];
+            if(!isPictureTaken){
+                isPictureTaken = YES;
+               [self takePicture];
+            }
         }
     });
     
@@ -686,11 +703,13 @@ bail:
 	}
 	UIImage *rotatedSquareImage = [square imageRotatedByDegrees:rotationDegrees];
 	
+    /*
     // features found by the face detector
 	for ( CIFaceFeature *ff in features ) {
 		CGRect faceRect = [ff bounds];
 		CGContextDrawImage(bitmapContext, faceRect, [rotatedSquareImage CGImage]);
 	}
+     */
 	returnImage = CGBitmapContextCreateImage(bitmapContext);
 	CGContextRelease (bitmapContext);
 	
@@ -699,7 +718,7 @@ bail:
 
 
 
-- (void)takePictureAfterSmileDetection
+- (void)takePicture
 {
     // Find out the current orientation and tell the still image output.
 	AVCaptureConnection *stillImageConnection = [stillImageOutput connectionWithMediaType:AVMediaTypeVideo];
@@ -752,23 +771,23 @@ bail:
                                                                   OSStatus err = CreateCGImageFromCVPixelBuffer(CMSampleBufferGetImageBuffer(imageDataSampleBuffer), &srcImage);
                                                                   check(!err);
                                                                   
-                                                                  /*
-                                                                  CGImageRef cgImageResult = [self newSquareOverlayedImageForFeatures:features
+                                                                  
+                                                                  cgImageResult = [self newSquareOverlayedImageForFeatures:features
                                                                                                                             inCGImage:srcImage
                                                                                                                       withOrientation:curDeviceOrientation
                                                                                                                           frontFacing:isUsingFrontFacingCamera];
-                                                                 */
+                                                                 
                                                                   
                                                                   CFDictionaryRef attachments = CMCopyDictionaryOfAttachments(kCFAllocatorDefault,
                                                                                                                               imageDataSampleBuffer,
                                                                                                                               kCMAttachmentMode_ShouldPropagate);
-                                                                  [self writeCGImageToCameraRoll:srcImage withMetadata:(id)attachments];
+                                                                  [self writeCGImageToCameraRoll:cgImageResult withMetadata:(id)attachments];
                                                                   if (attachments)
                                                                       CFRelease(attachments);
-                                                                  /*
-                                                                  if (cgImageResult)
-                                                                      CFRelease(cgImageResult);
-                                                                  */
+                                                                  
+                                                                 // if (cgImageResult)
+                                                                     // CFRelease(cgImageResult);
+                                                                  
                                                                   if (srcImage)
                                                                       CFRelease(srcImage);
                                                                   
@@ -793,10 +812,39 @@ bail:
                                                                   CFRelease(attachments);
                                                               [library release];
                                                           }
-                                                      }
-                                                  }
+                                                          //go to BIDImageViewController
+                                                          //instantiate the view controller from the storyboard and then show it:
+                                                          
+                                                    //      BIDImageViewController* imageController = [self.storyboard instantiateViewControllerWithIdentifier:@"BIDImageViewController"];
+                                                          // [self presentViewController:imageController
+                                                            //                  animated:YES completion:nil];
+                                                          
+                                                          [previewLayer.session stopRunning];
+                                                                                                              [self performSegueWithIdentifier:@"ImageSegueIdentifier" sender:self];
+                                                      }                                                  }
 	 ];
 }
+
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+    if ([[segue identifier] isEqualToString:@"ImageSegueIdentifier"])
+    {
+        BIDImageViewController *imageViewController =  [segue destinationViewController] ;
+  //        [imageViewController.imageView setImage:[UIImage imageWithCGImage: cgImageResult]];
+        imageViewController.image = [UIImage imageWithCGImage:cgImageResult];
+        if (cgImageResult){
+            imageViewController.image = [UIImage imageWithCGImage:cgImageResult];
+            CFRelease(cgImageResult);
+        }else imageViewController.image= NULL;
+    }
+
+    }
+
+//hide the status bar
+- (BOOL)prefersStatusBarHidden
+{
+    return YES;
+}
+
 
 
 #pragma mark - View lifecycle
@@ -805,6 +853,7 @@ bail:
 {
     [super viewDidLoad];
 	// Do any additional setup after loading the view, typically from a nib.
+    cgImageResult = NULL;
     [self setupAVCapture];
 	square = [[UIImage imageNamed:@"squarePNG"] retain];
 	NSDictionary *detectorOptions = [[NSDictionary alloc] initWithObjectsAndKeys:CIDetectorAccuracyLow, CIDetectorAccuracy, nil];
@@ -819,6 +868,7 @@ bail:
                                         options: detectorOptions] retain];
     
 	[detectorOptions release];
+    
 }
 
 - (void)viewDidUnload
@@ -831,6 +881,9 @@ bail:
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
+    isPictureTaken = NO;
+     [previewLayer.session startRunning];
+     [self.navigationController setNavigationBarHidden:YES animated:animated];
 }
 
 - (void)viewDidAppear:(BOOL)animated
