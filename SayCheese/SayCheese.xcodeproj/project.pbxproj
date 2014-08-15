@@ -7,6 +7,14 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		4E9365F8199E15BC00107C7E /* squarePNG.png in Resources */ = {isa = PBXBuildFile; fileRef = 4E9365F7199E15BC00107C7E /* squarePNG.png */; };
+		4E9365FA199E540600107C7E /* ImageIO.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4E9365F9199E540600107C7E /* ImageIO.framework */; };
+		4E9365FC199E540E00107C7E /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4E9365FB199E540E00107C7E /* QuartzCore.framework */; };
+		4E9365FE199E541900107C7E /* CoreMedia.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4E9365FD199E541900107C7E /* CoreMedia.framework */; };
+		4E936600199E542200107C7E /* AssetsLibrary.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4E9365FF199E542200107C7E /* AssetsLibrary.framework */; };
+		4E936602199E542B00107C7E /* CoreImage.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4E936601199E542B00107C7E /* CoreImage.framework */; };
+		4E936604199E543200107C7E /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4E936603199E543200107C7E /* AVFoundation.framework */; };
+		4E936606199E543700107C7E /* CoreVideo.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4E936605199E543700107C7E /* CoreVideo.framework */; };
 		4EA02B01199CE46B00937E34 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4EA02B00199CE46B00937E34 /* Foundation.framework */; };
 		4EA02B03199CE46B00937E34 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4EA02B02199CE46B00937E34 /* CoreGraphics.framework */; };
 		4EA02B05199CE46B00937E34 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4EA02B04199CE46B00937E34 /* UIKit.framework */; };
@@ -34,6 +42,14 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		4E9365F7199E15BC00107C7E /* squarePNG.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = squarePNG.png; sourceTree = "<group>"; };
+		4E9365F9199E540600107C7E /* ImageIO.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ImageIO.framework; path = System/Library/Frameworks/ImageIO.framework; sourceTree = SDKROOT; };
+		4E9365FB199E540E00107C7E /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
+		4E9365FD199E541900107C7E /* CoreMedia.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreMedia.framework; path = System/Library/Frameworks/CoreMedia.framework; sourceTree = SDKROOT; };
+		4E9365FF199E542200107C7E /* AssetsLibrary.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AssetsLibrary.framework; path = System/Library/Frameworks/AssetsLibrary.framework; sourceTree = SDKROOT; };
+		4E936601199E542B00107C7E /* CoreImage.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreImage.framework; path = System/Library/Frameworks/CoreImage.framework; sourceTree = SDKROOT; };
+		4E936603199E543200107C7E /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
+		4E936605199E543700107C7E /* CoreVideo.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreVideo.framework; path = System/Library/Frameworks/CoreVideo.framework; sourceTree = SDKROOT; };
 		4EA02AFD199CE46B00937E34 /* SayCheese.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SayCheese.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		4EA02B00199CE46B00937E34 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		4EA02B02199CE46B00937E34 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -60,8 +76,15 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				4EA02B03199CE46B00937E34 /* CoreGraphics.framework in Frameworks */,
 				4EA02B05199CE46B00937E34 /* UIKit.framework in Frameworks */,
+				4E936606199E543700107C7E /* CoreVideo.framework in Frameworks */,
+				4E936604199E543200107C7E /* AVFoundation.framework in Frameworks */,
+				4E936602199E542B00107C7E /* CoreImage.framework in Frameworks */,
+				4E936600199E542200107C7E /* AssetsLibrary.framework in Frameworks */,
+				4E9365FE199E541900107C7E /* CoreMedia.framework in Frameworks */,
+				4E9365FC199E540E00107C7E /* QuartzCore.framework in Frameworks */,
+				4E9365FA199E540600107C7E /* ImageIO.framework in Frameworks */,
+				4EA02B03199CE46B00937E34 /* CoreGraphics.framework in Frameworks */,
 				4EA02B01199CE46B00937E34 /* Foundation.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -101,6 +124,13 @@
 		4EA02AFF199CE46B00937E34 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				4E936605199E543700107C7E /* CoreVideo.framework */,
+				4E936603199E543200107C7E /* AVFoundation.framework */,
+				4E936601199E542B00107C7E /* CoreImage.framework */,
+				4E9365FF199E542200107C7E /* AssetsLibrary.framework */,
+				4E9365FD199E541900107C7E /* CoreMedia.framework */,
+				4E9365FB199E540E00107C7E /* QuartzCore.framework */,
+				4E9365F9199E540600107C7E /* ImageIO.framework */,
 				4EA02B00199CE46B00937E34 /* Foundation.framework */,
 				4EA02B02199CE46B00937E34 /* CoreGraphics.framework */,
 				4EA02B04199CE46B00937E34 /* UIKit.framework */,
@@ -126,6 +156,7 @@
 		4EA02B07199CE46B00937E34 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				4E9365F7199E15BC00107C7E /* squarePNG.png */,
 				4EA02B08199CE46B00937E34 /* SayCheese-Info.plist */,
 				4EA02B09199CE46B00937E34 /* InfoPlist.strings */,
 				4EA02B0C199CE46B00937E34 /* main.m */,
@@ -230,6 +261,7 @@
 			files = (
 				4EA02B19199CE46B00937E34 /* Images.xcassets in Resources */,
 				4EA02B0B199CE46B00937E34 /* InfoPlist.strings in Resources */,
+				4E9365F8199E15BC00107C7E /* squarePNG.png in Resources */,
 				4EA02B14199CE46B00937E34 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -376,9 +408,12 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CLANG_ENABLE_OBJC_ARC = NO;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "SayCheese/SayCheese-Prefix.pch";
 				INFOPLIST_FILE = "SayCheese/SayCheese-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = app;
 			};
@@ -389,9 +424,12 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CLANG_ENABLE_OBJC_ARC = NO;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "SayCheese/SayCheese-Prefix.pch";
 				INFOPLIST_FILE = "SayCheese/SayCheese-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = app;
 			};
@@ -456,6 +494,7 @@
 				4EA02B31199CE46B00937E34 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		4EA02B32199CE46B00937E34 /* Build configuration list for PBXNativeTarget "SayCheeseTests" */ = {
 			isa = XCConfigurationList;
@@ -464,6 +503,7 @@
 				4EA02B34199CE46B00937E34 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
