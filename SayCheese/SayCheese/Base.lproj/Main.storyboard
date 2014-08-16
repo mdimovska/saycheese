@@ -52,9 +52,8 @@
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                     </imageView>
-                    <navigationItem key="navigationItem" id="zeu-Un-DQo">
-                        <barButtonItem key="backBarButtonItem" title="Back" id="qNn-73-qVc"/>
-                    </navigationItem>
+                    <navigationItem key="navigationItem" id="zeu-Un-DQo"/>
+                    <simulatedStatusBarMetrics key="simulatedStatusBarMetrics" statusBarStyle="lightContent"/>
                     <connections>
                         <outlet property="imageView" destination="gru-lE-Pgj" id="0TO-J5-uiP"/>
                     </connections>

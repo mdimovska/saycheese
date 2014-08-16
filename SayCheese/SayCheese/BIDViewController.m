@@ -874,6 +874,10 @@ bail:
 }
 
 
+-(UIStatusBarStyle)preferredStatusBarStyle{
+    return UIStatusBarStyleDefault;
+}
+
 
 #pragma mark - View lifecycle
 
@@ -896,6 +900,7 @@ bail:
                                         options: detectorOptions] retain];
     
 	[detectorOptions release];
+    [[UIApplication sharedApplication] setStatusBarHidden:YES];
     
 }
 
@@ -912,6 +917,8 @@ bail:
     isPictureTaken = NO;
      [previewLayer.session startRunning];
      [self.navigationController setNavigationBarHidden:YES animated:animated];
+    [[UIApplication sharedApplication] setStatusBarHidden:YES];
+
 }
 
 - (void)viewDidAppear:(BOOL)animated
