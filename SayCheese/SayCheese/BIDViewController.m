@@ -678,9 +678,15 @@ bail:
 	CGRect backgroundImageRect = CGRectMake(0., 0., CGImageGetWidth(backgroundImage), CGImageGetHeight(backgroundImage));
 	CGContextRef bitmapContext = CreateCGBitmapContextForSize(backgroundImageRect.size);
 	CGContextClearRect(bitmapContext, backgroundImageRect);
+		CGFloat rotationDegrees = 0.;
+    
+    //NEW
+    if(isFrontFacing){
+      //  backgroundImage = [[CGImageCreateCopy(backgroundImage)] imageRotatedByDegrees:180];
+    }
 	CGContextDrawImage(bitmapContext, backgroundImageRect, backgroundImage);
-	CGFloat rotationDegrees = 0.;
-	
+
+    
 	switch (orientation) {
 		case UIDeviceOrientationPortrait:
 			rotationDegrees = -90.;
@@ -701,15 +707,17 @@ bail:
 		default:
 			break; // leave the layer in its last known orientation
 	}
-	UIImage *rotatedSquareImage = [square imageRotatedByDegrees:rotationDegrees];
 	
     /*
+     UIImage *rotatedSquareImage = [square imageRotatedByDegrees:rotationDegrees];
+
     // features found by the face detector
 	for ( CIFaceFeature *ff in features ) {
 		CGRect faceRect = [ff bounds];
 		CGContextDrawImage(bitmapContext, faceRect, [rotatedSquareImage CGImage]);
 	}
      */
+   
 	returnImage = CGBitmapContextCreateImage(bitmapContext);
 	CGContextRelease (bitmapContext);
 	
@@ -828,16 +836,36 @@ bail:
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
     if ([[segue identifier] isEqualToString:@"ImageSegueIdentifier"])
     {
+        UIDeviceOrientation curDeviceOrientation = [[UIDevice currentDevice] orientation];
         BIDImageViewController *imageViewController =  [segue destinationViewController] ;
-  //        [imageViewController.imageView setImage:[UIImage imageWithCGImage: cgImageResult]];
-        imageViewController.image = [UIImage imageWithCGImage:cgImageResult];
         if (cgImageResult){
-            imageViewController.image = [UIImage imageWithCGImage:cgImageResult];
+            //rotate the image
+            UIImageOrientation imageOrientation = UIImageOrientationRight;
+            switch (curDeviceOrientation) {
+                case UIDeviceOrientationPortrait:
+                    imageOrientation = UIImageOrientationRight; //-90
+                    break;
+                case UIDeviceOrientationPortraitUpsideDown:
+                    imageOrientation = UIImageOrientationRight; //90
+                    break;
+                case UIDeviceOrientationLandscapeLeft:
+                    if (isUsingFrontFacingCamera) imageOrientation = UIImageOrientationLeft; //180
+                    else imageOrientation = UIImageOrientationRight; //0
+                    break;
+                case UIDeviceOrientationLandscapeRight:
+                    if (isUsingFrontFacingCamera) imageOrientation = UIImageOrientationLeft; //0
+                    else imageOrientation = UIImageOrientationRight;//180
+                    break;
+                case UIDeviceOrientationFaceUp:
+                case UIDeviceOrientationFaceDown:
+                default:
+                    break;
+            }
+            imageViewController.image = [UIImage imageWithCGImage:cgImageResult scale:1.0 orientation:imageOrientation];
             CFRelease(cgImageResult);
-        }else imageViewController.image= NULL;
+        }else imageViewController.image = NULL;
     }
-
-    }
+}
 
 //hide the status bar
 - (BOOL)prefersStatusBarHidden
