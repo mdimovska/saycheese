@@ -29,6 +29,30 @@ UIView *view;
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    
+    CGRect r = self.imageView.frame;
+
+    CGSize result = [[UIScreen mainScreen] bounds].size;
+    CGRect screenBounds = [[UIScreen mainScreen] bounds];
+    if(result.height == 480)
+    {
+        // iPhone Classic
+        r.size.height = 480;
+         self.view.frame =  CGRectMake(0, 0, 320, 480);
+         imageView.frame = CGRectMake(0, 0, 320, 480);
+    }
+    if(result.height == 568)
+    {
+        // iPhone 5
+        r.size.height =568;
+        self.view.frame =  CGRectMake(0, 0, 320, 480);
+         imageView.frame = CGRectMake(0, 0, 320, 568);
+    }
+    //[imageView setFrame:r];
+    //self.imageView.frame=r;
+    
+   
+    
     // Do any additional setup after loading the view.
    [self setNeedsStatusBarAppearanceUpdate];
     
@@ -39,18 +63,23 @@ UIView *view;
     self.navigationController.navigationBar.shadowImage = [UIImage new];
     self.navigationController.navigationBar.translucent = YES;
     
+    /*
     self.navigationController.navigationBar.backgroundColor = [UIColor  colorWithRed:((float) 0.0f)
                                                                                green:((float) 0.0f)
                                                                                 blue:((float) 0.0f)
                                                                                alpha:0.5];
+     */
+    self.navigationController.navigationBar.backgroundColor = [UIColor clearColor];
+    
     //set white title of view
     self.navigationController.navigationBar.titleTextAttributes = [NSDictionary dictionaryWithObject:[UIColor  whiteColor] forKey:NSForegroundColorAttributeName];
     
      [[UINavigationBar appearance] setTintColor:[UIColor whiteColor]];
     //  [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent animated:YES];
     
-    //black status bar
-    view=[[UIView alloc] initWithFrame:CGRectMake(0, 0,800, 20)];
+    //black transparent status bar
+    //this covers navigation bar too
+    view=[[UIView alloc] initWithFrame:CGRectMake(0, 0,800, 64)]; //20 only for status bar
     view.backgroundColor= [UIColor  colorWithRed:((float) 0.0f)
                                            green:((float) 0.0f)
                                             blue:((float) 0.0f)
@@ -90,6 +119,33 @@ UIView *view;
       [view removeFromSuperview];
     [image release];
     [super viewWillDisappear:animated];
+}
+
+- (IBAction)btnShowHideNavigationBarClick:(id)sender {
+        // show/hide nav bar
+
+    /*
+          [UIView transitionWithView:self.navigationController.navigationBar
+                      duration:0.4
+                       options:UIViewAnimationOptionTransitionCrossDissolve
+                    animations:NULL
+                    completion:NULL];
+    */
+    if (self.navigationController.navigationBar.hidden == NO)
+    {
+        [self.navigationController setNavigationBarHidden:YES animated:NO];
+        [view setHidden:YES];
+        [[UIApplication sharedApplication] setStatusBarHidden:YES];
+    }
+    else if (self.navigationController.navigationBar.hidden == YES)
+    {
+        [self.navigationController setNavigationBarHidden:NO animated:NO];
+        [view setHidden:NO];
+        [[UIApplication sharedApplication] setStatusBarHidden:NO];
+    }
+    
+
+
 }
 
 /*
