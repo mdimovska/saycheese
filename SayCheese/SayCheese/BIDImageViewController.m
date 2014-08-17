@@ -16,6 +16,7 @@
 @synthesize image;
 @synthesize imageView;
 UIView *view;
+BOOL isPhotoDeleted;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -29,7 +30,7 @@ UIView *view;
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    
+    isPhotoDeleted=NO;
     CGRect r = self.imageView.frame;
 
     CGSize result = [[UIScreen mainScreen] bounds].size;
@@ -84,22 +85,19 @@ UIView *view;
                                            green:((float) 0.0f)
                                             blue:((float) 0.0f)
                                            alpha:0.5];
-    [self.navigationController.view addSubview:view];
+    [self.view addSubview:view];
     
     [[UIApplication sharedApplication] setStatusBarStyle: UIStatusBarStyleLightContent];
     
     if(image!=NULL){
         [imageView setImage:image];
     }
+    
 }
 
 -(UIStatusBarStyle)preferredStatusBarStyle{
     return UIStatusBarStyleLightContent;
 }
-
-//-(UIStatusBarStyle)preferredStatusBarStyle{
- //   return UIStatusBarStyleLightContent;
-//}
 
 - (void)didReceiveMemoryWarning
 {
@@ -116,8 +114,10 @@ UIView *view;
 }
 
 - (void)viewWillDisappear:(BOOL)animated{
-      [view removeFromSuperview];
-    [image release];
+    [view removeFromSuperview];
+    //image is wriiten to photo album if it's not deleted
+    if(!isPhotoDeleted)
+        UIImageWriteToSavedPhotosAlbum(image, nil, nil, nil);
     [super viewWillDisappear:animated];
 }
 
@@ -143,11 +143,45 @@ UIView *view;
         [view setHidden:NO];
         [[UIApplication sharedApplication] setStatusBarHidden:NO];
     }
-    
-
-
 }
 
+
+- (IBAction)deletePhotoActionSheet:(id)sender {
+    UIActionSheet *actionSheet = [[UIActionSheet alloc] initWithTitle:nil delegate:self cancelButtonTitle:@"Cancel" destructiveButtonTitle:nil otherButtonTitles:@"Delete Photo", nil];
+    
+    actionSheet.actionSheetStyle = UIActionSheetStyleBlackTranslucent;
+    
+    [actionSheet showInView:self.view];
+}
+
+
+-(void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex {
+    if (buttonIndex == 0) {
+        //btn delete clicked
+        [self deletePhoto];
+    }
+}
+
+- (void)willPresentActionSheet:(UIActionSheet *)actionSheet {
+    //[[actionSheet layer] setBackgroundColor:[UIColor grayColor].CGColor];
+    
+    [actionSheet.subviews enumerateObjectsUsingBlock:^(UIView *subview, NSUInteger idx, BOOL *stop) {
+        if ([subview isKindOfClass:[UIButton class]]) {
+            UIButton *button = (UIButton *)subview;
+            button.titleLabel.textColor = [UIColor colorWithRed:(0/255.0) green:(102/255.0) blue:(85/255.0) alpha:1];
+        }
+    }];
+}
+
+-(void) deletePhoto{
+     isPhotoDeleted=YES;
+     [self.navigationController popViewControllerAnimated:YES];
+}
+-(void) dealloc{
+    [imageView release];
+    [image release];
+    [super dealloc];
+}
 /*
 #pragma mark - Navigation
 

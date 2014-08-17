@@ -785,16 +785,14 @@ bail:
                                                                                                                       withOrientation:curDeviceOrientation
                                                                                                                           frontFacing:isUsingFrontFacingCamera];
                                                                  
-                                                                  
+                                                                  /*
                                                                   CFDictionaryRef attachments = CMCopyDictionaryOfAttachments(kCFAllocatorDefault,
                                                                                                                               imageDataSampleBuffer,
                                                                                                                               kCMAttachmentMode_ShouldPropagate);
                                                                   [self writeCGImageToCameraRoll:cgImageResult withMetadata:(id)attachments];
                                                                   if (attachments)
                                                                       CFRelease(attachments);
-                                                                  
-                                                                 // if (cgImageResult)
-                                                                     // CFRelease(cgImageResult);
+                                                                  */
                                                                   
                                                                   if (srcImage)
                                                                       CFRelease(srcImage);
@@ -805,28 +803,28 @@ bail:
                                                           }
                                                           else {
                                                               // trivial simple JPEG case
+                                                              
                                                               NSData *jpegData = [AVCaptureStillImageOutput jpegStillImageNSDataRepresentation:imageDataSampleBuffer];
                                                               CFDictionaryRef attachments = CMCopyDictionaryOfAttachments(kCFAllocatorDefault,
                                                                                                                           imageDataSampleBuffer,
                                                                                                                           kCMAttachmentMode_ShouldPropagate);
                                                               ALAssetsLibrary *library = [[ALAssetsLibrary alloc] init];
+                                                              
+                                                              /*
                                                               [library writeImageDataToSavedPhotosAlbum:jpegData metadata:(id)attachments completionBlock:^(NSURL *assetURL, NSError *error) {
                                                                   if (error) {
                                                                       [self displayErrorOnMainQueue:error withMessage:@"Save to camera roll failed"];
                                                                   }
                                                               }];
-                                                              
+                                                              */
+                                                               
                                                               if (attachments)
                                                                   CFRelease(attachments);
                                                               [library release];
+                                                              
+
                                                           }
-                                                          //go to BIDImageViewController
-                                                          //instantiate the view controller from the storyboard and then show it:
-                                                          
-                                                    //      BIDImageViewController* imageController = [self.storyboard instantiateViewControllerWithIdentifier:@"BIDImageViewController"];
-                                                          // [self presentViewController:imageController
-                                                            //                  animated:YES completion:nil];
-                                                          
+                                                         
                                                           [previewLayer.session stopRunning];
                                                                                                               [self performSegueWithIdentifier:@"ImageSegueIdentifier" sender:self];
                                                       }                                                  }

@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 #import <CoreImage/CoreImage.h>
-@interface BIDImageViewController : UIViewController
+@interface BIDImageViewController : UIViewController <UIActionSheetDelegate>
 @property (retain, nonatomic)  UIImage *image;
 @property (strong, nonatomic) IBOutlet UIImageView *imageView;
 @end

@@ -70,8 +70,17 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                     </view>
-                    <navigationItem key="navigationItem" id="zeu-Un-DQo"/>
+                    <toolbarItems/>
+                    <navigationItem key="navigationItem" id="zeu-Un-DQo">
+                        <barButtonItem key="rightBarButtonItem" systemItem="trash" id="cNt-2W-fhi">
+                            <color key="tintColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                            <connections>
+                                <action selector="deletePhotoActionSheet:" destination="4xQ-p3-She" id="CbP-MX-A3b"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                     <simulatedStatusBarMetrics key="simulatedStatusBarMetrics" statusBarStyle="lightContent"/>
+                    <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
                     <connections>
                         <outlet property="imageView" destination="LSv-Wl-5d1" id="wxI-gm-aPb"/>
                     </connections>
