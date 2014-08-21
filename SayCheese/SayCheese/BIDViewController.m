@@ -11,6 +11,7 @@
 #import <ImageIO/ImageIO.h>
 #import <AssertMacros.h>
 #import <AssetsLibrary/AssetsLibrary.h>
+#import <ImageIO/CGImageProperties.h>
 
 #import "BIDImageViewController.h"
 
@@ -784,6 +785,7 @@ bail:
                                                                                                                             inCGImage:srcImage
                                                                                                                       withOrientation:curDeviceOrientation
                                                                                                                           frontFacing:isUsingFrontFacingCamera];
+
                                                                  
                                                                   /*
                                                                   CFDictionaryRef attachments = CMCopyDictionaryOfAttachments(kCFAllocatorDefault,
@@ -804,10 +806,10 @@ bail:
                                                           else {
                                                               // trivial simple JPEG case
                                                               
-                                                              NSData *jpegData = [AVCaptureStillImageOutput jpegStillImageNSDataRepresentation:imageDataSampleBuffer];
+                                                              jpegData = [AVCaptureStillImageOutput jpegStillImageNSDataRepresentation:imageDataSampleBuffer];
                                                               CFDictionaryRef attachments = CMCopyDictionaryOfAttachments(kCFAllocatorDefault,
-                                                                                                                          imageDataSampleBuffer,
-                                                                                                                          kCMAttachmentMode_ShouldPropagate);
+                                                                                                                imageDataSampleBuffer,
+                                                                                                                    kCMAttachmentMode_ShouldPropagate);
                                                               ALAssetsLibrary *library = [[ALAssetsLibrary alloc] init];
                                                               
                                                               /*
@@ -822,7 +824,6 @@ bail:
                                                                   CFRelease(attachments);
                                                               [library release];
                                                               
-
                                                           }
                                                          
                                                           [previewLayer.session stopRunning];
@@ -836,32 +837,55 @@ bail:
     {
         UIDeviceOrientation curDeviceOrientation = [[UIDevice currentDevice] orientation];
         BIDImageViewController *imageViewController =  [segue destinationViewController] ;
-        if (cgImageResult){
+        CGFloat rotationDegrees = 90.;
+        UIImageOrientation imageOrientation = UIImageOrientationRight;
+        switch (curDeviceOrientation) {
+            case UIDeviceOrientationPortrait:
+                imageOrientation = UIImageOrientationRight; //-90
+                rotationDegrees = 90.;
+                break;
+            case UIDeviceOrientationPortraitUpsideDown:
+                imageOrientation = UIImageOrientationLeft; //90
+                rotationDegrees=90.;
+                break;
+            case UIDeviceOrientationLandscapeLeft:
+                if (isUsingFrontFacingCamera) {
+                    imageOrientation = UIImageOrientationDown; //180
+                    rotationDegrees=-90.;
+                }
+                else {
+                    imageOrientation = UIImageOrientationUp; //0
+                    rotationDegrees=90.;
+                }
+                break;
+            case UIDeviceOrientationLandscapeRight:
+                if (isUsingFrontFacingCamera) {
+                    imageOrientation = UIImageOrientationUp; //0
+                    rotationDegrees=-90.;
+                }
+                else {
+                    imageOrientation = UIImageOrientationDown;//180
+                    rotationDegrees=90.;
+                }
+                break;
+            case UIDeviceOrientationFaceUp:
+            case UIDeviceOrientationFaceDown:
+            default:
+                break;
+        }
+        
+        BOOL doingFaceDetection = (effectiveScale == 1.0);
+        if (doingFaceDetection){
             //rotate the image
-            UIImageOrientation imageOrientation = UIImageOrientationRight;
-            switch (curDeviceOrientation) {
-                case UIDeviceOrientationPortrait:
-                    imageOrientation = UIImageOrientationRight; //-90
-                    break;
-                case UIDeviceOrientationPortraitUpsideDown:
-                    imageOrientation = UIImageOrientationRight; //90
-                    break;
-                case UIDeviceOrientationLandscapeLeft:
-                    if (isUsingFrontFacingCamera) imageOrientation = UIImageOrientationLeft; //180
-                    else imageOrientation = UIImageOrientationRight; //0
-                    break;
-                case UIDeviceOrientationLandscapeRight:
-                    if (isUsingFrontFacingCamera) imageOrientation = UIImageOrientationLeft; //0
-                    else imageOrientation = UIImageOrientationRight;//180
-                    break;
-                case UIDeviceOrientationFaceUp:
-                case UIDeviceOrientationFaceDown:
-                default:
-                    break;
-            }
-            imageViewController.image = [UIImage imageWithCGImage:cgImageResult scale:1.0 orientation:imageOrientation];
-            CFRelease(cgImageResult);
-        }else imageViewController.image = NULL;
+           imageViewController.image = [UIImage imageWithCGImage:cgImageResult scale:effectiveScale orientation:imageOrientation];
+           CFRelease(cgImageResult);
+            imageViewController.jpegData = NULL;
+        }else {
+            //scale != 1.0
+   //         imageViewController.image =  [[UIImage alloc] initWithData:jpegData] ;
+           imageViewController.jpegData = jpegData;
+            imageViewController.image =  [UIImage imageWithData:jpegData scale:effectiveScale]; //imageRotatedByDegrees:rotationDegrees];
+        }
     }
 }
 

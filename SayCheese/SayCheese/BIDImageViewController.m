@@ -8,6 +8,9 @@
 
 #import "BIDImageViewController.h"
 
+#import <AssetsLibrary/AssetsLibrary.h>
+#import <AVFoundation/AVFoundation.h>
+
 @interface BIDImageViewController ()
 
 @end
@@ -15,6 +18,7 @@
 @implementation BIDImageViewController
 @synthesize image;
 @synthesize imageView;
+@synthesize jpegData;
 UIView *view;
 BOOL isPhotoDeleted;
 
@@ -26,7 +30,17 @@ BOOL isPhotoDeleted;
     }
     return self;
 }
-
+- (void)viewDidLayoutSubviews {
+    [super viewDidLayoutSubviews];
+    
+    // Do your resizing
+ //   imageView.contentMode = UIViewContentModeScaleAspectFit;
+    CGRect frame = imageView.frame;
+    frame.size = image.size;
+//    imageView.frame = frame;
+  //  imageView.center = imageView.superview.center;
+ //   self.imageView.translatesAutoresizingMaskIntoConstraints = NO;
+}
 - (void)viewDidLoad
 {
     [super viewDidLoad];
@@ -39,20 +53,35 @@ BOOL isPhotoDeleted;
     {
         // iPhone Classic
         r.size.height = 480;
-         self.view.frame =  CGRectMake(0, 0, 320, 480);
-         imageView.frame = CGRectMake(0, 0, 320, 480);
+        // self.view.frame =  CGRectMake(0, 0, 320, 480);
+      //   imageView.frame = CGRectMake(0, 0, 320, image.size.height);
     }
     if(result.height == 568)
     {
         // iPhone 5
         r.size.height =568;
-        self.view.frame =  CGRectMake(0, 0, 320, 480);
-         imageView.frame = CGRectMake(0, 0, 320, 568);
+        //self.view.frame =  CGRectMake(0, 0, 320, 568);
+        // imageView.frame = CGRectMake(0, 0, 320,  image.size.height);
     }
     //[imageView setFrame:r];
     //self.imageView.frame=r;
     
+    
+ //   imageView.contentMode = UIViewContentModeScaleAspectFill;
+    CGRect frame = imageView.frame;
+    frame.size = image.size;
+  //  imageView.frame = frame;
+   // imageView.center = imageView.superview.center;
+   // self.imageView.translatesAutoresizingMaskIntoConstraints = NO;
+    
    
+    
+    /*
+    UIImageView *bgImageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, image.size.height)];
+    [bgImageView setImage:image];
+    [self.view addSubview:bgImageView];
+    
+    */
     
     // Do any additional setup after loading the view.
    [self setNeedsStatusBarAppearanceUpdate];
@@ -85,15 +114,37 @@ BOOL isPhotoDeleted;
                                            green:((float) 0.0f)
                                             blue:((float) 0.0f)
                                            alpha:0.5];
+    
+    [self addImageView];
+    
     [self.view addSubview:view];
     
     [[UIApplication sharedApplication] setStatusBarStyle: UIStatusBarStyleLightContent];
     
     if(image!=NULL){
-        [imageView setImage:image];
+     //   [imageView setImage:image];
     }
-    
 }
+
+-(void)addImageView{
+    
+    UIImageView *imgview  = [[UIImageView alloc]initWithFrame:self.view.frame];
+
+    
+    float cameraAspectRatio = 4.0 / 3.0; //! Note: 4.0 and 4.0 works
+    float imageWidth = [[UIScreen mainScreen]bounds].size.height / cameraAspectRatio;
+    imgview.frame =CGRectMake(0, 0, imageWidth, [[UIScreen mainScreen] bounds].size.height);
+
+    [imgview setContentMode:UIViewContentModeScaleAspectFit];
+    [imgview setImage:image];
+
+    //TODO: remove imageView from main
+    [self.view addSubview:imgview];
+}
+
+
+
+
 
 -(UIStatusBarStyle)preferredStatusBarStyle{
     return UIStatusBarStyleLightContent;
@@ -116,8 +167,23 @@ BOOL isPhotoDeleted;
 - (void)viewWillDisappear:(BOOL)animated{
     [view removeFromSuperview];
     //image is wriiten to photo album if it's not deleted
-    if(!isPhotoDeleted)
+    if(!isPhotoDeleted){
+      //  if(jpegData==NULL)
         UIImageWriteToSavedPhotosAlbum(image, nil, nil, nil);
+        /*
+        else{
+            ALAssetsLibrary *library = [[ALAssetsLibrary alloc] init];
+            
+        
+             [library writeImageDataToSavedPhotosAlbum:jpegData metadata:(id)NULL completionBlock:^(NSURL *assetURL, NSError *error) {
+             if (error) {
+             [self displayErrorOnMainQueue:error withMessage:@"Save to camera roll failed"];
+             }
+             }];
+            
+        }
+         */
+    }
     [super viewWillDisappear:animated];
 }
 

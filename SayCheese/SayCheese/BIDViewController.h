@@ -24,6 +24,7 @@ AVCaptureVideoDataOutputSampleBufferDelegate>
 	UIImage *square;
 	BOOL isUsingFrontFacingCamera;
     CGImageRef cgImageResult;
+    NSData *jpegData;
     BOOL isPictureTaken;
 	CIDetector *faceDetector;
     CIDetector *smileDetector;

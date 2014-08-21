@@ -11,4 +11,5 @@
 @interface BIDImageViewController : UIViewController <UIActionSheetDelegate>
 @property (retain, nonatomic)  UIImage *image;
 @property (strong, nonatomic) IBOutlet UIImageView *imageView;
+@property (strong, nonatomic) NSData *jpegData;
 @end
