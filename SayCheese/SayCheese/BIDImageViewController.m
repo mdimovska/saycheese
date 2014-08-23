@@ -96,58 +96,59 @@ BOOL isPhotoDeleted;
 
 -(void)addImageView{
     if(image!=NULL){
-      //  imageView = [[UIImageView alloc]initWithFrame:self.view.frame];
-        
+        /*
         float cameraAspectRatio = 4.0 / 3.0;
         float imageWidth = [[UIScreen mainScreen]bounds].size.height / cameraAspectRatio;
-       // imageView.frame =CGRectMake(0, 0, imageWidth, [[UIScreen mainScreen] bounds].size.height);
+        imageView.frame =CGRectMake(0, 0, imageWidth, [[UIScreen mainScreen] bounds].size.height);
+        imageView setContentMode:UIViewContentModeScaleAspectFit];
+        [imageView setImage:image];
+        imageView.autoresizingMask = UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth;
+        */
         
-      //  [imageView setContentMode:UIViewContentModeScaleAspectFit];
-        
-        
-      //  [imageView setImage:image];
-        
-      //  imageView.autoresizingMask = UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth;
-        
-        //new
         imageView=[[UIImageView alloc] initWithImage:image];
+        
+        //set constrains to center and scale the image
          self.imageView.translatesAutoresizingMaskIntoConstraints = NO;
         
         [self.view addSubview:imageView];
-        if([[UIDevice currentDevice] orientation] == UIDeviceOrientationPortrait){
-            NSLayoutConstraint *constraint = [NSLayoutConstraint constraintWithItem:self.imageView attribute:NSLayoutAttributeCenterX relatedBy:NSLayoutRelationEqual toItem:self.view attribute:NSLayoutAttributeCenterX multiplier:1.0f constant:0.0f];
-            
-            [self.view addConstraint:constraint];
-            
-            constraint = [NSLayoutConstraint constraintWithItem:self.imageView attribute:NSLayoutAttributeCenterY relatedBy:NSLayoutRelationEqual toItem:self.view attribute:NSLayoutAttributeCenterY multiplier:1.0f constant:0.0f];
-            
-            [self.view addConstraint:constraint];
-            
-            constraint = [NSLayoutConstraint constraintWithItem:self.imageView attribute:NSLayoutAttributeHeight relatedBy:NSLayoutRelationEqual toItem:self.view attribute:NSLayoutAttributeHeight multiplier:1.0f constant:0.0f];
-            
-            [self.view addConstraint:constraint];
-            
-            constraint = [NSLayoutConstraint constraintWithItem:self.imageView attribute:NSLayoutAttributeHeight relatedBy:NSLayoutRelationEqual toItem:self.imageView attribute:NSLayoutAttributeWidth multiplier:4.0/3.0 constant:0.0f];
-            
-            [self.imageView addConstraint:constraint];
-        }
-        else{
-            NSLayoutConstraint *constraint = [NSLayoutConstraint constraintWithItem:self.imageView attribute:NSLayoutAttributeCenterX relatedBy:NSLayoutRelationEqual toItem:self.view attribute:NSLayoutAttributeCenterX multiplier:1.0f constant:0.0f];
-            
-            [self.view addConstraint:constraint];
-            
-            constraint = [NSLayoutConstraint constraintWithItem:self.imageView attribute:NSLayoutAttributeCenterY relatedBy:NSLayoutRelationEqual toItem:self.view attribute:NSLayoutAttributeCenterY multiplier:1.0f constant:0.0f];
-            
-            [self.view addConstraint:constraint];
-            
-            constraint = [NSLayoutConstraint constraintWithItem:self.imageView attribute:NSLayoutAttributeWidth relatedBy:NSLayoutRelationEqual toItem:self.view attribute:NSLayoutAttributeWidth multiplier:1.0f constant:0.0f];
-            
-            [self.view addConstraint:constraint];
-            
-            constraint = [NSLayoutConstraint constraintWithItem:self.imageView attribute:NSLayoutAttributeWidth relatedBy:NSLayoutRelationEqual toItem:self.imageView attribute:NSLayoutAttributeHeight multiplier:4.0/3.0 constant:0.0f];
-            
-            [self.imageView addConstraint:constraint];
-        }
+        [self setConstraints];
+    }
+}
+
+- (void) setConstraints{
+    if([[UIDevice currentDevice] orientation] == UIDeviceOrientationPortrait){
+        NSLayoutConstraint *constraint = [NSLayoutConstraint constraintWithItem:self.imageView attribute:NSLayoutAttributeCenterX relatedBy:NSLayoutRelationEqual toItem:self.view attribute:NSLayoutAttributeCenterX multiplier:1.0f constant:0.0f];
+        
+        [self.view addConstraint:constraint];
+        
+        constraint = [NSLayoutConstraint constraintWithItem:self.imageView attribute:NSLayoutAttributeCenterY relatedBy:NSLayoutRelationEqual toItem:self.view attribute:NSLayoutAttributeCenterY multiplier:1.0f constant:0.0f];
+        
+        [self.view addConstraint:constraint];
+        
+        constraint = [NSLayoutConstraint constraintWithItem:self.imageView attribute:NSLayoutAttributeHeight relatedBy:NSLayoutRelationEqual toItem:self.view attribute:NSLayoutAttributeHeight multiplier:1.0f constant:0.0f];
+        
+        [self.view addConstraint:constraint];
+        
+        constraint = [NSLayoutConstraint constraintWithItem:self.imageView attribute:NSLayoutAttributeHeight relatedBy:NSLayoutRelationEqual toItem:self.imageView attribute:NSLayoutAttributeWidth multiplier:4.0/3.0 constant:0.0f];
+        
+        [self.imageView addConstraint:constraint];
+    }
+    else{
+        NSLayoutConstraint *constraint = [NSLayoutConstraint constraintWithItem:self.imageView attribute:NSLayoutAttributeCenterX relatedBy:NSLayoutRelationEqual toItem:self.view attribute:NSLayoutAttributeCenterX multiplier:1.0f constant:0.0f];
+        
+        [self.view addConstraint:constraint];
+        
+        constraint = [NSLayoutConstraint constraintWithItem:self.imageView attribute:NSLayoutAttributeCenterY relatedBy:NSLayoutRelationEqual toItem:self.view attribute:NSLayoutAttributeCenterY multiplier:1.0f constant:0.0f];
+        
+        [self.view addConstraint:constraint];
+        
+        constraint = [NSLayoutConstraint constraintWithItem:self.imageView attribute:NSLayoutAttributeWidth relatedBy:NSLayoutRelationEqual toItem:self.view attribute:NSLayoutAttributeWidth multiplier:1.0f constant:0.0f];
+        
+        [self.view addConstraint:constraint];
+        
+        constraint = [NSLayoutConstraint constraintWithItem:self.imageView attribute:NSLayoutAttributeWidth relatedBy:NSLayoutRelationEqual toItem:self.imageView attribute:NSLayoutAttributeHeight multiplier:4.0/3.0 constant:0.0f];
+        
+        [self.imageView addConstraint:constraint];
     }
 }
 
@@ -257,31 +258,10 @@ BOOL isPhotoDeleted;
     return YES;
 }
 
+/*
 -(void)willAnimateRotationToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation duration:(NSTimeInterval)duration{
     NSLog(@"willAnimateRotationToInterfaceOrientation");
-    
- //   CGAffineTransform rotate = CGAffineTransformMakeRotation( 1.0 / 180.0 * 3.14 );
-   // [imageView setTransform:rotate];
-    
-    // float imageWidth = [[UIScreen mainScreen]bounds].size.height / cameraAspectRatio;
-    //imageView.frame =CGRectMake(0, 0, imageWidth, [[UIScreen mainScreen] bounds].size.height);
-    float cameraAspectRatio = 4.0 / 3.0;
-    float screenHeight =[[UIScreen mainScreen]bounds].size.height; //480
-    float imageHeight =  screenHeight/ cameraAspectRatio; //360
-    
-    if(toInterfaceOrientation==UIInterfaceOrientationPortrait){
-      //  imageView.frame =CGRectMake(0, 0, imageHeight, [[UIScreen mainScreen] bounds].size.height);
-    }
-    else{
-      //   imageView.frame =CGRectMake(0, 0, [[UIScreen mainScreen] bounds].size.width, imageHeight);
-    }
-    
-    
- //   imageView.frame =CGRectMake(0, 0, [[UIScreen mainScreen] bounds].size.width, imageHeight);
-  
-//    [imageView setContentMode:UIViewContentModeScaleAspectFit];
-  //   imageView.autoresizingMask = UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth;
-    
 }
+*/
 
 @end
