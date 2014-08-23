@@ -167,9 +167,25 @@ static CGContextRef CreateCGBitmapContextForSize(CGSize size)
 	
     isUsingFrontFacingCamera = NO;
     isPictureTaken = NO;
-	if ( [session canAddInput:deviceInput] )
-		[session addInput:deviceInput];
-	
+    
+	if ( [session canAddInput:deviceInput] ){
+        /*
+        AVCaptureDevicePosition desiredPosition;
+        if (isUsingFrontFacingCamera)
+            desiredPosition = AVCaptureDevicePositionFront;
+        else
+            desiredPosition = AVCaptureDevicePositionBack;
+        
+        for (AVCaptureDevice *d in [AVCaptureDevice devicesWithMediaType:AVMediaTypeVideo]) {
+            if ([d position] == desiredPosition) {
+                AVCaptureDeviceInput *input = [AVCaptureDeviceInput deviceInputWithDevice:d error:nil];
+                [session addInput:input];
+            }
+        }
+        */
+        [session addInput:deviceInput];
+    }
+    
     // Make a still image output
 	stillImageOutput = [AVCaptureStillImageOutput new];
 	[stillImageOutput addObserver:self forKeyPath:@"capturingStillImage" options:NSKeyValueObservingOptionNew context:AVCaptureStillImageIsCapturingStillImageContext];
@@ -191,12 +207,11 @@ static CGContextRef CreateCGBitmapContextForSize(CGSize size)
 	videoDataOutputQueue = dispatch_queue_create("VideoDataOutputQueue", DISPATCH_QUEUE_SERIAL);
 	[videoDataOutput setSampleBufferDelegate:self queue:videoDataOutputQueue];
 	
-    if ( [session canAddOutput:videoDataOutput] )
-		[session addOutput:videoDataOutput];
 	[[videoDataOutput connectionWithMediaType:AVMediaTypeVideo] setEnabled:NO];
 	
 	effectiveScale = 1.0;
 	previewLayer = [[AVCaptureVideoPreviewLayer alloc] initWithSession:session];
+    
 	[previewLayer setBackgroundColor:[[UIColor blackColor] CGColor]];
 	[previewLayer setVideoGravity:AVLayerVideoGravityResizeAspectFill];
 	CALayer *rootLayer = [previewView layer];
@@ -204,6 +219,9 @@ static CGContextRef CreateCGBitmapContextForSize(CGSize size)
 	[previewLayer setFrame:[rootLayer bounds]];
 	[rootLayer addSublayer:previewLayer];
 	[session startRunning];
+    
+    if ( [session canAddOutput:videoDataOutput] )
+		[session addOutput:videoDataOutput];
     
 bail:
 	[session release];
@@ -370,14 +388,6 @@ bail:
 	CGRect videoBox;
 	videoBox.size = size;
     
-    
-    //NEW !
-    //size.width = frameSize.width;
-    //size.height = frameSize.height;
-    //videoBox.size = size;
-    //END NEW
-    
-   
 	if (size.width < frameSize.width)
 		videoBox.origin.x = (frameSize.width - size.width) / 2;
 	else
@@ -497,6 +507,8 @@ bail:
 
 - (void)captureOutput:(AVCaptureOutput *)captureOutput didOutputSampleBuffer:(CMSampleBufferRef)sampleBuffer fromConnection:(AVCaptureConnection *)connection
 {
+      NSLog(@"didOutputSampleBuffer");
+    
 	// got an image
 	CVPixelBufferRef pixelBuffer = CMSampleBufferGetImageBuffer(sampleBuffer);
 	CFDictionaryRef attachments = CMCopyDictionaryOfAttachments(kCFAllocatorDefault, sampleBuffer, kCMAttachmentMode_ShouldPropagate);
@@ -570,14 +582,6 @@ bail:
     //	});
     
     
-    
-    //    CIImage *image = [CIImage imageWithCGImage:self.imageView.image.CGImage];
-    
-    /*
-     CIDetector *smileDetector = [CIDetector detectorOfType:CIDetectorTypeFace
-     context:nil
-     options:@{CIDetectorAccuracy: CIDetectorAccuracyHigh}];
-     */
     NSDictionary *imageSmileOptions = @{
                                         CIDetectorSmile: @(YES),
                                         CIDetectorEyeBlink: @(YES),
@@ -640,7 +644,7 @@ bail:
 // use front/back camera
 - (IBAction)switchCameras:(id)sender
 {
-	AVCaptureDevicePosition desiredPosition;
+    AVCaptureDevicePosition desiredPosition;
 	if (isUsingFrontFacingCamera)
 		desiredPosition = AVCaptureDevicePositionBack;
 	else
@@ -659,6 +663,21 @@ bail:
 		}
 	}
 	isUsingFrontFacingCamera = !isUsingFrontFacingCamera;
+}
+
+-(void) changeSessionInput:(AVCaptureDevicePosition)desiredPosition{
+	for (AVCaptureDevice *d in [AVCaptureDevice devicesWithMediaType:AVMediaTypeVideo]) {
+		if ([d position] == desiredPosition) {
+			[[previewLayer session] beginConfiguration];
+			AVCaptureDeviceInput *input = [AVCaptureDeviceInput deviceInputWithDevice:d error:nil];
+			for (AVCaptureInput *oldInput in [[previewLayer session] inputs]) {
+				[[previewLayer session] removeInput:oldInput];
+			}
+			[[previewLayer session] addInput:input];
+			[[previewLayer session] commitConfiguration];
+			break;
+		}
+	}
 }
 
 
@@ -908,7 +927,7 @@ bail:
     [super viewDidLoad];
 	// Do any additional setup after loading the view, typically from a nib.
     cgImageResult = NULL;
-    [self setupAVCapture];
+   
 	square = [[UIImage imageNamed:@"squarePNG"] retain];
 	NSDictionary *detectorOptions = [[NSDictionary alloc] initWithObjectsAndKeys:CIDetectorAccuracyLow, CIDetectorAccuracy, nil];
 	faceDetector = [[CIDetector detectorOfType:CIDetectorTypeFace context:nil options:detectorOptions] retain];
@@ -922,6 +941,9 @@ bail:
                                         options: detectorOptions] retain];
     
 	[detectorOptions release];
+    
+     [self setupAVCapture];
+    
     [[UIApplication sharedApplication] setStatusBarHidden:YES];
     
 }
