@@ -39,8 +39,10 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                     </view>
                     <navigationItem key="navigationItem" id="F2a-4Y-e7m"/>
+                    <simulatedOrientationMetrics key="simulatedOrientationMetrics"/>
                     <connections>
                         <outlet property="previewView" destination="H8t-Nl-LE2" id="blu-JI-DgW"/>
+                        <outlet property="switchButton" destination="O4x-xM-kYQ" id="lJz-4F-WIh"/>
                         <segue destination="4xQ-p3-She" kind="push" identifier="ImageSegueIdentifier" id="QLB-DI-EEn"/>
                     </connections>
                 </viewController>
@@ -92,10 +94,10 @@
             </objects>
             <point key="canvasLocation" x="987" y="151"/>
         </scene>
-        <!--Navigation Controller-->
+        <!--Navigation View Controller-->
         <scene sceneID="Cq9-5B-7Y5">
             <objects>
-                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="2qv-O0-2Hm" sceneMemberID="viewController">
+                <navigationController storyboardIdentifier="MainNav" automaticallyAdjustsScrollViewInsets="NO" id="2qv-O0-2Hm" customClass="BIDNavigationViewController" sceneMemberID="viewController">
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="URN-NO-4ch">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>

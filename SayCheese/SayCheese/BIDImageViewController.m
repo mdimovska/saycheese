@@ -18,6 +18,7 @@
 @implementation BIDImageViewController
 @synthesize image;
 @synthesize jpegData;
+@synthesize imageView;
 UIView *view;
 BOOL isPhotoDeleted;
 
@@ -29,6 +30,8 @@ BOOL isPhotoDeleted;
     }
     return self;
 }
+
+
 
 - (void)viewDidLoad
 {
@@ -93,17 +96,19 @@ BOOL isPhotoDeleted;
 
 -(void)addImageView{
     if(image!=NULL){
-        UIImageView *imgview  = [[UIImageView alloc]initWithFrame:self.view.frame];
-        
+        imageView = [[UIImageView alloc]initWithFrame:self.view.frame];
         
         float cameraAspectRatio = 4.0 / 3.0;
-        float imageWidth = [[UIScreen mainScreen]bounds].size.height / cameraAspectRatio;
-        imgview.frame =CGRectMake(0, 0, imageWidth, [[UIScreen mainScreen] bounds].size.height);
+       float imageWidth = [[UIScreen mainScreen]bounds].size.height / cameraAspectRatio;
+       // float imageWidth = [[UIScreen mainScreen]bounds].size.width;
+        imageView.frame =CGRectMake(0, 0, imageWidth, [[UIScreen mainScreen] bounds].size.height);
         
-        [imgview setContentMode:UIViewContentModeScaleAspectFit];
-        [imgview setImage:image];
+        [imageView setContentMode:UIViewContentModeScaleAspectFit];
+        [imageView setImage:image];
         
-        [self.view addSubview:imgview];
+        imageView.autoresizingMask = UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth;
+        
+        [self.view addSubview:imageView];
     }
 }
 
@@ -130,35 +135,13 @@ BOOL isPhotoDeleted;
     [view removeFromSuperview];
     //image is wriiten to photo album if it's not deleted
     if(!isPhotoDeleted){
-      //  if(jpegData==NULL)
         UIImageWriteToSavedPhotosAlbum(image, nil, nil, nil);
-        /*
-        else{
-            ALAssetsLibrary *library = [[ALAssetsLibrary alloc] init];
-            
-        
-             [library writeImageDataToSavedPhotosAlbum:jpegData metadata:(id)NULL completionBlock:^(NSURL *assetURL, NSError *error) {
-             if (error) {
-             [self displayErrorOnMainQueue:error withMessage:@"Save to camera roll failed"];
-             }
-             }];
-            
-        }
-         */
     }
     [super viewWillDisappear:animated];
 }
 
 - (IBAction)btnShowHideNavigationBarClick:(id)sender {
-        // show/hide nav bar
-
-    /*
-          [UIView transitionWithView:self.navigationController.navigationBar
-                      duration:0.4
-                       options:UIViewAnimationOptionTransitionCrossDissolve
-                    animations:NULL
-                    completion:NULL];
-    */
+    // show/hide nav bar
     if (self.navigationController.navigationBar.hidden == NO)
     {
         [self.navigationController setNavigationBarHidden:YES animated:NO];
@@ -178,7 +161,6 @@ BOOL isPhotoDeleted;
     UIActionSheet *actionSheet = [[UIActionSheet alloc] initWithTitle:nil delegate:self cancelButtonTitle:@"Cancel" destructiveButtonTitle:nil otherButtonTitles:@"Delete Photo", nil];
     
     actionSheet.actionSheetStyle = UIActionSheetStyleBlackTranslucent;
-    
     [actionSheet showInView:self.view];
 }
 
@@ -205,10 +187,12 @@ BOOL isPhotoDeleted;
      isPhotoDeleted=YES;
      [self.navigationController popViewControllerAnimated:YES];
 }
+
 -(void) dealloc{
     [image release];
     [super dealloc];
 }
+
 /*
 #pragma mark - Navigation
 
@@ -219,5 +203,46 @@ BOOL isPhotoDeleted;
     // Pass the selected object to the new view controller.
 }
 */
+
+- (NSUInteger)supportedInterfaceOrientations
+{
+    return (UIInterfaceOrientationMaskAllButUpsideDown);
+}
+
+-(UIInterfaceOrientation)preferredInterfaceOrientationForPresentation {
+    return (UIInterfaceOrientationPortrait );
+}
+
+-(BOOL) shouldAutorotate {
+    
+    return YES;
+}
+
+-(void)willAnimateRotationToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation duration:(NSTimeInterval)duration{
+    NSLog(@"willAnimateRotationToInterfaceOrientation");
+    
+ //   CGAffineTransform rotate = CGAffineTransformMakeRotation( 1.0 / 180.0 * 3.14 );
+   // [imageView setTransform:rotate];
+    
+    // float imageWidth = [[UIScreen mainScreen]bounds].size.height / cameraAspectRatio;
+    //imageView.frame =CGRectMake(0, 0, imageWidth, [[UIScreen mainScreen] bounds].size.height);
+    float cameraAspectRatio = 4.0 / 3.0;
+    float screenHeight =[[UIScreen mainScreen]bounds].size.height; //480
+    float imageHeight =  screenHeight/ cameraAspectRatio; //360
+    
+    if(toInterfaceOrientation==UIInterfaceOrientationPortrait){
+      //  imageView.frame =CGRectMake(0, 0, imageHeight, [[UIScreen mainScreen] bounds].size.height);
+    }
+    else{
+      //   imageView.frame =CGRectMake(0, 0, [[UIScreen mainScreen] bounds].size.width, imageHeight);
+    }
+    
+    
+ //   imageView.frame =CGRectMake(0, 0, [[UIScreen mainScreen] bounds].size.width, imageHeight);
+  
+    [imageView setContentMode:UIViewContentModeScaleAspectFit];
+     imageView.autoresizingMask = UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth;
+    
+}
 
 @end

@@ -962,7 +962,6 @@ bail:
      [previewLayer.session startRunning];
      [self.navigationController setNavigationBarHidden:YES animated:animated];
     [[UIApplication sharedApplication] setStatusBarHidden:YES];
-
 }
 
 - (void)viewDidAppear:(BOOL)animated
@@ -980,17 +979,12 @@ bail:
 	[super viewDidDisappear:animated];
 }
 
-- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
-{
-    // Return YES for supported orientations
-	return (interfaceOrientation == UIInterfaceOrientationPortrait);
-}
-
 - (BOOL)gestureRecognizerShouldBegin:(UIGestureRecognizer *)gestureRecognizer
 {
 	if ( [gestureRecognizer isKindOfClass:[UIPinchGestureRecognizer class]] ) {
 		beginGestureScale = effectiveScale;
 	}
+    
 	return YES;
 }
 
@@ -1022,4 +1016,66 @@ bail:
 	}
 }
 
+
+- (NSUInteger)supportedInterfaceOrientations
+{
+    return (UIInterfaceOrientationMaskPortrait);
+}
+
+-(UIInterfaceOrientation)preferredInterfaceOrientationForPresentation {
+    return (UIInterfaceOrientationPortrait);
+}
+-(BOOL) shouldAutorotate {
+    return YES;
+}
+
+-(void)willAnimateRotationToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation duration:(NSTimeInterval)duration{
+    NSLog(@"willAnimateRotationToInterfaceOrientation");
+
+    CGAffineTransform rotate = CGAffineTransformMakeRotation( 1.0 / 180.0 * 3.14 );
+    [switchButton setTransform:rotate];
+}
+
+-(void) deviceDidRotate:(NSNotification *)notification
+{
+    NSLog(@"deviceDidRotate");
+    UIDeviceOrientation currentOrientation = [[UIDevice currentDevice] orientation];
+    double rotation = 0;
+    UIInterfaceOrientation statusBarOrientation;
+    switch (currentOrientation) {
+        case UIDeviceOrientationFaceDown:
+        case UIDeviceOrientationFaceUp:
+        case UIDeviceOrientationUnknown:
+            return;
+        case UIDeviceOrientationPortrait:
+            rotation = 0;
+            statusBarOrientation = UIInterfaceOrientationPortrait;
+            break;
+        case UIDeviceOrientationPortraitUpsideDown:
+            rotation = -M_PI;
+            statusBarOrientation = UIInterfaceOrientationPortraitUpsideDown;
+            break;
+        case UIDeviceOrientationLandscapeLeft:
+            rotation = M_PI_2;
+            statusBarOrientation = UIInterfaceOrientationLandscapeRight;
+            break;
+        case UIDeviceOrientationLandscapeRight:
+            rotation = -M_PI_2;
+            statusBarOrientation = UIInterfaceOrientationLandscapeLeft;
+            break;
+    }
+    CGAffineTransform transform = CGAffineTransformMakeRotation(rotation);
+    [UIView animateWithDuration:0.4 delay:0.0 options:UIViewAnimationOptionBeginFromCurrentState animations:^{
+        [switchButton setTransform:transform];
+        [[UIApplication sharedApplication] setStatusBarOrientation:statusBarOrientation];
+    } completion:nil];
+}
+
+- (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
+{
+    [[UIDevice currentDevice] beginGeneratingDeviceOrientationNotifications];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(deviceDidRotate:) name:UIDeviceOrientationDidChangeNotification object:nil];
+    // Override point for customization after application launch.
+    return YES;
+}
 @end

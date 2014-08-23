@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		4E0C6C39199E791A003E51F1 /* camera_switch.png in Resources */ = {isa = PBXBuildFile; fileRef = 4E0C6C38199E791A003E51F1 /* camera_switch.png */; };
+		4E0CC95919A8F205009392DE /* BIDNavigationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E0CC95819A8F205009392DE /* BIDNavigationViewController.m */; };
 		4E8F8E6A199EAE23009ED73D /* BIDImageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E8F8E69199EAE23009ED73D /* BIDImageViewController.m */; };
 		4E9365F8199E15BC00107C7E /* squarePNG.png in Resources */ = {isa = PBXBuildFile; fileRef = 4E9365F7199E15BC00107C7E /* squarePNG.png */; };
 		4E9365FA199E540600107C7E /* ImageIO.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4E9365F9199E540600107C7E /* ImageIO.framework */; };
@@ -45,6 +46,8 @@
 
 /* Begin PBXFileReference section */
 		4E0C6C38199E791A003E51F1 /* camera_switch.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = camera_switch.png; sourceTree = "<group>"; };
+		4E0CC95719A8F205009392DE /* BIDNavigationViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BIDNavigationViewController.h; sourceTree = "<group>"; };
+		4E0CC95819A8F205009392DE /* BIDNavigationViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BIDNavigationViewController.m; sourceTree = "<group>"; };
 		4E8F8E68199EAE23009ED73D /* BIDImageViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BIDImageViewController.h; sourceTree = "<group>"; };
 		4E8F8E69199EAE23009ED73D /* BIDImageViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BIDImageViewController.m; sourceTree = "<group>"; };
 		4E9365F7199E15BC00107C7E /* squarePNG.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = squarePNG.png; sourceTree = "<group>"; };
@@ -156,6 +159,8 @@
 				4E8F8E68199EAE23009ED73D /* BIDImageViewController.h */,
 				4E8F8E69199EAE23009ED73D /* BIDImageViewController.m */,
 				4EA02B07199CE46B00937E34 /* Supporting Files */,
+				4E0CC95719A8F205009392DE /* BIDNavigationViewController.h */,
+				4E0CC95819A8F205009392DE /* BIDNavigationViewController.m */,
 			);
 			path = SayCheese;
 			sourceTree = "<group>";
@@ -290,6 +295,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4E0CC95919A8F205009392DE /* BIDNavigationViewController.m in Sources */,
 				4E8F8E6A199EAE23009ED73D /* BIDImageViewController.m in Sources */,
 				4EA02B11199CE46B00937E34 /* BIDAppDelegate.m in Sources */,
 				4EA02B17199CE46B00937E34 /* BIDViewController.m in Sources */,
