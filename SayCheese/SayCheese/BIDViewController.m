@@ -1078,4 +1078,9 @@ bail:
     // Override point for customization after application launch.
     return YES;
 }
+
+- (IBAction)btnShowHideNavigationBarClick:(id)sender {
+    // show/hide nav bar and toolbar
+    topView.hidden = !topView.hidden;
+}
 @end
