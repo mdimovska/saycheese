@@ -515,7 +515,7 @@ bail:
 	CIImage *ciImage = [[CIImage alloc] initWithCVPixelBuffer:pixelBuffer options:(NSDictionary *)attachments];
 	if (attachments)
 		CFRelease(attachments);
-	NSDictionary *imageOptions = nil;
+	//NSDictionary *imageOptions = nil;
 	UIDeviceOrientation curDeviceOrientation = [[UIDevice currentDevice] orientation];
 	int exifOrientation;
 	

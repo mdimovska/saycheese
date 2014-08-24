@@ -14,6 +14,8 @@
 		4E0CC95F19A91F7A009392DE /* Icon-60@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4E0CC95E19A91F7A009392DE /* Icon-60@2x.png */; };
 		4E0CC96119A91F84009392DE /* Icon-40@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4E0CC96019A91F84009392DE /* Icon-40@2x.png */; };
 		4E0CC96319A91F8A009392DE /* Icon-Small@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4E0CC96219A91F8A009392DE /* Icon-Small@2x.png */; };
+		4E0CC96519AA2CFE009392DE /* Social.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4E0CC96419AA2CFE009392DE /* Social.framework */; };
+		4E0CC96719AA2D16009392DE /* MessageUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4E0CC96619AA2D16009392DE /* MessageUI.framework */; };
 		4E8F8E6A199EAE23009ED73D /* BIDImageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E8F8E69199EAE23009ED73D /* BIDImageViewController.m */; };
 		4E9365FA199E540600107C7E /* ImageIO.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4E9365F9199E540600107C7E /* ImageIO.framework */; };
 		4E9365FC199E540E00107C7E /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4E9365FB199E540E00107C7E /* QuartzCore.framework */; };
@@ -57,6 +59,8 @@
 		4E0CC95E19A91F7A009392DE /* Icon-60@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon-60@2x.png"; sourceTree = "<group>"; };
 		4E0CC96019A91F84009392DE /* Icon-40@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon-40@2x.png"; sourceTree = "<group>"; };
 		4E0CC96219A91F8A009392DE /* Icon-Small@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon-Small@2x.png"; sourceTree = "<group>"; };
+		4E0CC96419AA2CFE009392DE /* Social.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Social.framework; path = System/Library/Frameworks/Social.framework; sourceTree = SDKROOT; };
+		4E0CC96619AA2D16009392DE /* MessageUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MessageUI.framework; path = System/Library/Frameworks/MessageUI.framework; sourceTree = SDKROOT; };
 		4E8F8E68199EAE23009ED73D /* BIDImageViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BIDImageViewController.h; sourceTree = "<group>"; };
 		4E8F8E69199EAE23009ED73D /* BIDImageViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BIDImageViewController.m; sourceTree = "<group>"; };
 		4E9365F9199E540600107C7E /* ImageIO.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ImageIO.framework; path = System/Library/Frameworks/ImageIO.framework; sourceTree = SDKROOT; };
@@ -92,6 +96,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4E0CC96719AA2D16009392DE /* MessageUI.framework in Frameworks */,
+				4E0CC96519AA2CFE009392DE /* Social.framework in Frameworks */,
 				4EA02B05199CE46B00937E34 /* UIKit.framework in Frameworks */,
 				4E936606199E543700107C7E /* CoreVideo.framework in Frameworks */,
 				4E936604199E543200107C7E /* AVFoundation.framework in Frameworks */,
@@ -140,6 +146,8 @@
 		4EA02AFF199CE46B00937E34 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				4E0CC96619AA2D16009392DE /* MessageUI.framework */,
+				4E0CC96419AA2CFE009392DE /* Social.framework */,
 				4E936605199E543700107C7E /* CoreVideo.framework */,
 				4E936603199E543200107C7E /* AVFoundation.framework */,
 				4E936601199E542B00107C7E /* CoreImage.framework */,
