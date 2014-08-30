@@ -925,7 +925,7 @@ bail:
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-	// Do any additional setup after loading the view, typically from a nib.
+    
     cgImageResult = NULL;
    
 	square = [[UIImage imageNamed:@"squarePNG"] retain];
@@ -942,7 +942,7 @@ bail:
     
 	[detectorOptions release];
     
-     [self setupAVCapture];
+    [self setupAVCapture];
     
     [[UIApplication sharedApplication] setStatusBarHidden:YES];
     
@@ -1016,6 +1016,7 @@ bail:
 	}
 }
 
+//only portrait orientation allowed in this view
 
 - (NSUInteger)supportedInterfaceOrientations
 {
