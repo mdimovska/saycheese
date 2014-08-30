@@ -21,6 +21,10 @@
 		4E936606199E543700107C7E /* CoreVideo.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4E936605199E543700107C7E /* CoreVideo.framework */; };
 		4E96789D19B21682001EF6A7 /* FacebookSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4E96789C19B21682001EF6A7 /* FacebookSDK.framework */; };
 		4E9678A019B22D62001EF6A7 /* BIDLoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E96789F19B22D62001EF6A7 /* BIDLoginViewController.m */; };
+		4E9678A319B2486C001EF6A7 /* BIDTabBarController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E9678A219B2486C001EF6A7 /* BIDTabBarController.m */; };
+		4E9678A619B24AC6001EF6A7 /* BIDUserAccountViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E9678A519B24AC6001EF6A7 /* BIDUserAccountViewController.m */; };
+		4E9678AA19B26CF9001EF6A7 /* background.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 4E9678A919B26CF9001EF6A7 /* background.jpg */; };
+		4E9678AC19B26DEA001EF6A7 /* background_user_account.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 4E9678AB19B26DEA001EF6A7 /* background_user_account.jpg */; };
 		4EA02B01199CE46B00937E34 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4EA02B00199CE46B00937E34 /* Foundation.framework */; };
 		4EA02B03199CE46B00937E34 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4EA02B02199CE46B00937E34 /* CoreGraphics.framework */; };
 		4EA02B05199CE46B00937E34 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4EA02B04199CE46B00937E34 /* UIKit.framework */; };
@@ -74,6 +78,12 @@
 		4E96789C19B21682001EF6A7 /* FacebookSDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = FacebookSDK.framework; sourceTree = "<group>"; };
 		4E96789E19B22D62001EF6A7 /* BIDLoginViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BIDLoginViewController.h; sourceTree = "<group>"; };
 		4E96789F19B22D62001EF6A7 /* BIDLoginViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BIDLoginViewController.m; sourceTree = "<group>"; };
+		4E9678A119B2486C001EF6A7 /* BIDTabBarController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BIDTabBarController.h; sourceTree = "<group>"; };
+		4E9678A219B2486C001EF6A7 /* BIDTabBarController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BIDTabBarController.m; sourceTree = "<group>"; };
+		4E9678A419B24AC6001EF6A7 /* BIDUserAccountViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BIDUserAccountViewController.h; sourceTree = "<group>"; };
+		4E9678A519B24AC6001EF6A7 /* BIDUserAccountViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BIDUserAccountViewController.m; sourceTree = "<group>"; };
+		4E9678A919B26CF9001EF6A7 /* background.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = background.jpg; sourceTree = "<group>"; };
+		4E9678AB19B26DEA001EF6A7 /* background_user_account.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = background_user_account.jpg; sourceTree = "<group>"; };
 		4EA02AFD199CE46B00937E34 /* SayCheese.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SayCheese.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		4EA02B00199CE46B00937E34 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		4EA02B02199CE46B00937E34 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -194,6 +204,10 @@
 				4E0CC95819A8F205009392DE /* BIDNavigationViewController.m */,
 				4E96789E19B22D62001EF6A7 /* BIDLoginViewController.h */,
 				4E96789F19B22D62001EF6A7 /* BIDLoginViewController.m */,
+				4E9678A119B2486C001EF6A7 /* BIDTabBarController.h */,
+				4E9678A219B2486C001EF6A7 /* BIDTabBarController.m */,
+				4E9678A419B24AC6001EF6A7 /* BIDUserAccountViewController.h */,
+				4E9678A519B24AC6001EF6A7 /* BIDUserAccountViewController.m */,
 			);
 			path = SayCheese;
 			sourceTree = "<group>";
@@ -201,6 +215,8 @@
 		4EA02B07199CE46B00937E34 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				4E9678AB19B26DEA001EF6A7 /* background_user_account.jpg */,
+				4E9678A919B26CF9001EF6A7 /* background.jpg */,
 				4ED0D88F19AA3E890081CF62 /* Icon-40.png */,
 				4ED0D89019AA3E890081CF62 /* Icon-40@2x.png */,
 				4ED0D89119AA3E890081CF62 /* Icon-60.png */,
@@ -322,6 +338,8 @@
 				4ED0D89C19AA3E890081CF62 /* Icon-76@2x.png in Resources */,
 				4ED0D89A19AA3E890081CF62 /* Icon-60@2x.png in Resources */,
 				4ED0D89819AA3E890081CF62 /* Icon-40@2x.png in Resources */,
+				4E9678AC19B26DEA001EF6A7 /* background_user_account.jpg in Resources */,
+				4E9678AA19B26CF9001EF6A7 /* background.jpg in Resources */,
 				4ED0D89D19AA3E890081CF62 /* Icon-Small.png in Resources */,
 				4ED0D89B19AA3E890081CF62 /* Icon-76.png in Resources */,
 				4EA02B14199CE46B00937E34 /* Main.storyboard in Resources */,
@@ -344,8 +362,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4E9678A319B2486C001EF6A7 /* BIDTabBarController.m in Sources */,
 				4E0CC95919A8F205009392DE /* BIDNavigationViewController.m in Sources */,
 				4E8F8E6A199EAE23009ED73D /* BIDImageViewController.m in Sources */,
+				4E9678A619B24AC6001EF6A7 /* BIDUserAccountViewController.m in Sources */,
 				4EA02B11199CE46B00937E34 /* BIDAppDelegate.m in Sources */,
 				4EA02B17199CE46B00937E34 /* BIDViewController.m in Sources */,
 				4E9678A019B22D62001EF6A7 /* BIDLoginViewController.m in Sources */,

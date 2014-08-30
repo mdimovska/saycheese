@@ -80,7 +80,6 @@ BOOL isActionSheetDeleteShown = NO;
     self.navigationController.navigationBar.titleTextAttributes = [NSDictionary dictionaryWithObject:[UIColor  whiteColor] forKey:NSForegroundColorAttributeName];
     
      [[UINavigationBar appearance] setTintColor:[UIColor whiteColor]];
-    //  [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent animated:YES];
     
     //black transparent status bar
     //this covers navigation bar too

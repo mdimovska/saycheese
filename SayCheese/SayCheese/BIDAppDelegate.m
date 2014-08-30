@@ -145,14 +145,24 @@
 -(void) userLoggedIn
 {
  //   [self performSegueWithIdentifier:@"InitialViewSegueIdentifier" sender:self];
-    UINavigationController *navigationController = (UINavigationController*) self.window.rootViewController;
-    
-    [self requestUserInfo];
+   // UINavigationController *navigationController = (UINavigationController*) self.window.rootViewController;
+    NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
+    NSDictionary *dictionary= [prefs dictionaryForKey:@"userInfo"];
+    if(!dictionary)
+        [self requestUserInfo];
+    else{
+        UINavigationController *navigationController = (UINavigationController*) self.window.rootViewController;
+        [[[navigationController viewControllers] objectAtIndex:0] performSegueWithIdentifier:@"TabBarControllerSequeIdentifier" sender:self];
+    }
  //   [[[navigationController viewControllers] objectAtIndex:0] performSegueWithIdentifier:@"InitialViewSegueIdentifier" sender:self];
 }
 
 -(void) userLoggedOut
 {
+    //clear user info from prefs
+    NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
+    [prefs setObject:nil forKey:@"userInfo"];
+
 }
 
 -(void)showMessage:(NSString*)alertText withTitle:(NSString*)alertTitle
@@ -226,6 +236,15 @@
         if (!error) {
             // Success! Include your code to handle the results here
             NSLog(@"user info: %@", result); //result is object of type NSDictionary
+            
+            
+            NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
+            NSMutableDictionary *dictionary=[NSMutableDictionary dictionaryWithObject:result forKey:@"user"];
+            [prefs setObject:dictionary forKey:@"userInfo"];
+            
+             NSLog(@"user: %@", dictionary[@"user"][@"name"]);
+            UINavigationController *navigationController = (UINavigationController*) self.window.rootViewController;
+            [[[navigationController viewControllers] objectAtIndex:0] performSegueWithIdentifier:@"TabBarControllerSequeIdentifier" sender:self];
         } else {
             // An error occurred, we need to handle the error
             // Check out our error handling guide: https://developers.facebook.com/docs/ios/errors/

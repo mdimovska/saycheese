@@ -971,6 +971,7 @@ bail:
 
 - (void)viewWillDisappear:(BOOL)animated
 {
+    [previewLayer.session stopRunning];
 	[super viewWillDisappear:animated];
 }
 

@@ -7,7 +7,7 @@
         <!--Login View Controller-->
         <scene sceneID="zw3-ge-Wpe">
             <objects>
-                <viewController id="SBO-o4-pc8" customClass="BIDLoginViewController" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="loginViewController" id="SBO-o4-pc8" customClass="BIDLoginViewController" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="u8p-Yb-6a6">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -22,14 +22,14 @@
                     </view>
                     <navigationItem key="navigationItem" id="XCx-zp-Lui"/>
                     <connections>
-                        <segue destination="vXZ-lx-hvc" kind="push" identifier="InitialViewSegueIdentifier" id="Afl-SP-o48"/>
+                        <segue destination="N98-p7-Djr" kind="push" identifier="TabBarControllerSequeIdentifier" id="aQ1-l6-fLC"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="f6L-tI-jpu" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1252" y="158"/>
+            <point key="canvasLocation" x="1290" y="622"/>
         </scene>
-        <!--View Controller-->
+        <!--View Controller - Item-->
         <scene sceneID="ufC-wZ-h7g">
             <objects>
                 <viewController storyboardIdentifier="BIDViewController" id="vXZ-lx-hvc" customClass="BIDViewController" sceneMemberID="viewController">
@@ -83,6 +83,7 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                     </view>
+                    <tabBarItem key="tabBarItem" title="Item" image="Icon-Small.png" id="jyR-bB-Bk7"/>
                     <navigationItem key="navigationItem" id="F2a-4Y-e7m"/>
                     <simulatedOrientationMetrics key="simulatedOrientationMetrics"/>
                     <connections>
@@ -100,7 +101,7 @@
                     </connections>
                 </pinchGestureRecognizer>
             </objects>
-            <point key="canvasLocation" x="1613" y="158"/>
+            <point key="canvasLocation" x="2282" y="955"/>
         </scene>
         <!--Image View Controller-->
         <scene sceneID="s7u-qK-8sv">
@@ -159,7 +160,91 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="xCO-86-e5v" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2039" y="151"/>
+            <point key="canvasLocation" x="2664" y="955"/>
+        </scene>
+        <!--View Controller-->
+        <scene sceneID="H1w-qr-S8R">
+            <objects>
+                <viewController id="iJZ-xf-Sa4" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="MAg-dx-DAt">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                    </view>
+                    <tabBarItem key="tabBarItem" systemItem="mostViewed" id="REK-8u-EGB"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="MqB-8o-nSh" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2246" y="295"/>
+        </scene>
+        <!--Tab Bar Controller-->
+        <scene sceneID="igQ-Gq-Svl">
+            <objects>
+                <tabBarController definesPresentationContext="YES" id="N98-p7-Djr" customClass="BIDTabBarController" sceneMemberID="viewController">
+                    <navigationItem key="navigationItem" id="yju-c6-TgX"/>
+                    <simulatedTabBarMetrics key="simulatedBottomBarMetrics"/>
+                    <tabBar key="tabBar" contentMode="scaleToFill" id="oRP-rp-eBC">
+                        <rect key="frame" x="129" y="330" width="163" height="49"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                    </tabBar>
+                    <connections>
+                        <segue destination="iJZ-xf-Sa4" kind="relationship" relationship="viewControllers" id="Vsz-bY-8Pu"/>
+                        <segue destination="vXZ-lx-hvc" kind="relationship" relationship="viewControllers" id="hgX-Vw-OWn"/>
+                        <segue destination="0EF-D0-BLU" kind="relationship" relationship="viewControllers" id="3hq-Zq-N4N"/>
+                        <segue destination="SBO-o4-pc8" kind="push" identifier="LoginControllerSegueIdentifier" id="xLW-04-dNp"/>
+                    </connections>
+                </tabBarController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="ohV-H3-sJY" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1712" y="622"/>
+        </scene>
+        <!--User Account View Controller-->
+        <scene sceneID="IwU-eE-17y">
+            <objects>
+                <viewController id="0EF-D0-BLU" customClass="BIDUserAccountViewController" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="Ex6-ZC-8Ua">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <subviews>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="background_user_account.jpg" id="Gso-Qx-6KO">
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="211"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" red="0.08235294118" green="0.62745098040000002" blue="0.51764705879999995" alpha="1" colorSpace="deviceRGB"/>
+                            </imageView>
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="np1-X8-JcW">
+                                <rect key="frame" x="94" y="163" width="214" height="21"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="squarePNG.png" id="s17-V3-Ivs">
+                                <rect key="frame" x="6" y="146" width="80" height="80"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            </imageView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="PfG-fv-ujq">
+                                <rect key="frame" x="238" y="20" width="62" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="Log out">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="logout:" destination="0EF-D0-BLU" eventType="touchUpInside" id="4AY-jf-OTE"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                    </view>
+                    <tabBarItem key="tabBarItem" systemItem="contacts" id="Nxa-nU-UJx"/>
+                    <connections>
+                        <outlet property="imageViewUserPicture" destination="s17-V3-Ivs" id="wtP-Kd-XL7"/>
+                        <outlet property="userNameLabel" destination="np1-X8-JcW" id="1fw-uq-WES"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="6a9-yY-Dky" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2239" y="1604"/>
         </scene>
         <!--Navigation View Controller-->
         <scene sceneID="nex-DM-xdK">
@@ -177,15 +262,22 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="LcV-ol-PKB" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="726" y="158"/>
+            <point key="canvasLocation" x="859" y="622"/>
         </scene>
     </scenes>
     <resources>
+        <image name="Icon-Small.png" width="29" height="29"/>
+        <image name="background_user_account.jpg" width="320" height="211"/>
         <image name="camera_switch.png" width="44" height="44"/>
+        <image name="squarePNG.png" width="800" height="800"/>
     </resources>
+    <color key="tintColor" red="0.08235294118" green="0.62745098040000002" blue="0.51764705879999995" alpha="1" colorSpace="deviceRGB"/>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
         <simulatedStatusBarMetrics key="statusBar"/>
         <simulatedOrientationMetrics key="orientation"/>
         <simulatedScreenMetrics key="destination" type="retina4"/>
     </simulatedMetricsContainer>
+    <inferredMetricsTieBreakers>
+        <segue reference="xLW-04-dNp"/>
+    </inferredMetricsTieBreakers>
 </document>
