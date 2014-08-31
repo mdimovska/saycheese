@@ -58,4 +58,10 @@
     return [NSURL URLWithString: urlString];
 }
 
+- (NSURL*) findFriendsUrl:(NSString*) userId
+{
+    //params: fbContacts  (in form: id1 id2 id3 ...)
+    NSString* urlString = [NSString stringWithFormat:@"%@/users/%@/findFriends", [self getDefaultUrl], userId];
+    return [NSURL URLWithString: urlString];
+}
 @end

@@ -10,6 +10,7 @@
 #import "FacebookSDK/FacebookSDK.h"
 #import "BIDAddFriendsTableViewCell.h"
 #import "Utils.h"
+#import "RequestQueue.h"
 
 @interface BIDAddFriendsTableViewController ()
 
@@ -62,7 +63,7 @@
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
     // Return the number of rows in the section.
-    return [facebookFriendsArray count];
+    return [friendsToAddArray count];
 }
 
 
@@ -79,13 +80,13 @@
                 reuseIdentifier:CellIdentifier];
     }
     //CHANGE THIS: should be friendsToAddArray everywhere..
-    NSMutableDictionary *result =[facebookFriendsArray objectAtIndex: [indexPath row]];
+    NSMutableDictionary *result =[friendsToAddArray objectAtIndex: [indexPath row]];
     
-    cell.nameLabel.text = result[@"name"];
+  cell.nameLabel.text = [[result[@"firstName"] stringByAppendingString: @" "] stringByAppendingString:result[@"lastName"]];
     //set temporaty img until image is loaded
     cell.imageViewFriendPicture.image = [UIImage imageNamed:@"squarePNG.png"];
-    NSString* pictureUrl = [[Utils getInstance] getFacebookPictureUrl:result[@"id"]];
-    NSURL *URL = [NSURL URLWithString: pictureUrl];
+ //   NSString* pictureUrl = [[Utils getInstance] getFacebookPictureUrl:result[@"_id"]];
+    NSURL *URL = [NSURL URLWithString: result[@"pictureUrl"]];
     cell.imageViewFriendPicture.imageURL = URL;
     return cell;
 }
@@ -213,11 +214,14 @@
                                 
                                   
                                 facebookFriendsArray = dictionary[@"result"][@"data"]; //[ {id,name} ... ]
-                                [self.tableView reloadData];
+                           //     [self.tableView reloadData];
                                 
                                //   NSDictionary *a = [array objectAtIndex:0];
                                     NSLog([facebookFriendsArray objectAtIndex:0][@"id"]);
                                    //       NSLog(a[@"name"]);
+                                  
+                                  
+                                  [self findFriendsToAdd];
                                   
                                   /*
                                   NSLog(@"pictureUrl: %@", pictureUrl);
@@ -241,6 +245,78 @@
                               
                               
                           }];
+}
+
+-(void) findFriendsToAdd
+{
+    NSLog(@"finding friends to add..");
+    //POST request
+    NSUserDefaults* prefs = [NSUserDefaults standardUserDefaults];
+    NSDictionary* userDictionary = [prefs dictionaryForKey:@"userInfo"];
+    
+    if(userDictionary){
+        NSString* userId = userDictionary[@"user"][@"id"];
+        NSURL *URL = [[Utils getInstance] findFriendsUrl:userId];
+        
+        if([facebookFriendsArray count]<=0) return;
+        
+        NSString* friendsIdList = @"";
+        for (NSDictionary *facebookFriendsArrayElement in facebookFriendsArray) {
+            friendsIdList = [[friendsIdList stringByAppendingString:@" "] stringByAppendingString:facebookFriendsArrayElement[@"id"]];
+        }
+        
+   
+        NSString *post = [NSString stringWithFormat:@"&fbContacts=%@", friendsIdList];
+        NSData *postData = [post dataUsingEncoding:NSASCIIStringEncoding allowLossyConversion:YES];
+        NSString *postLength = [NSString stringWithFormat:@"%d",[postData length]];
+        
+        NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:URL];
+        [request setHTTPMethod:@"POST"];
+        [request setValue:postLength forHTTPHeaderField:@"Content-Length"];
+        [request setValue:@"application/x-www-form-urlencoded" forHTTPHeaderField:@"Content-Type"];
+        [request setHTTPBody:postData];
+        
+        RQOperation *operation = [RQOperation operationWithRequest:request];
+        //add response handler
+        operation.completionHandler = ^(__unused NSURLResponse *response, NSData *data, NSError *error)
+        {
+            if (error)
+            {
+                NSString *alertText;
+                NSString *alertTitle;
+                alertTitle = @"Something went wrong";
+                alertText = [FBErrorUtility userMessageForError:error];
+                [self showMessage:alertText withTitle:alertTitle];
+            }
+            else
+            {
+                // convert to JSON
+                NSError *myError = nil;
+                NSMutableData* responseData = [NSMutableData data];
+                [responseData appendData:data];
+                
+                NSDictionary* resObject = [NSJSONSerialization JSONObjectWithData:responseData options:NSJSONReadingMutableLeaves error:&myError];
+                
+                friendsToAddArray = resObject[@"add"];
+                NSLog(@"resObject: %@", resObject);
+                
+                
+                [self.tableView reloadData];
+            }
+        };
+        
+        //make request
+        [[RequestQueue mainQueue] addOperation:operation];
+    }
+}
+
+-(void)showMessage:(NSString*)alertText withTitle:(NSString*)alertTitle
+{
+    [[[UIAlertView alloc] initWithTitle:alertTitle
+                                message:alertText
+                               delegate:nil
+                      cancelButtonTitle:@"OK"
+                      otherButtonTitles:nil] show];
 }
 
 @end

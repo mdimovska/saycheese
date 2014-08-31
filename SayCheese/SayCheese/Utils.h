@@ -12,7 +12,9 @@
 
 + (Utils *) getInstance;
 - (NSString *) getDefaultUrl;
-- (NSURL *) getFriendsUrl:(NSString*) userId;
 - (NSString *) getFacebookPictureUrl:(NSString*) userId;
+
+- (NSURL *) getFriendsUrl:(NSString*) userId;
 - (NSURL *) getRegisterUrl;
+- (NSURL*) findFriendsUrl:(NSString*) userId;
 @end

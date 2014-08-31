@@ -275,11 +275,8 @@
 
 
 -(void) register: (NSMutableDictionary *) dictionary{
-    NSLog(@"get friends called");
-    
-    //set up request for protected resource
-    
-    //CHANGE 4 TO USER ID!!!!
+    NSLog(@"registering..");
+    //POST request
     
     NSURL *URL = [[Utils getInstance] getRegisterUrl];
     
@@ -292,14 +289,6 @@
     [request setValue:postLength forHTTPHeaderField:@"Content-Length"];
     [request setValue:@"application/x-www-form-urlencoded" forHTTPHeaderField:@"Content-Type"];
     [request setHTTPBody:postData];
-    
-    /*
-     NSMutableURLRequest * mutableRequest =[NSMutableURLRequest requestWithURL:URL];
-     [mutableRequest setHTTPMethod:@"POST"];
-     // (void)setHTTPMethod:(NSString *)method
-     (void)setHTTPBody:(NSData *)data
-     (void)setValue:(NSString *)value forHTTPHeaderField:(NSString *)field
-     */
     
     RQOperation *operation = [RQOperation operationWithRequest:request];
     //add response handler
