@@ -22,6 +22,7 @@
                     </view>
                     <navigationItem key="navigationItem" id="XCx-zp-Lui"/>
                     <connections>
+                        <outlet property="loginView" destination="gZl-yl-sjL" id="sP2-Ps-Kbb"/>
                         <segue destination="N98-p7-Djr" kind="push" identifier="TabBarControllerSequeIdentifier" id="aQ1-l6-fLC"/>
                     </connections>
                 </viewController>
@@ -327,11 +328,67 @@
                             <outlet property="delegate" destination="YpA-Cg-Y3h" id="4E5-Hx-N6t"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" id="i1d-eK-Ex7"/>
+                    <navigationItem key="navigationItem" id="i1d-eK-Ex7">
+                        <barButtonItem key="rightBarButtonItem" systemItem="add" id="hVb-kK-NyZ" userLabel="Bar Button Item - Item">
+                            <connections>
+                                <segue destination="o8S-qI-Tr6" kind="push" id="dJz-o5-oQk"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="KaB-hT-OcQ" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="2641" y="1604"/>
+        </scene>
+        <!--Add Friends Table View Controller-->
+        <scene sceneID="gK7-M2-l3m">
+            <objects>
+                <tableViewController id="o8S-qI-Tr6" customClass="BIDAddFriendsTableViewController" sceneMemberID="viewController">
+                    <tableView key="view" opaque="NO" clipsSubviews="YES" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="75" sectionHeaderHeight="22" sectionFooterHeight="22" id="lBw-DI-t0E">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <prototypes>
+                            <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="addFriendsTableCell" id="4H5-YM-9YS" customClass="BIDAddFriendsTableViewCell">
+                                <rect key="frame" x="0.0" y="22" width="320" height="75"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="4H5-YM-9YS" id="oUZ-9M-eZQ">
+                                    <rect key="frame" x="0.0" y="0.0" width="320" height="74"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" id="2c0-vY-qM8" customClass="AsyncImageView">
+                                            <rect key="frame" x="10" y="10" width="55" height="55"/>
+                                            <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxX="YES" heightSizable="YES"/>
+                                        </imageView>
+                                        <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="Mn6-Qu-MOW">
+                                            <rect key="frame" x="73" y="26" width="195" height="21"/>
+                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                            <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Icon-76.png" id="Gjh-f9-brU">
+                                            <rect key="frame" x="270" y="17" width="40" height="40"/>
+                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        </imageView>
+                                    </subviews>
+                                </tableViewCellContentView>
+                                <connections>
+                                    <outlet property="imageViewFriendPicture" destination="2c0-vY-qM8" id="xqw-RB-bSc"/>
+                                    <outlet property="nameLabel" destination="Mn6-Qu-MOW" id="0a4-fJ-4Vr"/>
+                                </connections>
+                            </tableViewCell>
+                        </prototypes>
+                        <connections>
+                            <outlet property="dataSource" destination="o8S-qI-Tr6" id="OO7-mo-Nw2"/>
+                            <outlet property="delegate" destination="o8S-qI-Tr6" id="Z8l-OZ-o0f"/>
+                        </connections>
+                    </tableView>
+                    <navigationItem key="navigationItem" id="jly-pe-uLh"/>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="THE-Pu-IB6" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="3008" y="1604"/>
         </scene>
         <!--Navigation View Controller-->
         <scene sceneID="nex-DM-xdK">
@@ -353,6 +410,7 @@
         </scene>
     </scenes>
     <resources>
+        <image name="Icon-76.png" width="76" height="76"/>
         <image name="Icon-Small.png" width="29" height="29"/>
         <image name="background_user_account.jpg" width="320" height="211"/>
         <image name="camera_switch.png" width="44" height="44"/>

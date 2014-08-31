@@ -51,7 +51,7 @@ alpha:0.8];
   //  self.navigationController.navigationBar.backgroundColor = [UIColor clearColor] ;
   
     //self.navigationController.view.tintColor=[UIColor whiteColor];  !!!!!
-    self.navigationController.navigationBar.topItem.title = @"Friends";
+    self.navigationController.navigationBar.topItem.title = @"My account";
    
     
     self.navigationController.navigationBar.barTintColor = [UIColor  colorWithRed:((float) 21 / 255.0f)

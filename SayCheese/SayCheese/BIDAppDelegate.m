@@ -8,6 +8,8 @@
 
 #import "BIDAppDelegate.h"
 #import "FacebookSDK/FacebookSDK.h"
+#import "Utils.h"
+#import "RequestQueue.h"
 
 @implementation BIDAppDelegate
 
@@ -23,7 +25,7 @@
     if (FBSession.activeSession.state == FBSessionStateCreatedTokenLoaded) {
         
         // If there's one, just open the session silently, without showing the user the login UI
-        [FBSession openActiveSessionWithReadPermissions:@[@"public_profile"]
+        [FBSession openActiveSessionWithReadPermissions:@[@"public_profile", @"user_birthday", @"user_friends"]
                                            allowLoginUI:NO
                                       completionHandler:^(FBSession *session, FBSessionState state, NSError *error) {
                                           // Handler for session state changes
@@ -179,7 +181,7 @@
 {
     // We will request the user's public picture and the user's birthday
     // These are the permissions we need:
-    NSArray *permissionsNeeded = @[@"public_profile", @"user_birthday"];
+    NSArray *permissionsNeeded = @[@"public_profile", @"user_birthday", @"user_friends"];
     
     // Request the permissions the user currently has
     [FBRequestConnection startWithGraphPath:@"/me/permissions"
@@ -240,7 +242,7 @@
             NSMutableDictionary *dictionary=[NSMutableDictionary dictionaryWithObject:result forKey:@"user"];
             
    
-            NSString* pictureUrl = [[@"http://graph.facebook.com/" stringByAppendingString:dictionary[@"user"][@"id"]] stringByAppendingString:@"/picture?type=square" ];
+            NSString* pictureUrl = [[Utils getInstance] getFacebookPictureUrl:dictionary[@"user"][@"id"]];
             [dictionary[@"user"] setObject: pictureUrl forKey:@"picture"] ;
             
             NSLog(@"pictureUrl: %@", pictureUrl);
@@ -249,15 +251,83 @@
               NSLog(@"user img: %@", dictionary[@"user"][@"picture"]);
             [prefs setObject:dictionary forKey:@"userInfo"];
             
-    
+            [self register:dictionary];
+    /*
             UINavigationController *navigationController = (UINavigationController*) self.window.rootViewController;
             [[[navigationController viewControllers] objectAtIndex:0] performSegueWithIdentifier:@"TabBarControllerSequeIdentifier" sender:self];
+     
+     */
         } else {
             // An error occurred, we need to handle the error
             // Check out our error handling guide: https://developers.facebook.com/docs/ios/errors/
             NSLog(@"error %@", error.description);
+            NSString *alertText;
+            NSString *alertTitle;
+            alertTitle = @"Something went wrong";
+            alertText = [FBErrorUtility userMessageForError:error];
+            
+            [self showMessage:alertText withTitle:alertTitle];
+            [FBSession.activeSession closeAndClearTokenInformation];
+            [self userLoggedOut];
         }
     }];
+}
+
+
+-(void) register: (NSMutableDictionary *) dictionary{
+    NSLog(@"get friends called");
+    
+    //set up request for protected resource
+    
+    //CHANGE 4 TO USER ID!!!!
+    
+    NSURL *URL = [[Utils getInstance] getRegisterUrl];
+    
+    NSString *post = [NSString stringWithFormat:@"&_id=%@&firstName=%@&lastName=%@&pictureUrl=%@",dictionary[@"user"][@"id"], dictionary[@"user"][@"first_name"], dictionary[@"user"][@"last_name"], dictionary[@"user"][@"picture"]];
+    NSData *postData = [post dataUsingEncoding:NSASCIIStringEncoding allowLossyConversion:YES];
+    NSString *postLength = [NSString stringWithFormat:@"%d",[postData length]];
+    
+    NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:URL];
+    [request setHTTPMethod:@"POST"];
+    [request setValue:postLength forHTTPHeaderField:@"Content-Length"];
+    [request setValue:@"application/x-www-form-urlencoded" forHTTPHeaderField:@"Content-Type"];
+    [request setHTTPBody:postData];
+    
+    /*
+     NSMutableURLRequest * mutableRequest =[NSMutableURLRequest requestWithURL:URL];
+     [mutableRequest setHTTPMethod:@"POST"];
+     // (void)setHTTPMethod:(NSString *)method
+     (void)setHTTPBody:(NSData *)data
+     (void)setValue:(NSString *)value forHTTPHeaderField:(NSString *)field
+     */
+    
+    RQOperation *operation = [RQOperation operationWithRequest:request];
+    //add response handler
+    operation.completionHandler = ^(__unused NSURLResponse *response, NSData *data, NSError *error)
+    {
+        if (error)
+        {
+           // [[[UIAlertView alloc] initWithTitle:@"Error" message:error.localizedDescription delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil] show];
+            
+            NSString *alertText;
+            NSString *alertTitle;
+            alertTitle = @"Something went wrong";
+            alertText = [FBErrorUtility userMessageForError:error];
+            [self showMessage:alertText withTitle:alertTitle];
+
+            [FBSession.activeSession closeAndClearTokenInformation];
+            [self userLoggedOut];
+        }
+        else
+        {
+            //registering (or login) successful
+            UINavigationController *navigationController = (UINavigationController*) self.window.rootViewController;
+            [[[navigationController viewControllers] objectAtIndex:0] performSegueWithIdentifier:@"TabBarControllerSequeIdentifier" sender:self];
+        }
+    };
+    
+    //make request
+    [[RequestQueue mainQueue] addOperation:operation];
 }
 
 @end

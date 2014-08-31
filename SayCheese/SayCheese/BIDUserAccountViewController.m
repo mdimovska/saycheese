@@ -10,6 +10,7 @@
 #import "FacebookSDK/FacebookSDK.h"
 #import "BIDAppDelegate.h"
 #import "RequestQueue.h"
+#import "Utils.h"
 
 
 @interface BIDUserAccountViewController ()
@@ -79,8 +80,20 @@ NSUserDefaults *prefs;
     NSLog(@"get friends called");
     
     //set up request for protected resource
-    NSURL *URL = [NSURL URLWithString:@"http://95.180.243.220:8080/users/4/contacts"];
+    
+  //CHANGE 4 TO USER ID!!!!
+    
+    NSURL *URL = [[Utils getInstance] getFriendsUrl:@"4"];
     NSURLRequest *request = [NSURLRequest requestWithURL:URL];
+    
+    /*
+    NSMutableURLRequest * mutableRequest =[NSMutableURLRequest requestWithURL:URL];
+    [mutableRequest setHTTPMethod:@"POST"];
+   // (void)setHTTPMethod:(NSString *)method
+    (void)setHTTPBody:(NSData *)data
+    (void)setValue:(NSString *)value forHTTPHeaderField:(NSString *)field
+    */
+    
     RQOperation *operation = [RQOperation operationWithRequest:request];
     //add response handler
     operation.completionHandler = ^(__unused NSURLResponse *response, NSData *data, NSError *error)

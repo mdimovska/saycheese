@@ -11,6 +11,8 @@
 		4E0CC95919A8F205009392DE /* BIDNavigationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E0CC95819A8F205009392DE /* BIDNavigationViewController.m */; };
 		4E0CC96519AA2CFE009392DE /* Social.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4E0CC96419AA2CFE009392DE /* Social.framework */; };
 		4E0CC96719AA2D16009392DE /* MessageUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4E0CC96619AA2D16009392DE /* MessageUI.framework */; };
+		4E7C069519B3B2A800321FB0 /* BIDAddFriendsTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E7C069419B3B2A800321FB0 /* BIDAddFriendsTableViewController.m */; };
+		4E7C069819B3B36C00321FB0 /* BIDAddFriendsTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E7C069719B3B36C00321FB0 /* BIDAddFriendsTableViewCell.m */; };
 		4E8F8E6A199EAE23009ED73D /* BIDImageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E8F8E69199EAE23009ED73D /* BIDImageViewController.m */; };
 		4E9365FA199E540600107C7E /* ImageIO.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4E9365F9199E540600107C7E /* ImageIO.framework */; };
 		4E9365FC199E540E00107C7E /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4E9365FB199E540E00107C7E /* QuartzCore.framework */; };
@@ -52,6 +54,7 @@
 		4ED0D89D19AA3E890081CF62 /* Icon-Small.png in Resources */ = {isa = PBXBuildFile; fileRef = 4ED0D89519AA3E890081CF62 /* Icon-Small.png */; };
 		4ED0D89E19AA3E890081CF62 /* Icon-Small@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4ED0D89619AA3E890081CF62 /* Icon-Small@2x.png */; };
 		4ED0D8A219AA43160081CF62 /* squarePNG.png in Resources */ = {isa = PBXBuildFile; fileRef = 4ED0D8A119AA43160081CF62 /* squarePNG.png */; };
+		4EFF0B3619B3724100680273 /* Utils.m in Sources */ = {isa = PBXBuildFile; fileRef = 4EFF0B3519B3724100680273 /* Utils.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -70,6 +73,10 @@
 		4E0CC95819A8F205009392DE /* BIDNavigationViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BIDNavigationViewController.m; sourceTree = "<group>"; };
 		4E0CC96419AA2CFE009392DE /* Social.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Social.framework; path = System/Library/Frameworks/Social.framework; sourceTree = SDKROOT; };
 		4E0CC96619AA2D16009392DE /* MessageUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MessageUI.framework; path = System/Library/Frameworks/MessageUI.framework; sourceTree = SDKROOT; };
+		4E7C069319B3B2A800321FB0 /* BIDAddFriendsTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BIDAddFriendsTableViewController.h; path = ../BIDAddFriendsTableViewController.h; sourceTree = "<group>"; };
+		4E7C069419B3B2A800321FB0 /* BIDAddFriendsTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = BIDAddFriendsTableViewController.m; path = ../BIDAddFriendsTableViewController.m; sourceTree = "<group>"; };
+		4E7C069619B3B36C00321FB0 /* BIDAddFriendsTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BIDAddFriendsTableViewCell.h; sourceTree = "<group>"; };
+		4E7C069719B3B36C00321FB0 /* BIDAddFriendsTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BIDAddFriendsTableViewCell.m; sourceTree = "<group>"; };
 		4E8F8E68199EAE23009ED73D /* BIDImageViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BIDImageViewController.h; sourceTree = "<group>"; };
 		4E8F8E69199EAE23009ED73D /* BIDImageViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BIDImageViewController.m; sourceTree = "<group>"; };
 		4E9365F9199E540600107C7E /* ImageIO.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ImageIO.framework; path = System/Library/Frameworks/ImageIO.framework; sourceTree = SDKROOT; };
@@ -124,6 +131,8 @@
 		4ED0D89519AA3E890081CF62 /* Icon-Small.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon-Small.png"; sourceTree = "<group>"; };
 		4ED0D89619AA3E890081CF62 /* Icon-Small@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon-Small@2x.png"; sourceTree = "<group>"; };
 		4ED0D8A119AA43160081CF62 /* squarePNG.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = squarePNG.png; sourceTree = "<group>"; };
+		4EFF0B3419B3724100680273 /* Utils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Utils.h; sourceTree = "<group>"; };
+		4EFF0B3519B3724100680273 /* Utils.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Utils.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -203,11 +212,11 @@
 		4EA02B06199CE46B00937E34 /* SayCheese */ = {
 			isa = PBXGroup;
 			children = (
-				4EA02B0F199CE46B00937E34 /* BIDAppDelegate.h */,
 				4E9678B619B3588B001EF6A7 /* RequestQueue.h */,
 				4E9678B719B3588B001EF6A7 /* RequestQueue.m */,
 				4E9678AD19B32F34001EF6A7 /* AsyncImageView.h */,
 				4E9678AE19B32F34001EF6A7 /* AsyncImageView.m */,
+				4EA02B0F199CE46B00937E34 /* BIDAppDelegate.h */,
 				4EA02B10199CE46B00937E34 /* BIDAppDelegate.m */,
 				4EA02B12199CE46B00937E34 /* Main.storyboard */,
 				4EA02B15199CE46B00937E34 /* BIDViewController.h */,
@@ -228,6 +237,12 @@
 				4E9678B119B33AC2001EF6A7 /* BIDFriendsTableViewController.m */,
 				4E9678B319B354FF001EF6A7 /* BIDFriendsTableViewCell.h */,
 				4E9678B419B354FF001EF6A7 /* BIDFriendsTableViewCell.m */,
+				4E7C069319B3B2A800321FB0 /* BIDAddFriendsTableViewController.h */,
+				4E7C069419B3B2A800321FB0 /* BIDAddFriendsTableViewController.m */,
+				4E7C069619B3B36C00321FB0 /* BIDAddFriendsTableViewCell.h */,
+				4E7C069719B3B36C00321FB0 /* BIDAddFriendsTableViewCell.m */,
+				4EFF0B3419B3724100680273 /* Utils.h */,
+				4EFF0B3519B3724100680273 /* Utils.m */,
 			);
 			path = SayCheese;
 			sourceTree = "<group>";
@@ -385,7 +400,10 @@
 				4E9678A319B2486C001EF6A7 /* BIDTabBarController.m in Sources */,
 				4E9678AF19B32F34001EF6A7 /* AsyncImageView.m in Sources */,
 				4E0CC95919A8F205009392DE /* BIDNavigationViewController.m in Sources */,
+				4EFF0B3619B3724100680273 /* Utils.m in Sources */,
 				4E9678B219B33AC2001EF6A7 /* BIDFriendsTableViewController.m in Sources */,
+				4E7C069819B3B36C00321FB0 /* BIDAddFriendsTableViewCell.m in Sources */,
+				4E7C069519B3B2A800321FB0 /* BIDAddFriendsTableViewController.m in Sources */,
 				4E8F8E6A199EAE23009ED73D /* BIDImageViewController.m in Sources */,
 				4E9678A619B24AC6001EF6A7 /* BIDUserAccountViewController.m in Sources */,
 				4EA02B11199CE46B00937E34 /* BIDAppDelegate.m in Sources */,

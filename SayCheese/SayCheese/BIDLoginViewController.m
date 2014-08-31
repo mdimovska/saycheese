@@ -16,6 +16,8 @@
 
 @implementation BIDLoginViewController
 
+@synthesize loginView;
+
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
@@ -29,6 +31,7 @@
 {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
+    self.loginView.readPermissions = @[@"public_profile", @"email", @"user_friends"];
 }
 
 - (void)didReceiveMemoryWarning
@@ -76,7 +79,7 @@
     } else {
         // Open a session showing the user the login UI
         // You must ALWAYS ask for public_profile permissions when opening a session
-        [FBSession openActiveSessionWithReadPermissions:@[@"public_profile", @"user_birthday"]
+        [FBSession openActiveSessionWithReadPermissions:@[@"public_profile", @"user_birthday", @"user_friends"]
                                            allowLoginUI:YES
                                       completionHandler:
          ^(FBSession *session, FBSessionState state, NSError *error) {
