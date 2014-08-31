@@ -90,7 +90,6 @@
                         <outlet property="previewView" destination="H8t-Nl-LE2" id="blu-JI-DgW"/>
                         <outlet property="switchButton" destination="O4x-xM-kYQ" id="lJz-4F-WIh"/>
                         <outlet property="topView" destination="hwK-Qu-2SZ" id="lc6-hv-2P3"/>
-                        <segue destination="4xQ-p3-She" kind="push" identifier="ImageSegueIdentifier" id="QLB-DI-EEn"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="x5A-6p-PRh" sceneMemberID="firstResponder"/>
@@ -193,6 +192,7 @@
                         <segue destination="vXZ-lx-hvc" kind="relationship" relationship="viewControllers" id="hgX-Vw-OWn"/>
                         <segue destination="0EF-D0-BLU" kind="relationship" relationship="viewControllers" id="3hq-Zq-N4N"/>
                         <segue destination="SBO-o4-pc8" kind="push" identifier="LoginControllerSegueIdentifier" id="xLW-04-dNp"/>
+                        <segue destination="4xQ-p3-She" kind="push" identifier="ImageSegueIdentifier" id="VQS-nr-Qt2"/>
                     </connections>
                 </tabBarController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ohV-H3-sJY" userLabel="First Responder" sceneMemberID="firstResponder"/>

@@ -12,7 +12,7 @@
 #import <MessageUI/MFMailComposeViewController.h>
 
 @interface BIDImageViewController : UIViewController <UIActionSheetDelegate>
-@property (retain, nonatomic) UIImage *image;
+@property (strong, nonatomic) UIImage *image;
 @property (strong, nonatomic) NSData *jpegData;
 @property (strong, nonatomic) IBOutlet UIImageView* imageView;
 @property (strong, nonatomic) IBOutlet UIToolbar* toolbar;

@@ -324,10 +324,6 @@ BOOL isActionSheetDeleteShown = NO;
 }
 
 
--(void) dealloc{
-    [image release];
-    [super dealloc];
-}
 
 /*
 #pragma mark - Navigation
