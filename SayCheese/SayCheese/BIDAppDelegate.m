@@ -234,15 +234,19 @@
 {
     [FBRequestConnection startForMeWithCompletionHandler:^(FBRequestConnection *connection, id result, NSError *error) {
         if (!error) {
-            // Success! Include your code to handle the results here
-            NSLog(@"user info: %@", result); //result is object of type NSDictionary
-            
             
             NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
             NSMutableDictionary *dictionary=[NSMutableDictionary dictionaryWithObject:result forKey:@"user"];
+            
+   
+            NSString* pictureUrl = [[@"http://graph.facebook.com/" stringByAppendingString:dictionary[@"user"][@"id"]] stringByAppendingString:@"/picture?type=square" ];
+            [dictionary[@"user"] setObject: pictureUrl forKey:@"picture"] ;
+            
+            NSLog(@"user info: %@", dictionary );
+              NSLog(@"user img: %@", dictionary[@"user"][@"picture"]);
             [prefs setObject:dictionary forKey:@"userInfo"];
             
-             NSLog(@"user: %@", dictionary[@"user"][@"name"]);
+    
             UINavigationController *navigationController = (UINavigationController*) self.window.rootViewController;
             [[[navigationController viewControllers] objectAtIndex:0] performSegueWithIdentifier:@"TabBarControllerSequeIdentifier" sender:self];
         } else {

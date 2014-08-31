@@ -47,7 +47,7 @@
          */
         
     }
-    
+    [self setNeedsStatusBarAppearanceUpdate];
     
     //navigation bar style (transparent navigation bar)
     [self.navigationController.navigationBar setBackgroundImage:[UIImage new]
@@ -56,8 +56,13 @@
     self.navigationController.navigationBar.translucent = YES;
     
     self.navigationController.navigationBar.backgroundColor = [UIColor clearColor];
-
+    
+   [[UIApplication sharedApplication] setStatusBarStyle: UIStatusBarStyleDefault];
+    
+    
 }
+
+
 
 - (void)viewWillAppear:(BOOL)animated
 {
@@ -65,7 +70,6 @@
     [self.navigationController setNavigationBarHidden:YES animated:animated];
     [[UIApplication sharedApplication] setStatusBarHidden:NO];
 }
-
 
 
 - (void)didReceiveMemoryWarning
@@ -91,7 +95,6 @@
     return YES;
 }
 
-//set only portrait orientation
 
 -(UIStatusBarStyle)preferredStatusBarStyle{
     return UIStatusBarStyleDefault;

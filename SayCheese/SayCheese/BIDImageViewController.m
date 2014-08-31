@@ -90,20 +90,18 @@ BOOL isActionSheetDeleteShown = NO;
                                            alpha:0.5];
     
     [self addImageView];
-    [self.view addSubview:view]; ////black transparent status bar and navigation bar
+    [self.view addSubview:view];
     
     [[UIApplication sharedApplication] setStatusBarStyle: UIStatusBarStyleLightContent];
 }
 
 -(void)addImageView{
     if(image!=NULL){
-      //  imageView=[[UIImageView alloc] initWithImage:image];
         [imageView setImage:image];
         
         //set constrains to center and scale the image
          imageView.translatesAutoresizingMaskIntoConstraints = NO;
         
-       // [self.view addSubview:imageView];
         [self setConstraints];
     }
 }
