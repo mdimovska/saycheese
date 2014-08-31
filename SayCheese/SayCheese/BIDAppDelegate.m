@@ -162,6 +162,7 @@
     //clear user info from prefs
     NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
     [prefs setObject:nil forKey:@"userInfo"];
+    [prefs setObject:nil forKey:@"userFriends"];
 
 }
 
@@ -241,6 +242,8 @@
    
             NSString* pictureUrl = [[@"http://graph.facebook.com/" stringByAppendingString:dictionary[@"user"][@"id"]] stringByAppendingString:@"/picture?type=square" ];
             [dictionary[@"user"] setObject: pictureUrl forKey:@"picture"] ;
+            
+            NSLog(@"pictureUrl: %@", pictureUrl);
             
             NSLog(@"user info: %@", dictionary );
               NSLog(@"user img: %@", dictionary[@"user"][@"picture"]);

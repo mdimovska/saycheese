@@ -9,6 +9,8 @@
 #import "BIDUserAccountViewController.h"
 #import "FacebookSDK/FacebookSDK.h"
 #import "BIDAppDelegate.h"
+#import "RequestQueue.h"
+
 
 @interface BIDUserAccountViewController ()
 
@@ -19,6 +21,12 @@
 @synthesize userDictionary;
 @synthesize userNameLabel;
 @synthesize imageViewUserPicture;
+@synthesize imageViewFriendPicture1;
+@synthesize imageViewFriendPicture2;
+@synthesize imageViewFriendPicture3;
+
+bool areFriendsLoaded;
+NSUserDefaults *prefs;
 
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
@@ -33,20 +41,27 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    areFriendsLoaded = NO;
+    
+    //set placeholder image or cell won't update when image is loaded
+    imageViewUserPicture.image = [UIImage imageNamed:@"background.jpg"];
+
     // Do any additional setup after loading the view.
-    NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
+    prefs = [NSUserDefaults standardUserDefaults];
     userDictionary = [prefs dictionaryForKey:@"userInfo"];
+    
     if(userDictionary){
         userNameLabel.text = userDictionary[@"user"][@"name"];
-    }
-    else{
-        //TODO: go to login view controller
-        /*
-        UINavigationController *navigationController = (UINavigationController*) self.window.rootViewController;
-        [[[navigationController viewControllers] objectAtIndex:0] performSegueWithIdentifier:@"LoginControllerSegueIdentifier" sender:self];
-         */
+        //load the image
+        NSURL *URL = [NSURL URLWithString:userDictionary[@"user"][@"picture"]];
+        imageViewUserPicture.imageURL = URL;
         
+    //    [self getFriends];
     }
+    
+    
+    //navigation bar and status bar changes
+    
     [self setNeedsStatusBarAppearanceUpdate];
     
     //navigation bar style (transparent navigation bar)
@@ -57,12 +72,53 @@
     
     self.navigationController.navigationBar.backgroundColor = [UIColor clearColor];
     
-   [[UIApplication sharedApplication] setStatusBarStyle: UIStatusBarStyleDefault];
-    
-    
+    [[UIApplication sharedApplication] setStatusBarStyle: UIStatusBarStyleDefault];
 }
 
+-(void) getFriends{
+    NSLog(@"get friends called");
+    
+    //set up request for protected resource
+    NSURL *URL = [NSURL URLWithString:@"http://95.180.243.220:8080/users/4/contacts"];
+    NSURLRequest *request = [NSURLRequest requestWithURL:URL];
+    RQOperation *operation = [RQOperation operationWithRequest:request];
+    //add response handler
+    operation.completionHandler = ^(__unused NSURLResponse *response, NSData *data, NSError *error)
+    {
+        if (error)
+        {
+            [[[UIAlertView alloc] initWithTitle:@"Error" message:error.localizedDescription delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil] show];
+            areFriendsLoaded = NO;
+        }
+        else
+        {
+            // convert to JSON
+            NSError *myError = nil;
+            NSMutableData* responseData = [NSMutableData data];
+            [responseData appendData:data];
 
+            NSArray *friendsArray = [NSJSONSerialization JSONObjectWithData:responseData options:NSJSONReadingMutableLeaves error:&myError];
+            
+            if(myError){
+                areFriendsLoaded = NO;
+                return;
+            }
+        
+            areFriendsLoaded = YES;
+          //  NSDictionary *user1 = [friendsArray objectAtIndex:0];
+            
+            NSLog(@"getting friends finished");
+            
+            [prefs setObject:friendsArray forKey:@"userFriends"];
+            
+            [self fillFriendsImageViews:friendsArray];
+         
+        }
+    };
+    
+    //make request
+    [[RequestQueue mainQueue] addOperation:operation];
+}
 
 - (void)viewWillAppear:(BOOL)animated
 {
@@ -71,6 +127,35 @@
     [[UIApplication sharedApplication] setStatusBarHidden:NO];
 }
 
+-(void) fillFriendsImageViews:(NSArray*) friendsArray{
+
+    if([friendsArray count] > 0){
+        imageViewFriendPicture1.image = [UIImage imageNamed:@"squarePNG.png"];
+        NSDictionary *user1 = [friendsArray objectAtIndex:0];
+        NSURL *URL = [NSURL URLWithString:user1[@"pictureUrl"]];
+        imageViewFriendPicture1.imageURL = URL;
+    }
+    if([friendsArray count] > 1){
+        imageViewFriendPicture2.image = [UIImage imageNamed:@"squarePNG.png"];
+        NSDictionary *user2 = [friendsArray objectAtIndex:1];
+        NSURL *URL = [NSURL URLWithString:user2[@"pictureUrl"]];
+        imageViewFriendPicture2.imageURL = URL;
+    }
+    if([friendsArray count] > 2){
+        imageViewFriendPicture3.image = [UIImage imageNamed:@"squarePNG.png"];
+        NSDictionary *user3 = [friendsArray objectAtIndex:2];
+        NSURL *URL = [NSURL URLWithString:user3[@"pictureUrl"]];
+        imageViewFriendPicture3.imageURL = URL;
+    }
+}
+
+
+-(void) viewDidAppear:(BOOL)animated
+{
+    [super viewDidAppear:animated];
+    if(!areFriendsLoaded)
+        [self getFriends];
+}
 
 - (void)didReceiveMemoryWarning
 {
@@ -104,6 +189,7 @@
     [FBSession.activeSession closeAndClearTokenInformation];
     NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
     [prefs setObject:nil forKey:@"userInfo"];
+    [prefs setObject:nil forKey:@"userFriends"];
 
     UIViewController *loginViewController =
     [[UIStoryboard storyboardWithName:@"Main" bundle:nil]instantiateViewControllerWithIdentifier:@"loginViewController"];

@@ -25,6 +25,10 @@
 		4E9678A619B24AC6001EF6A7 /* BIDUserAccountViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E9678A519B24AC6001EF6A7 /* BIDUserAccountViewController.m */; };
 		4E9678AA19B26CF9001EF6A7 /* background.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 4E9678A919B26CF9001EF6A7 /* background.jpg */; };
 		4E9678AC19B26DEA001EF6A7 /* background_user_account.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 4E9678AB19B26DEA001EF6A7 /* background_user_account.jpg */; };
+		4E9678AF19B32F34001EF6A7 /* AsyncImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E9678AE19B32F34001EF6A7 /* AsyncImageView.m */; };
+		4E9678B219B33AC2001EF6A7 /* BIDFriendsTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E9678B119B33AC2001EF6A7 /* BIDFriendsTableViewController.m */; };
+		4E9678B519B354FF001EF6A7 /* BIDFriendsTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E9678B419B354FF001EF6A7 /* BIDFriendsTableViewCell.m */; };
+		4E9678B819B3588B001EF6A7 /* RequestQueue.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E9678B719B3588B001EF6A7 /* RequestQueue.m */; };
 		4EA02B01199CE46B00937E34 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4EA02B00199CE46B00937E34 /* Foundation.framework */; };
 		4EA02B03199CE46B00937E34 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4EA02B02199CE46B00937E34 /* CoreGraphics.framework */; };
 		4EA02B05199CE46B00937E34 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4EA02B04199CE46B00937E34 /* UIKit.framework */; };
@@ -84,6 +88,14 @@
 		4E9678A519B24AC6001EF6A7 /* BIDUserAccountViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BIDUserAccountViewController.m; sourceTree = "<group>"; };
 		4E9678A919B26CF9001EF6A7 /* background.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = background.jpg; sourceTree = "<group>"; };
 		4E9678AB19B26DEA001EF6A7 /* background_user_account.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = background_user_account.jpg; sourceTree = "<group>"; };
+		4E9678AD19B32F34001EF6A7 /* AsyncImageView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AsyncImageView.h; sourceTree = "<group>"; };
+		4E9678AE19B32F34001EF6A7 /* AsyncImageView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AsyncImageView.m; sourceTree = "<group>"; };
+		4E9678B019B33AC2001EF6A7 /* BIDFriendsTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BIDFriendsTableViewController.h; sourceTree = "<group>"; };
+		4E9678B119B33AC2001EF6A7 /* BIDFriendsTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BIDFriendsTableViewController.m; sourceTree = "<group>"; };
+		4E9678B319B354FF001EF6A7 /* BIDFriendsTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BIDFriendsTableViewCell.h; sourceTree = "<group>"; };
+		4E9678B419B354FF001EF6A7 /* BIDFriendsTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BIDFriendsTableViewCell.m; sourceTree = "<group>"; };
+		4E9678B619B3588B001EF6A7 /* RequestQueue.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RequestQueue.h; sourceTree = "<group>"; };
+		4E9678B719B3588B001EF6A7 /* RequestQueue.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RequestQueue.m; sourceTree = "<group>"; };
 		4EA02AFD199CE46B00937E34 /* SayCheese.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SayCheese.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		4EA02B00199CE46B00937E34 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		4EA02B02199CE46B00937E34 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -192,6 +204,10 @@
 			isa = PBXGroup;
 			children = (
 				4EA02B0F199CE46B00937E34 /* BIDAppDelegate.h */,
+				4E9678B619B3588B001EF6A7 /* RequestQueue.h */,
+				4E9678B719B3588B001EF6A7 /* RequestQueue.m */,
+				4E9678AD19B32F34001EF6A7 /* AsyncImageView.h */,
+				4E9678AE19B32F34001EF6A7 /* AsyncImageView.m */,
 				4EA02B10199CE46B00937E34 /* BIDAppDelegate.m */,
 				4EA02B12199CE46B00937E34 /* Main.storyboard */,
 				4EA02B15199CE46B00937E34 /* BIDViewController.h */,
@@ -208,6 +224,10 @@
 				4E9678A219B2486C001EF6A7 /* BIDTabBarController.m */,
 				4E9678A419B24AC6001EF6A7 /* BIDUserAccountViewController.h */,
 				4E9678A519B24AC6001EF6A7 /* BIDUserAccountViewController.m */,
+				4E9678B019B33AC2001EF6A7 /* BIDFriendsTableViewController.h */,
+				4E9678B119B33AC2001EF6A7 /* BIDFriendsTableViewController.m */,
+				4E9678B319B354FF001EF6A7 /* BIDFriendsTableViewCell.h */,
+				4E9678B419B354FF001EF6A7 /* BIDFriendsTableViewCell.m */,
 			);
 			path = SayCheese;
 			sourceTree = "<group>";
@@ -363,13 +383,17 @@
 			buildActionMask = 2147483647;
 			files = (
 				4E9678A319B2486C001EF6A7 /* BIDTabBarController.m in Sources */,
+				4E9678AF19B32F34001EF6A7 /* AsyncImageView.m in Sources */,
 				4E0CC95919A8F205009392DE /* BIDNavigationViewController.m in Sources */,
+				4E9678B219B33AC2001EF6A7 /* BIDFriendsTableViewController.m in Sources */,
 				4E8F8E6A199EAE23009ED73D /* BIDImageViewController.m in Sources */,
 				4E9678A619B24AC6001EF6A7 /* BIDUserAccountViewController.m in Sources */,
 				4EA02B11199CE46B00937E34 /* BIDAppDelegate.m in Sources */,
 				4EA02B17199CE46B00937E34 /* BIDViewController.m in Sources */,
 				4E9678A019B22D62001EF6A7 /* BIDLoginViewController.m in Sources */,
+				4E9678B519B354FF001EF6A7 /* BIDFriendsTableViewCell.m in Sources */,
 				4EA02B0D199CE46B00937E34 /* main.m in Sources */,
+				4E9678B819B3588B001EF6A7 /* RequestQueue.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
