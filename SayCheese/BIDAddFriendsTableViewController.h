@@ -12,5 +12,6 @@
 
 @property (nonatomic, strong) NSMutableArray *facebookFriendsArray;
 @property (nonatomic, strong) NSMutableArray *friendsToAddArray;
-
+@property (nonatomic, strong) NSMutableArray *pendingFriendsArray;
+- (void)addFriendClicked:(id)sender;
 @end

@@ -600,10 +600,6 @@ bail:
         
         if(!featureSmileDetection.hasSmile || featureSmileDetection.leftEyeClosed || featureSmileDetection.rightEyeClosed)
             [featuresSmileDetectionMutable removeObject:featureSmileDetection];
-        
-        //        NSLog(@"faceAngle: %@", feature.hasFaceAngle ? @(feature.faceAngle) : @"NONE");
-        //        NSLog(@"leftEyeClosed: %@", feature.leftEyeClosed ? @"YES" : @"NO");
-        //        NSLog(@"rightEyeClosed: %@", feature.rightEyeClosed ? @"YES" : @"NO");
     }
     
     
@@ -620,7 +616,10 @@ bail:
         {
             if(!isPictureTaken){
                 isPictureTaken = YES;
-               [self takePicture];
+                //take picture with delay of 0.3s
+                dispatch_after(dispatch_time(DISPATCH_TIME_NOW, 0.3 * NSEC_PER_SEC), dispatch_get_main_queue(), ^{
+                  [self takePicture];
+               });
             }
         }
     });

@@ -37,13 +37,13 @@
 
 - (NSString*) getDefaultUrl
 {
-    return @"http://95.180.240.215:8080";
+    return @"http:/95.180.244.26:9000";
 }
 
 - (NSURL*) getFriendsUrl:(NSString*) userId
 {
     NSString* urlString = [NSString stringWithFormat:@"%@/users/%@/contacts", [self getDefaultUrl], userId];
-    return [NSURL URLWithString: urlString];
+    return [NSURL URLWithString: [urlString stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
 }
 
 - (NSString *) getFacebookPictureUrl:(NSString*) userId
@@ -55,13 +55,27 @@
 {
     //params: _id, firstName, lastName, pictureUrl
     NSString* urlString = [NSString stringWithFormat:@"%@/register", [self getDefaultUrl]];
-    return [NSURL URLWithString: urlString];
+    return [NSURL URLWithString: [urlString stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
 }
 
 - (NSURL*) findFriendsUrl:(NSString*) userId
 {
     //params: fbContacts  (in form: id1 id2 id3 ...)
     NSString* urlString = [NSString stringWithFormat:@"%@/users/%@/findFriends", [self getDefaultUrl], userId];
-    return [NSURL URLWithString: urlString];
+    return [NSURL URLWithString: [urlString stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
+}
+
+- (NSURL*) addContactUrl
+{
+    //params: userId, contactId
+    NSString* urlString = [NSString stringWithFormat:@"%@/users/addContact", [self getDefaultUrl]];
+    return [NSURL URLWithString: [urlString stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
+}
+
+- (NSURL*) removeContactOrPendingRequestUrl
+{
+    //params: userId, contactId
+    NSString* urlString = [NSString stringWithFormat:@"%@/users/removeContact", [self getDefaultUrl]];
+    return [NSURL URLWithString: [urlString stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
 }
 @end

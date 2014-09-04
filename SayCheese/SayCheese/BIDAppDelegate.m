@@ -269,6 +269,7 @@
             [self showMessage:alertText withTitle:alertTitle];
             [FBSession.activeSession closeAndClearTokenInformation];
             [self userLoggedOut];
+
         }
     }];
 }
@@ -279,9 +280,9 @@
     //POST request
     
     NSURL *URL = [[Utils getInstance] getRegisterUrl];
-    
     NSString *post = [NSString stringWithFormat:@"&_id=%@&firstName=%@&lastName=%@&pictureUrl=%@",dictionary[@"user"][@"id"], dictionary[@"user"][@"first_name"], dictionary[@"user"][@"last_name"], dictionary[@"user"][@"picture"]];
-    NSData *postData = [post dataUsingEncoding:NSASCIIStringEncoding allowLossyConversion:YES];
+
+    NSData *postData =   [post dataUsingEncoding:NSUTF8StringEncoding];
     NSString *postLength = [NSString stringWithFormat:@"%d",[postData length]];
     
     NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:URL];
@@ -306,6 +307,12 @@
 
             [FBSession.activeSession closeAndClearTokenInformation];
             [self userLoggedOut];
+            
+            
+            //DELETE THIS!!!
+            UINavigationController *navigationController = (UINavigationController*) self.window.rootViewController;
+            [[[navigationController viewControllers] objectAtIndex:0] performSegueWithIdentifier:@"TabBarControllerSequeIdentifier" sender:self];
+        
         }
         else
         {

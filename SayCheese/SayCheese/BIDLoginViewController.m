@@ -14,7 +14,7 @@
 
 @end
 
-@implementation BIDLoginViewController
+@implementation BIDLoginViewController 
 
 @synthesize loginView;
 
@@ -30,7 +30,7 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    // Do any additional setup after loading the view.
+    // Do any additional setup after loading the view.cs
     self.loginView.readPermissions = @[@"public_profile", @"email", @"user_friends"];
 }
 
