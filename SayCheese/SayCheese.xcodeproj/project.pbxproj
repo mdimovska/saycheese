@@ -56,6 +56,8 @@
 		4ED0D8A219AA43160081CF62 /* squarePNG.png in Resources */ = {isa = PBXBuildFile; fileRef = 4ED0D8A119AA43160081CF62 /* squarePNG.png */; };
 		4EF7846219B8FB2F00142930 /* plus_gray.png in Resources */ = {isa = PBXBuildFile; fileRef = 4EF7846019B8FB2F00142930 /* plus_gray.png */; };
 		4EF7846319B8FB2F00142930 /* plus_green.png in Resources */ = {isa = PBXBuildFile; fileRef = 4EF7846119B8FB2F00142930 /* plus_green.png */; };
+		4EF7846619B92C7A00142930 /* BIDFriendRequestsTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4EF7846519B92C7A00142930 /* BIDFriendRequestsTableViewController.m */; };
+		4EF7846919B92CA000142930 /* BIDFriendRequestsTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4EF7846819B92CA000142930 /* BIDFriendRequestsTableViewCell.m */; };
 		4EFF0B3619B3724100680273 /* Utils.m in Sources */ = {isa = PBXBuildFile; fileRef = 4EFF0B3519B3724100680273 /* Utils.m */; };
 /* End PBXBuildFile section */
 
@@ -135,6 +137,10 @@
 		4ED0D8A119AA43160081CF62 /* squarePNG.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = squarePNG.png; sourceTree = "<group>"; };
 		4EF7846019B8FB2F00142930 /* plus_gray.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = plus_gray.png; sourceTree = "<group>"; };
 		4EF7846119B8FB2F00142930 /* plus_green.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = plus_green.png; sourceTree = "<group>"; };
+		4EF7846419B92C7A00142930 /* BIDFriendRequestsTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BIDFriendRequestsTableViewController.h; sourceTree = "<group>"; };
+		4EF7846519B92C7A00142930 /* BIDFriendRequestsTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BIDFriendRequestsTableViewController.m; sourceTree = "<group>"; };
+		4EF7846719B92CA000142930 /* BIDFriendRequestsTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BIDFriendRequestsTableViewCell.h; sourceTree = "<group>"; };
+		4EF7846819B92CA000142930 /* BIDFriendRequestsTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BIDFriendRequestsTableViewCell.m; sourceTree = "<group>"; };
 		4EFF0B3419B3724100680273 /* Utils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Utils.h; sourceTree = "<group>"; };
 		4EFF0B3519B3724100680273 /* Utils.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Utils.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -247,6 +253,10 @@
 				4E7C069419B3B2A800321FB0 /* BIDAddFriendsTableViewController.m */,
 				4EFF0B3419B3724100680273 /* Utils.h */,
 				4EFF0B3519B3724100680273 /* Utils.m */,
+				4EF7846719B92CA000142930 /* BIDFriendRequestsTableViewCell.h */,
+				4EF7846819B92CA000142930 /* BIDFriendRequestsTableViewCell.m */,
+				4EF7846419B92C7A00142930 /* BIDFriendRequestsTableViewController.h */,
+				4EF7846519B92C7A00142930 /* BIDFriendRequestsTableViewController.m */,
 			);
 			path = SayCheese;
 			sourceTree = "<group>";
@@ -416,8 +426,10 @@
 				4E9678A619B24AC6001EF6A7 /* BIDUserAccountViewController.m in Sources */,
 				4EA02B11199CE46B00937E34 /* BIDAppDelegate.m in Sources */,
 				4EA02B17199CE46B00937E34 /* BIDViewController.m in Sources */,
+				4EF7846619B92C7A00142930 /* BIDFriendRequestsTableViewController.m in Sources */,
 				4E9678A019B22D62001EF6A7 /* BIDLoginViewController.m in Sources */,
 				4E9678B519B354FF001EF6A7 /* BIDFriendsTableViewCell.m in Sources */,
+				4EF7846919B92CA000142930 /* BIDFriendRequestsTableViewCell.m in Sources */,
 				4EA02B0D199CE46B00937E34 /* main.m in Sources */,
 				4E9678B819B3588B001EF6A7 /* RequestQueue.m in Sources */,
 			);
@@ -504,6 +516,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
+				VALID_ARCHS = "arm64 armv7s armv7";
 			};
 			name = Debug;
 		};
@@ -536,6 +549,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
 				SDKROOT = iphoneos;
 				VALIDATE_PRODUCT = YES;
+				VALID_ARCHS = "arm64 armv7s armv7";
 			};
 			name = Release;
 		};

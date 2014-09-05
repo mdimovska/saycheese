@@ -28,6 +28,7 @@
 
 bool areFriendsLoaded;
 NSUserDefaults *prefs;
+NSString* userId;
 
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
@@ -53,6 +54,7 @@ NSUserDefaults *prefs;
     
     if(userDictionary){
         userNameLabel.text = userDictionary[@"user"][@"name"];
+        userId = userDictionary[@"user"][@"id"];
         //load the image
         NSURL *URL = [NSURL URLWithString:userDictionary[@"user"][@"picture"]];
         imageViewUserPicture.imageURL = URL;
@@ -79,20 +81,9 @@ NSUserDefaults *prefs;
 -(void) getFriends{
     NSLog(@"get friends called");
     
-    //set up request for protected resource
-    
-  //CHANGE 4 TO USER ID!!!!
-    
-    NSURL *URL = [[Utils getInstance] getFriendsUrl:@"4"];
+    NSURL *URL = [[Utils getInstance] getFriendsUrl:userId];
+    NSLog(userId);
     NSURLRequest *request = [NSURLRequest requestWithURL:URL];
-    
-    /*
-    NSMutableURLRequest * mutableRequest =[NSMutableURLRequest requestWithURL:URL];
-    [mutableRequest setHTTPMethod:@"POST"];
-   // (void)setHTTPMethod:(NSString *)method
-    (void)setHTTPBody:(NSData *)data
-    (void)setValue:(NSString *)value forHTTPHeaderField:(NSString *)field
-    */
     
     RQOperation *operation = [RQOperation operationWithRequest:request];
     //add response handler

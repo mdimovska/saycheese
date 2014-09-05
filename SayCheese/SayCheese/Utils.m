@@ -78,4 +78,15 @@
     NSString* urlString = [NSString stringWithFormat:@"%@/users/removeContact", [self getDefaultUrl]];
     return [NSURL URLWithString: [urlString stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
 }
+
+- (NSURL*) getFriendRequestsUrl:(NSString*) userId
+{
+    NSString* urlString = [NSString stringWithFormat:@"%@/users/%@/friendRequests", [self getDefaultUrl], userId];
+    return [NSURL URLWithString: [urlString stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
+}
+- (NSURL*) acceptFriendUrl:(NSString*) userId
+{
+    NSString* urlString = [NSString stringWithFormat:@"%@/users/%@/acceptFriend", [self getDefaultUrl], userId];
+    return [NSURL URLWithString: [urlString stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
+}
 @end

@@ -19,4 +19,6 @@
 - (NSURL*) findFriendsUrl:(NSString*) userId;
 - (NSURL*) addContactUrl;
 - (NSURL*) removeContactOrPendingRequestUrl;
+- (NSURL*) getFriendRequestsUrl:(NSString*) userId;
+- (NSURL*) acceptFriendUrl:(NSString*) userId;
 @end

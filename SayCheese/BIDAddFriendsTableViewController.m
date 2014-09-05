@@ -43,7 +43,6 @@ bool isCancelRequestSent;
    // self.navigationController.navigationBar.topItem.title = @"Friends";
     facebookFriendsArray = [[NSMutableArray alloc] init];
     pendingFriendsArray = [[NSMutableArray alloc] init];
-    [self requestUserFriends];
     
   NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
   NSDictionary * userDictionary = [prefs dictionaryForKey:@"userInfo"];
@@ -56,6 +55,9 @@ bool isCancelRequestSent;
     
     // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
     // self.navigationItem.rightBarButtonItem = self.editButtonItem;
+    
+    [self requestUserFriends];
+
 }
 
 - (void)didReceiveMemoryWarning
@@ -109,13 +111,11 @@ bool isCancelRequestSent;
         [cell.addButton addTarget:self action:@selector(cancelPendingClicked:) forControlEvents:UIControlEventTouchUpInside];
     }
   cell.nameLabel.text = [[result[@"firstName"] stringByAppendingString: @" "] stringByAppendingString:result[@"lastName"]];
+    
     //set temporaty img until image is loaded
     cell.imageViewFriendPicture.image = [UIImage imageNamed:@"squarePNG.png"];
- //   NSString* pictureUrl = [[Utils getInstance] getFacebookPictureUrl:result[@"_id"]];
     NSURL *URL = [NSURL URLWithString: result[@"pictureUrl"]];
     cell.imageViewFriendPicture.imageURL = URL;
-    
-    
    
     return cell;
 }
@@ -283,11 +283,6 @@ bool isCancelRequestSent;
 {
     NSLog(@"finding friends to add..");
     //POST request
-    NSUserDefaults* prefs = [NSUserDefaults standardUserDefaults];
-    NSDictionary* userDictionary = [prefs dictionaryForKey:@"userInfo"];
-    
-    if(userDictionary){
-        NSString* userId = userDictionary[@"user"][@"id"];
         NSURL *URL = [[Utils getInstance] findFriendsUrl:userId];
         
         if([facebookFriendsArray count]<=0) return;
@@ -340,7 +335,7 @@ bool isCancelRequestSent;
         
         //make request
         [[RequestQueue mainQueue] addOperation:operation];
-    }
+    
 }
 
 -(void)showMessage:(NSString*)alertText withTitle:(NSString*)alertTitle
