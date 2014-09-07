@@ -68,12 +68,6 @@ BOOL isActionSheetDeleteShown = NO;
     self.navigationController.navigationBar.shadowImage = [UIImage new];
     self.navigationController.navigationBar.translucent = YES;
     
-    /*
-    self.navigationController.navigationBar.backgroundColor = [UIColor  colorWithRed:((float) 0.0f)
-                                                                               green:((float) 0.0f)
-                                                                                blue:((float) 0.0f)
-                                                                               alpha:0.5];
-     */
     self.navigationController.navigationBar.backgroundColor = [UIColor clearColor];
     
     //set white title of view
@@ -107,7 +101,7 @@ BOOL isActionSheetDeleteShown = NO;
 }
 
 - (void) setConstraints{
-    if([[UIDevice currentDevice] orientation] == UIDeviceOrientationPortrait){
+    if(([[UIDevice currentDevice] orientation] == UIDeviceOrientationPortrait)|| ([[UIDevice currentDevice] orientation] == UIDeviceOrientationPortraitUpsideDown)){
         NSLayoutConstraint *constraint = [NSLayoutConstraint constraintWithItem:imageView attribute:NSLayoutAttributeCenterX relatedBy:NSLayoutRelationEqual toItem:self.view attribute:NSLayoutAttributeCenterX multiplier:1.0f constant:0.0f];
         
         [self.view addConstraint:constraint];
