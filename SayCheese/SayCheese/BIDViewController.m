@@ -91,7 +91,7 @@ static CGContextRef CreateCGBitmapContextForSize(CGSize size)
 									 size.height,
 									 8,      // bits per component
 									 bitmapBytesPerRow,
-									 colorSpace,
+									 colorSpace, (CGBitmapInfo)
 									 kCGImageAlphaPremultipliedLast);
 	CGContextSetAllowsAntialiasing(context, NO);
     CGColorSpaceRelease( colorSpace );
@@ -286,7 +286,7 @@ bail:
 // utility routing used during image capture to set up capture orientation
 - (AVCaptureVideoOrientation)avOrientationForDeviceOrientation:(UIDeviceOrientation)deviceOrientation
 {
-	AVCaptureVideoOrientation result = deviceOrientation;
+	AVCaptureVideoOrientation result = (AVCaptureVideoOrientation)deviceOrientation;
 	if ( deviceOrientation == UIDeviceOrientationLandscapeLeft )
 		result = AVCaptureVideoOrientationLandscapeRight;
 	else if ( deviceOrientation == UIDeviceOrientationLandscapeRight )
@@ -605,18 +605,10 @@ bail:
         
         if(!featureSmileDetection.hasSmile || featureSmileDetection.leftEyeClosed || featureSmileDetection.rightEyeClosed)
             [featuresSmileDetectionMutable removeObject:featureSmileDetection];
-        
-        //        NSLog(@"faceAngle: %@", feature.hasFaceAngle ? @(feature.faceAngle) : @"NONE");
-        //        NSLog(@"leftEyeClosed: %@", feature.leftEyeClosed ? @"YES" : @"NO");
-        //        NSLog(@"rightEyeClosed: %@", feature.rightEyeClosed ? @"YES" : @"NO");
     }
     
-    
-    NSLog(resultStr);
-    
-    
     CMFormatDescriptionRef fdesc = CMSampleBufferGetFormatDescription(sampleBuffer);
-    CGRect clap = CMVideoFormatDescriptionGetCleanAperture(fdesc, false /*originIsTopLeft == false*/);
+    CGRect clap = CMVideoFormatDescriptionGetCleanAperture(fdesc, false );
     
     
     dispatch_async(dispatch_get_main_queue(), ^(void) {
@@ -804,17 +796,6 @@ bail:
                                                                                                                             inCGImage:srcImage
                                                                                                                       withOrientation:curDeviceOrientation
                                                                                                                           frontFacing:isUsingFrontFacingCamera];
-
-                                                                 
-                                                                  /*
-                                                                  CFDictionaryRef attachments = CMCopyDictionaryOfAttachments(kCFAllocatorDefault,
-                                                                                                                              imageDataSampleBuffer,
-                                                                                                                              kCMAttachmentMode_ShouldPropagate);
-                                                                  [self writeCGImageToCameraRoll:cgImageResult withMetadata:(id)attachments];
-                                                                  if (attachments)
-                                                                      CFRelease(attachments);
-                                                                  */
-                                                                  
                                                                   if (srcImage)
                                                                       CFRelease(srcImage);
                                                                   
@@ -830,15 +811,7 @@ bail:
                                                                                                                 imageDataSampleBuffer,
                                                                                                                     kCMAttachmentMode_ShouldPropagate);
                                                               ALAssetsLibrary *library = [[ALAssetsLibrary alloc] init];
-                                                              
-                                                              /*
-                                                              [library writeImageDataToSavedPhotosAlbum:jpegData metadata:(id)attachments completionBlock:^(NSURL *assetURL, NSError *error) {
-                                                                  if (error) {
-                                                                      [self displayErrorOnMainQueue:error withMessage:@"Save to camera roll failed"];
-                                                                  }
-                                                              }];
-                                                              */
-                                                               
+                                                             
                                                               if (attachments)
                                                                   CFRelease(attachments);
                                                               [library release];
