@@ -37,7 +37,33 @@
 
 - (NSString*) getDefaultUrl
 {
-    return @"http:/95.180.244.26:9000";
+    return @"http://95.180.244.51:9000";
+}
+
+- (NSDictionary*) getUserDictionary
+{
+    NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
+    return [prefs dictionaryForKey:@"userInfo"];
+}
+
+- (NSString* ) getLoggedInUserId{
+    NSDictionary * userDictionary = [self getUserDictionary];
+    if(userDictionary){
+        return userDictionary[@"user"][@"id"];
+    }
+    else return @"";
+}
+
+- (NSMutableArray*) getUserFriendsFromPrefs
+{
+    NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
+    return [prefs mutableArrayValueForKey:@"userFriends"];
+}
+
+- (void) setUserFriendsToPrefs: (NSMutableArray*) friendsArray
+{
+    NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
+    [prefs setObject:friendsArray forKey:@"userFriends"];
 }
 
 - (NSURL*) getFriendsUrl:(NSString*) userId
@@ -89,4 +115,29 @@
     NSString* urlString = [NSString stringWithFormat:@"%@/users/%@/acceptFriend", [self getDefaultUrl], userId];
     return [NSURL URLWithString: [urlString stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
 }
+- (UIColor* ) greenColor
+{
+   return [UIColor  colorWithRed:((float) 21 / 255.0f)
+                     green:((float) 160 / 255.0f)
+                      blue:((float) 132/ 255.0f)
+                     alpha:1];
+}
+
+- (UIColor* ) greenColorWithAlpha: (CGFloat) alpha
+{
+    return [[self greenColor] colorWithAlphaComponent:alpha];
+}
+
+-(void) setImageViewRound:(UIImageView*) imageView
+{
+    imageView.layer.cornerRadius = imageView.frame.size.height /2;
+    imageView.layer.masksToBounds = YES;
+    imageView.layer.borderWidth = 0;
+}
+
+-(void) showErrorMessage: (NSString*) errorTitle message:(NSString*) message
+{
+    [[[UIAlertView alloc] initWithTitle:errorTitle message:message delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil] show];
+}
+
 @end

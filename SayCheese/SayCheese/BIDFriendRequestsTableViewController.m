@@ -4,7 +4,6 @@
 //
 //  Created by Goran Kopevski on 9/5/14.
 //
-//NSURL *URL = [[Utils getInstance] getFriendsUrl:@"4"];
 
 #import "BIDFriendRequestsTableViewController.h"
 #import "BIDFriendRequestsTableViewCell.h"
@@ -20,6 +19,7 @@
 @synthesize friendRequestsArray;
 NSString* userId1 = @"";
 bool hasTaskStarted;
+bool isCancelRequestSent;
 
 - (id)initWithStyle:(UITableViewStyle)style
 {
@@ -33,6 +33,9 @@ bool hasTaskStarted;
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    self.tableView.allowsMultipleSelectionDuringEditing = NO;
+
+    isCancelRequestSent = NO;
     hasTaskStarted = NO;
     friendRequestsArray = [[NSMutableArray alloc] init];
     
@@ -44,7 +47,16 @@ bool hasTaskStarted;
     }
     
     [self getFriendRequests];
+    
+    self.navigationController.navigationBar.topItem.title = @"";
+    
+    //set white title of view
+    self.navigationController.navigationBar.titleTextAttributes = [NSDictionary dictionaryWithObject:[UIColor  whiteColor] forKey:NSForegroundColorAttributeName];
+}
 
+- (void)viewWillAppear:(BOOL)animated
+{
+    self.title = @"Friend requests";
 }
 
 - (void)didReceiveMemoryWarning
@@ -86,6 +98,7 @@ bool hasTaskStarted;
         [cell.addButton addTarget:self action:@selector(acceptFriendClicked:) forControlEvents:UIControlEventTouchUpInside];
 
     cell.nameLabel.text = [[result[@"firstName"] stringByAppendingString: @" "] stringByAppendingString:result[@"lastName"]];
+    [[Utils getInstance] setImageViewRound:cell.imageViewFriendPicture];
     cell.imageViewFriendPicture.image = [UIImage imageNamed:@"squarePNG.png"];
     NSURL *URL = [NSURL URLWithString: result[@"pictureUrl"]];
     cell.imageViewFriendPicture.imageURL = URL;
@@ -93,6 +106,20 @@ bool hasTaskStarted;
     return cell;
 }
 
+- (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    return YES;
+}
+
+
+// Override to support editing the table view.
+- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    if (editingStyle == UITableViewCellEditingStyleDelete)
+    {
+        [self cancelPendingClicked: indexPath];
+    }
+}
 
 /*
 // Override to support conditional editing of the table view.
@@ -155,7 +182,9 @@ bool hasTaskStarted;
     {
         if (error)
         {
-            [[[UIAlertView alloc] initWithTitle:@"Error" message:error.localizedDescription delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil] show];        }
+            [[Utils getInstance] showErrorMessage:@"Something went wrong" message:@"Could not get friend requests"];
+
+        }
         else
         {
             // convert to JSON
@@ -180,17 +209,9 @@ bool hasTaskStarted;
     [[RequestQueue mainQueue] addOperation:operation];
 }
 
--(void)showMessage:(NSString*)alertText withTitle:(NSString*)alertTitle
-{
-    [[[UIAlertView alloc] initWithTitle:alertTitle
-                                message:alertText
-                               delegate:nil
-                      cancelButtonTitle:@"OK"
-                      otherButtonTitles:nil] show];
-}
-
 - (void)acceptFriendClicked: (id)sender {
     if(!hasTaskStarted){
+        hasTaskStarted = YES;
         NSInteger rowIndex = [sender tag];
         NSString* contactId;
         NSMutableDictionary *contactDictionary =[friendRequestsArray objectAtIndex: rowIndex];
@@ -199,7 +220,6 @@ bool hasTaskStarted;
         NSLog(@"User id: %@", userId1);
         
         [sender setEnabled:NO];
-        
         
         //post request for adding friend...
         NSLog(@"sending friend request");
@@ -222,7 +242,8 @@ bool hasTaskStarted;
         {
             if (error)
             {
-                [[[UIAlertView alloc] initWithTitle:@"Error" message:error.localizedDescription delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil] show];
+                [[Utils getInstance] showErrorMessage:@"Something went wrong" message:@"Could not confirm friendship"];
+
                 hasTaskStarted = NO;
                 [sender setEnabled:YES];
             }
@@ -250,11 +271,103 @@ bool hasTaskStarted;
 }
 -(void) removeFriendRequestAndReloadData:(NSInteger*) rowIndex
 {
-    //remove friend from requests list
-    NSMutableArray * resuestsArrayNew = [friendRequestsArray mutableCopy];
-    [resuestsArrayNew removeObjectAtIndex: rowIndex];
-    friendRequestsArray = [NSMutableArray arrayWithArray:resuestsArrayNew];
-    [self.tableView reloadData];
+    //remove friend from requests list (users are friends now!)
+    NSMutableArray * requestsArrayNew = [friendRequestsArray mutableCopy];
+ 
+    NSMutableArray* userFriendsArray = [[Utils getInstance] getUserFriendsFromPrefs];
+    NSMutableDictionary * dictionaryFriend =[requestsArrayNew objectAtIndex:rowIndex];
+    [userFriendsArray addObject:dictionaryFriend];
+    [[Utils getInstance]setUserFriendsToPrefs:userFriendsArray];
     
+    [requestsArrayNew removeObjectAtIndex: rowIndex];
+    friendRequestsArray = [NSMutableArray arrayWithArray:requestsArrayNew];
+    [self.tableView reloadData];
 }
+
+- (NSUInteger)supportedInterfaceOrientations
+{
+    return (UIInterfaceOrientationMaskPortrait);
+}
+
+-(UIInterfaceOrientation)preferredInterfaceOrientationForPresentation {
+    return (UIInterfaceOrientationPortrait);
+}
+
+
+- (void)cancelPendingClicked:(NSIndexPath *)indexPath {
+    if(!isCancelRequestSent){
+        //  [sender setEnabled:NO];
+        isCancelRequestSent = YES;
+        //NSInteger rowIndex = [sender tag];
+        
+        NSString* contactId;
+        NSMutableDictionary *contactDictionary =[friendRequestsArray objectAtIndex: [indexPath row]];
+        contactId = contactDictionary[@"userId"];
+        
+        NSLog(@"canceling friend request");
+        NSLog(@"Contact id: %@", contactId);
+        NSString* userId = [[Utils getInstance] getLoggedInUserId];
+        NSLog(@"User id: %@", userId);
+        
+        //post request for adding friend...
+        
+        NSURL *URL = [[Utils getInstance] removeContactOrPendingRequestUrl];
+        NSString *post = [NSString stringWithFormat:@"&userId=%@&contactId=%@", userId, contactId];
+        
+        NSData *postData =   [post dataUsingEncoding:NSUTF8StringEncoding];
+        NSString *postLength = [NSString stringWithFormat:@"%d",[postData length]];
+        
+        NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:URL];
+        [request setHTTPMethod:@"POST"];
+        [request setValue:postLength forHTTPHeaderField:@"Content-Length"];
+        [request setValue:@"application/x-www-form-urlencoded" forHTTPHeaderField:@"Content-Type"];
+        [request setHTTPBody:postData];
+        
+        RQOperation *operation = [RQOperation operationWithRequest:request];
+        //add response handler
+        operation.completionHandler = ^(__unused NSURLResponse *response, NSData *data, NSError *error)
+        {
+            if (error)
+            {
+                [[Utils getInstance] showErrorMessage:@"Something went wrong" message:@"Could not cancel request"];
+                isCancelRequestSent = NO;
+                //[sender setEnabled:YES];
+            }
+            else
+            {
+                NSHTTPURLResponse* httpResponse = (NSHTTPURLResponse*)response;
+                NSInteger code = [httpResponse statusCode];
+                
+                if(200 == code)
+                {
+                    NSLog(@"request successfully canceled");
+                   NSMutableArray*  requestsArrayNew = [friendRequestsArray mutableCopy];
+                    [requestsArrayNew removeObjectAtIndex: indexPath.row];
+                    friendRequestsArray = [[NSMutableArray alloc] init];
+                    friendRequestsArray = [NSMutableArray arrayWithArray:requestsArrayNew];
+
+                     
+                    NSArray *deleteIndexPaths = [NSArray arrayWithObjects:
+                                                 [NSIndexPath indexPathForRow:indexPath.row inSection:0],
+                                                 nil];
+                    
+                    [self.tableView beginUpdates];
+                    [self.tableView deleteRowsAtIndexPaths:deleteIndexPaths withRowAnimation:UITableViewRowAnimationFade];
+                    [self.tableView endUpdates];
+                    
+                    //update userPreferences
+                    
+                }
+                else
+                {
+                }
+                //   [sender setEnabled:YES];
+                isCancelRequestSent = NO;
+            }
+        };
+        //make request
+        [[RequestQueue mainQueue] addOperation:operation];
+    }
+}
+
 @end

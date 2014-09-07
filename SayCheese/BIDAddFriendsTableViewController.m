@@ -23,7 +23,7 @@
 @synthesize pendingFriendsArray;
 
 NSString* userId = @"";
-bool isFriendRequestSent;
+bool isFriendRequestSending;
 bool isCancelRequestSent;
 
 - (id)initWithStyle:(UITableViewStyle)style
@@ -38,18 +38,23 @@ bool isCancelRequestSent;
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    isFriendRequestSent = NO;
+    isFriendRequestSending = NO;
     isCancelRequestSent = NO;
-   // self.navigationController.navigationBar.topItem.title = @"Friends";
+    
+    self.tableView.allowsMultipleSelectionDuringEditing = NO;
+    
+    // self.navigationController.navigationBar.topItem.title = @"Friends";
     facebookFriendsArray = [[NSMutableArray alloc] init];
     pendingFriendsArray = [[NSMutableArray alloc] init];
     
-  NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
-  NSDictionary * userDictionary = [prefs dictionaryForKey:@"userInfo"];
+    self.navigationController.navigationBar.topItem.title = @"";
     
-    if(userDictionary){
-        userId = userDictionary[@"user"][@"id"];
-    }
+    //set white title of view
+    self.navigationController.navigationBar.titleTextAttributes = [NSDictionary dictionaryWithObject:[UIColor  whiteColor] forKey:NSForegroundColorAttributeName];
+    
+    
+    userId = [[Utils getInstance]getLoggedInUserId];
+    
     // Uncomment the following line to preserve selection between presentations.
     // self.clearsSelectionOnViewWillAppear = NO;
     
@@ -57,7 +62,12 @@ bool isCancelRequestSent;
     // self.navigationItem.rightBarButtonItem = self.editButtonItem;
     
     [self requestUserFriends];
+    
+}
 
+- (void)viewWillAppear:(BOOL)animated
+{
+    self.title = @"Find friends";
 }
 
 - (void)didReceiveMemoryWarning
@@ -90,7 +100,7 @@ bool isCancelRequestSent;
     static NSString *CellIdentifier = @"addFriendsTableCell";
     
     BIDAddFriendsTableViewCell *cell = [tableView
-                                     dequeueReusableCellWithIdentifier:CellIdentifier];
+                                        dequeueReusableCellWithIdentifier:CellIdentifier];
     if (cell == nil) {
         cell = [[BIDAddFriendsTableViewCell alloc]
                 initWithStyle:UITableViewCellStyleDefault
@@ -99,75 +109,108 @@ bool isCancelRequestSent;
     NSMutableDictionary *result;
     
     //add click handler and button tag (tag = number of row clicked)
-    cell.addButton.tag = indexPath.row;
+    cell.addButton.tag = [indexPath row];
+    
+    //   [cell.addButton addTarget:self action:nil forControlEvents:UIControlEventAllEvents];
     if(indexPath.section == 0)//add
     {
+        [cell.addButton setEnabled:YES];
+        [cell.addButton setHidden:NO];
         result =[friendsToAddArray objectAtIndex: [indexPath row]];
         [cell.addButton addTarget:self action:@selector(addFriendClicked:) forControlEvents:UIControlEventTouchUpInside];
     }
     else //pending
     {
         result =[pendingFriendsArray objectAtIndex: [indexPath row]];
-        [cell.addButton addTarget:self action:@selector(cancelPendingClicked:) forControlEvents:UIControlEventTouchUpInside];
+        [cell.addButton setEnabled:NO];
+        [cell.addButton setHidden:YES];
+        
+        //      [cell.addButton  addTarget:self action:@selector(cancelPendingClicked:) forControlEvents:UIControlEventTouchUpInside];
     }
-  cell.nameLabel.text = [[result[@"firstName"] stringByAppendingString: @" "] stringByAppendingString:result[@"lastName"]];
+    cell.nameLabel.text = [[result[@"firstName"] stringByAppendingString: @" "] stringByAppendingString:result[@"lastName"]];
     
+    [[Utils getInstance] setImageViewRound:cell.imageViewFriendPicture];
     //set temporaty img until image is loaded
     cell.imageViewFriendPicture.image = [UIImage imageNamed:@"squarePNG.png"];
     NSURL *URL = [NSURL URLWithString: result[@"pictureUrl"]];
     cell.imageViewFriendPicture.imageURL = URL;
-   
+    
     return cell;
 }
 
-/*
-// Override to support conditional editing of the table view.
+
 - (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    // Return NO if you do not want the specified item to be editable.
-    return YES;
+    if(indexPath.section == 0)//friends to add
+        return NO;
+    
+    return YES; //pending requests
 }
-*/
 
-/*
+
 // Override to support editing the table view.
 - (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath
 {
     if (editingStyle == UITableViewCellEditingStyleDelete) {
-        // Delete the row from the data source
-        [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
-    } else if (editingStyle == UITableViewCellEditingStyleInsert) {
-        // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
-    }   
+        
+        [self cancelPendingClicked: indexPath.row];
+        
+        //  if(!isRemoveFromFriendsRequestSent){
+        //    [self removeUserFromFriends:indexPath];
+        //    }
+        // NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
+        // [prefs setObject:favouritesArray forKey:@"favouritesArray"];
+    }
 }
-*/
 
 /*
-// Override to support rearranging the table view.
-- (void)tableView:(UITableView *)tableView moveRowAtIndexPath:(NSIndexPath *)fromIndexPath toIndexPath:(NSIndexPath *)toIndexPath
-{
-}
-*/
+ // Override to support conditional editing of the table view.
+ - (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath
+ {
+ // Return NO if you do not want the specified item to be editable.
+ return YES;
+ }
+ */
 
 /*
-// Override to support conditional rearranging of the table view.
-- (BOOL)tableView:(UITableView *)tableView canMoveRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    // Return NO if you do not want the item to be re-orderable.
-    return YES;
-}
-*/
+ // Override to support editing the table view.
+ - (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath
+ {
+ if (editingStyle == UITableViewCellEditingStyleDelete) {
+ // Delete the row from the data source
+ [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
+ } else if (editingStyle == UITableViewCellEditingStyleInsert) {
+ // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
+ }
+ }
+ */
 
 /*
-#pragma mark - Navigation
+ // Override to support rearranging the table view.
+ - (void)tableView:(UITableView *)tableView moveRowAtIndexPath:(NSIndexPath *)fromIndexPath toIndexPath:(NSIndexPath *)toIndexPath
+ {
+ }
+ */
 
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
-{
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
+/*
+ // Override to support conditional rearranging of the table view.
+ - (BOOL)tableView:(UITableView *)tableView canMoveRowAtIndexPath:(NSIndexPath *)indexPath
+ {
+ // Return NO if you do not want the item to be re-orderable.
+ return YES;
+ }
+ */
+
+/*
+ #pragma mark - Navigation
+ 
+ // In a storyboard-based application, you will often want to do a little preparation before navigation
+ - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
+ {
+ // Get the new view controller using [segue destinationViewController].
+ // Pass the selected object to the new view controller.
+ }
+ */
 
 
 - (void)requestUserFriends
@@ -225,7 +268,6 @@ bool isCancelRequestSent;
 
 - (void) makeRequestForUserFriends
 {
-    
     [FBRequestConnection startWithGraphPath:@"/me/friends"
                                  parameters:nil
                                  HTTPMethod:@"GET"
@@ -238,41 +280,20 @@ bool isCancelRequestSent;
                               
                               if (!error) {
                                   
-                                  NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
                                   NSMutableDictionary *dictionary=[NSMutableDictionary dictionaryWithObject:result forKey:@"result"];
-                                
                                   
-                                facebookFriendsArray = dictionary[@"result"][@"data"]; //[ {id,name} ... ]
-                           //     [self.tableView reloadData];
-                                
-                               //   NSDictionary *a = [array objectAtIndex:0];
-                                    NSLog([facebookFriendsArray objectAtIndex:0][@"id"]);
-                                   //       NSLog(a[@"name"]);
+                                  
+                                  facebookFriendsArray = dictionary[@"result"][@"data"]; //[ {id,name} ... ]
                                   
                                   dispatch_after(dispatch_time(DISPATCH_TIME_NOW, 0.01 * NSEC_PER_SEC), dispatch_get_main_queue(), ^{
                                       [self findFriendsToAdd];
-
+                                      
                                   });
-                                //  [self findFriendsToAdd];
-                                  
-                                  /*
-                                  NSLog(@"pictureUrl: %@", pictureUrl);
-                                  
-                                  NSLog(@"user info: %@", dictionary );
-                                  NSLog(@"user img: %@", dictionary[@"user"][@"picture"]);
-                                  [prefs setObject:dictionary forKey:@"userInfo"];
-                                  
-                                  
-                                  UINavigationController *navigationController = (UINavigationController*) self.window.rootViewController;
-                                  [[[navigationController viewControllers] objectAtIndex:0] performSegueWithIdentifier:@"TabBarControllerSequeIdentifier" sender:self];
-                                  
-                                  */
-                                  
-                                  
                               } else {
                                   // An error occurred, we need to handle the error
                                   // Check out our error handling guide: https://developers.facebook.com/docs/ios/errors/
                                   NSLog(@"error %@", error.description);
+                                  [[Utils getInstance] showErrorMessage:@"Something went wrong" message:@"Could not get facebook friends"];
                               }
                               
                               
@@ -283,84 +304,78 @@ bool isCancelRequestSent;
 {
     NSLog(@"finding friends to add..");
     //POST request
-        NSURL *URL = [[Utils getInstance] findFriendsUrl:userId];
-        
-        if([facebookFriendsArray count]<=0) return;
-        
-        NSString* friendsIdList = @"";
-        for (NSDictionary *facebookFriendsArrayElement in facebookFriendsArray) {
-            friendsIdList = [[friendsIdList stringByAppendingString:@" "] stringByAppendingString:facebookFriendsArrayElement[@"id"]];
-        }
-        
-   
-        NSString *post = [NSString stringWithFormat:@"&fbContacts=%@", friendsIdList];
-        NSData *postData = [post dataUsingEncoding:NSASCIIStringEncoding allowLossyConversion:YES];
-        NSString *postLength = [NSString stringWithFormat:@"%d",[postData length]];
-        
-        NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:URL];
-        [request setHTTPMethod:@"POST"];
-        [request setValue:postLength forHTTPHeaderField:@"Content-Length"];
-        [request setValue:@"application/x-www-form-urlencoded" forHTTPHeaderField:@"Content-Type"];
-        [request setHTTPBody:postData];
-        
-        RQOperation *operation = [RQOperation operationWithRequest:request];
-        //add response handler
-        operation.completionHandler = ^(__unused NSURLResponse *response, NSData *data, NSError *error)
+    NSURL *URL = [[Utils getInstance] findFriendsUrl:userId];
+    
+    if([facebookFriendsArray count]<=0) return;
+    
+    NSString* friendsIdList = @"";
+    for (NSDictionary *facebookFriendsArrayElement in facebookFriendsArray) {
+        friendsIdList = [[friendsIdList stringByAppendingString:@" "] stringByAppendingString:facebookFriendsArrayElement[@"id"]];
+    }
+    
+    
+    NSString *post = [NSString stringWithFormat:@"&fbContacts=%@", friendsIdList];
+    NSData *postData = [post dataUsingEncoding:NSASCIIStringEncoding allowLossyConversion:YES];
+    NSString *postLength = [NSString stringWithFormat:@"%d",[postData length]];
+    
+    NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:URL];
+    [request setHTTPMethod:@"POST"];
+    [request setValue:postLength forHTTPHeaderField:@"Content-Length"];
+    [request setValue:@"application/x-www-form-urlencoded" forHTTPHeaderField:@"Content-Type"];
+    [request setHTTPBody:postData];
+    
+    RQOperation *operation = [RQOperation operationWithRequest:request];
+    //add response handler
+    operation.completionHandler = ^(__unused NSURLResponse *response, NSData *data, NSError *error)
+    {
+        if (error)
         {
-            if (error)
-            {
-                NSString *alertText;
-                NSString *alertTitle;
-                alertTitle = @"Something went wrong";
-                alertText = [FBErrorUtility userMessageForError:error];
-                [self showMessage:alertText withTitle:alertTitle];
-            }
-            else
-            {
-                // convert to JSON
-                NSError *myError = nil;
-                NSMutableData* responseData = [NSMutableData data];
-                [responseData appendData:data];
-                
-                NSDictionary* resObject = [NSJSONSerialization JSONObjectWithData:responseData options:NSJSONReadingMutableLeaves error:&myError];
-                
-                friendsToAddArray = resObject[@"add"];
-                pendingFriendsArray = resObject[@"pending"];
-                NSLog(@"resObject: %@", resObject);
-                
-                
-                [self.tableView reloadData];
-            }
-        };
-        
-        //make request
-        [[RequestQueue mainQueue] addOperation:operation];
+            /*
+             NSString *alertText;
+             NSString *alertTitle;
+             alertTitle = @"Something went wrong";
+             alertText = [FBErrorUtility userMessageForError:error];
+             [self showMessage:alertText withTitle:alertTitle];
+             */
+            [[Utils getInstance] showErrorMessage:@"Something went wrong" message:@"Could not get saycheese users"];
+        }
+        else
+        {
+            // convert to JSON
+            NSError *myError = nil;
+            NSMutableData* responseData = [NSMutableData data];
+            [responseData appendData:data];
+            
+            NSDictionary* resObject = [NSJSONSerialization JSONObjectWithData:responseData options:NSJSONReadingMutableLeaves error:&myError];
+            
+            friendsToAddArray = resObject[@"add"];
+            pendingFriendsArray = resObject[@"pending"];
+            NSLog(@"resObject: %@", resObject);
+            
+            
+            [self.tableView reloadData];
+        }
+    };
+    
+    //make request
+    [[RequestQueue mainQueue] addOperation:operation];
     
 }
 
--(void)showMessage:(NSString*)alertText withTitle:(NSString*)alertTitle
-{
-    [[[UIAlertView alloc] initWithTitle:alertTitle
-                                message:alertText
-                               delegate:nil
-                      cancelButtonTitle:@"OK"
-                      otherButtonTitles:nil] show];
-}
-
 - (void)addFriendClicked:(id)sender {
-    if(!isFriendRequestSent){
-         NSInteger rowIndex = [sender tag];
+    if(!isFriendRequestSending){
+        [sender setEnabled:NO];
+        isFriendRequestSending = YES;
+        NSInteger rowIndex = [sender tag];
         NSString* contactId;
         NSMutableDictionary *contactDictionary =[friendsToAddArray objectAtIndex: rowIndex];
-        contactId = contactDictionary[@"_id"];
+        contactId = contactDictionary[@"userId"];
+        NSLog(@"sending friend request");
         NSLog(@"Contact id: %@", contactId);
         NSLog(@"User id: %@", userId);
         
-        [sender setEnabled:NO];
-        
-        
         //post request for adding friend...
-        NSLog(@"sending friend request");
+        
         
         NSURL *URL = [[Utils getInstance] addContactUrl];
         NSString *post = [NSString stringWithFormat:@"&userId=%@&contactId=%@", userId, contactId];
@@ -380,8 +395,9 @@ bool isCancelRequestSent;
         {
             if (error)
             {
-                [[[UIAlertView alloc] initWithTitle:@"Error" message:error.localizedDescription delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil] show];
-                isFriendRequestSent = NO;
+                //error.localizedDescription -> message
+                [[Utils getInstance] showErrorMessage:@"Something went wrong" message:@"Could not send friend request"];
+                isFriendRequestSending = NO;
                 [sender setEnabled:YES];
             }
             else
@@ -392,14 +408,14 @@ bool isCancelRequestSent;
                 if(code!= nil && code == 200){
                     NSLog(@"friend request from user %@ to user %@ successfully sent", userId, contactId);
                     [self removeFriendAndReloadData:rowIndex];
-               }
-               else
-               {
-                   
+                }
+                else
+                {
+                    
                 }
                 [sender setEnabled:YES];
-                isFriendRequestSent = NO;
-
+                isFriendRequestSending = NO;
+                
             }
         };
         //make request
@@ -408,21 +424,24 @@ bool isCancelRequestSent;
 }
 
 
-- (void)cancelPendingClicked:(id)sender {
+- (void)cancelPendingClicked:(NSInteger)rowIndex {
     if(!isCancelRequestSent){
-        NSInteger rowIndex = [sender tag];
-       
+        //  [sender setEnabled:NO];
+        isCancelRequestSent = YES;
+        //NSInteger rowIndex = [sender tag];
+        
         NSString* contactId;
-         NSMutableDictionary *contactDictionary =[pendingFriendsArray objectAtIndex: rowIndex];
+        NSMutableDictionary *contactDictionary =[pendingFriendsArray objectAtIndex: rowIndex];
         contactId = contactDictionary[@"userId"];
+        
+        NSLog(@"canceling request");
         NSLog(@"Contact id: %@", contactId);
         NSLog(@"User id: %@", userId);
         
-        [sender setEnabled:NO];
+        
         
         
         //post request for adding friend...
-        NSLog(@"sending friend request");
         
         NSURL *URL = [[Utils getInstance] removeContactOrPendingRequestUrl];
         NSString *post = [NSString stringWithFormat:@"&userId=%@&contactId=%@", userId, contactId];
@@ -442,27 +461,25 @@ bool isCancelRequestSent;
         {
             if (error)
             {
-                [[[UIAlertView alloc] initWithTitle:@"Error" message:error.localizedDescription delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil] show];
+                [[Utils getInstance] showErrorMessage:@"Something went wrong" message:@"Could not cancel request"];
                 isCancelRequestSent = NO;
-                [sender setEnabled:YES];
+                //[sender setEnabled:YES];
             }
             else
             {
-                
-                
                 NSHTTPURLResponse* httpResponse = (NSHTTPURLResponse*)response;
                 NSInteger code = [httpResponse statusCode];
                 
                 if(200 == code)
                 {
-                     NSLog(@"request from user %@ to user %@ successfully canceled", userId, contactId);
+                    NSLog(@"request from user %@ to user %@ successfully canceled", userId, contactId);
                     [self removePendingRequestAndReloadData:rowIndex];
                 }
                 else
                 {
                     
                 }
-                [sender setEnabled:YES];
+                //   [sender setEnabled:YES];
                 isCancelRequestSent = NO;
             }
         };
@@ -492,31 +509,80 @@ bool isCancelRequestSent;
 
 -(void) removeFriendAndReloadData:(NSInteger*) rowIndex
 {
-    //remove friend from  pending list and add to list with friends to add
-    NSMutableArray *resuestsArrayNew = [pendingFriendsArray mutableCopy];
-    NSMutableDictionary * dictionaryUserToBeTransferred =[friendsToAddArray objectAtIndex:rowIndex];
-    [resuestsArrayNew addObject:dictionaryUserToBeTransferred];
-    pendingFriendsArray = [NSMutableArray arrayWithArray:resuestsArrayNew];
+    // [friendsToAddArray removeObjectAtIndex:indexPath.row];
     
-    resuestsArrayNew = [friendsToAddArray mutableCopy];
-    [resuestsArrayNew removeObjectAtIndex: rowIndex];
-    friendsToAddArray = [NSMutableArray arrayWithArray:resuestsArrayNew];
+    // [self.tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
+    
+    //remove friend from  pending list and add to list with friends to add
+    
+    NSMutableArray *requestsArrayNew = [pendingFriendsArray mutableCopy];
+    NSMutableDictionary * dictionaryUserToBeTransferred =[friendsToAddArray objectAtIndex:rowIndex];
+    [requestsArrayNew addObject:dictionaryUserToBeTransferred];
+    pendingFriendsArray = [[NSMutableArray alloc] init];
+    pendingFriendsArray = [NSMutableArray arrayWithArray:requestsArrayNew];
+    
+    requestsArrayNew = [friendsToAddArray mutableCopy];
+    [requestsArrayNew removeObjectAtIndex: rowIndex];
+    friendsToAddArray = [[NSMutableArray alloc] init];
+    friendsToAddArray = [NSMutableArray arrayWithArray:requestsArrayNew];
+    //  [self.tableView reloadData];
+    int num= [pendingFriendsArray count];
+    int s=num-1;
+    
+    NSArray *insertIndexPaths = [NSArray arrayWithObjects:
+                                 [NSIndexPath indexPathForRow: s inSection:1],
+                                 nil];
+    NSArray *deleteIndexPaths = [NSArray arrayWithObjects:
+                                 [NSIndexPath indexPathForRow:rowIndex inSection:0],
+                                 nil];
+    
+    [self.tableView beginUpdates];
+    [self.tableView insertRowsAtIndexPaths:insertIndexPaths withRowAnimation:UITableViewRowAnimationRight];
+    [self.tableView deleteRowsAtIndexPaths:deleteIndexPaths withRowAnimation:UITableViewRowAnimationFade];
+    [self.tableView endUpdates];
+    
     [self.tableView reloadData];
-
 }
 
 -(void) removePendingRequestAndReloadData:(NSInteger*) rowIndex
 {
-    //remove friend from  pending list and add to list with friends to add
-    NSMutableArray *resuestsArrayNew = [friendsToAddArray mutableCopy];
-    NSMutableDictionary * dictionaryUserToBeTransferred =[pendingFriendsArray objectAtIndex:rowIndex];
-    [resuestsArrayNew addObject:dictionaryUserToBeTransferred];
-    friendsToAddArray = [NSMutableArray arrayWithArray:resuestsArrayNew];
     
-    resuestsArrayNew = [pendingFriendsArray mutableCopy];
-    [resuestsArrayNew removeObjectAtIndex: rowIndex];
-    pendingFriendsArray = [NSMutableArray arrayWithArray:resuestsArrayNew];
+    //remove friend from  pending list and add to list with friends to add
+    NSMutableArray *requestsArrayNew = [friendsToAddArray mutableCopy];
+    NSMutableDictionary * dictionaryUserToBeTransferred =[pendingFriendsArray objectAtIndex:rowIndex];
+    [requestsArrayNew addObject:dictionaryUserToBeTransferred];
+    friendsToAddArray = [[NSMutableArray alloc] init];
+    friendsToAddArray = [NSMutableArray arrayWithArray:requestsArrayNew];
+    
+    requestsArrayNew = [pendingFriendsArray mutableCopy];
+    [requestsArrayNew removeObjectAtIndex: rowIndex];
+    pendingFriendsArray = [[NSMutableArray alloc] init];
+    pendingFriendsArray = [NSMutableArray arrayWithArray:requestsArrayNew];
+    
+    int num= [friendsToAddArray count];
+    int s=num-1;
+    NSArray *insertIndexPaths = [NSArray arrayWithObjects:
+                                 [NSIndexPath indexPathForRow:s inSection:0],
+                                 nil];
+    NSArray *deleteIndexPaths = [NSArray arrayWithObjects:
+                                 [NSIndexPath indexPathForRow:rowIndex inSection:1],
+                                 nil];
+    
+    [self.tableView beginUpdates];
+    [self.tableView insertRowsAtIndexPaths:insertIndexPaths withRowAnimation:UITableViewRowAnimationRight];
+    [self.tableView deleteRowsAtIndexPaths:deleteIndexPaths withRowAnimation:UITableViewRowAnimationFade];
+    [self.tableView endUpdates];
+    
     [self.tableView reloadData];
+}
+
+- (NSUInteger)supportedInterfaceOrientations
+{
+    return (UIInterfaceOrientationMaskPortrait);
+}
+
+-(UIInterfaceOrientation)preferredInterfaceOrientationForPresentation {
+    return (UIInterfaceOrientationPortrait);
 }
 
 @end

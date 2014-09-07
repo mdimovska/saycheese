@@ -7,6 +7,7 @@
 //
 
 #import "BIDTabBarController.h"
+#import "Utils.h"
 
 @interface BIDTabBarController ()
 
@@ -27,10 +28,7 @@
 {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
-    self.navigationController.view.tintColor=[UIColor  colorWithRed:((float) 21 / 255.0f)
-                                                              green:((float) 160 / 255.0f)
-                                                               blue:((float) 132/ 255.0f)
-                                                              alpha:1.0];
+    self.navigationController.view.tintColor = [[Utils getInstance] greenColor];
 }
 
 - (void)didReceiveMemoryWarning

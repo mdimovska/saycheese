@@ -20,6 +20,12 @@
     UINavigationController *myNavC = (UINavigationController*)[mainStoryboard instantiateViewControllerWithIdentifier:@"MainNav"];
     self.window.rootViewController = myNavC;
     
+    // FIX THIS:
+    //REMOVE THIS LINE
+    UINavigationController *navigationController = (UINavigationController*) self.window.rootViewController;
+    [[[navigationController viewControllers] objectAtIndex:0] performSegueWithIdentifier:@"TabBarControllerSequeIdentifier" sender:self];
+    
+    
     
     // Whenever a person opens the app, check for a cached session
     if (FBSession.activeSession.state == FBSessionStateCreatedTokenLoaded) {
@@ -112,7 +118,7 @@
         if ([FBErrorUtility shouldNotifyUserForError:error] == YES){
             alertTitle = @"Something went wrong";
             alertText = [FBErrorUtility userMessageForError:error];
-            [self showMessage:alertText withTitle:alertTitle];
+            [[Utils getInstance] showErrorMessage:alertTitle message: alertText];
         } else {
             
             // If the user cancelled login, do nothing
@@ -123,7 +129,8 @@
             } else if ([FBErrorUtility errorCategoryForError:error] == FBErrorCategoryAuthenticationReopenSession){
                 alertTitle = @"Session Error";
                 alertText = @"Your current session is no longer valid. Please log in again.";
-                [self showMessage:alertText withTitle:alertTitle];
+                
+                [[Utils getInstance] showErrorMessage:alertTitle message: alertText];
                 
                 // Here we will handle all other errors with a generic error message.
                 // We recommend you check our Handling Errors guide for more information
@@ -134,8 +141,9 @@
                 
                 // Show the user an error message
                 alertTitle = @"Something went wrong";
-                alertText = [NSString stringWithFormat:@"Please retry. \n\n If the problem persists contact us and mention this error code: %@", [errorInformation objectForKey:@"message"]];
-                [self showMessage:alertText withTitle:alertTitle];
+                alertText = @"Please retry";
+              //  alertText = [NSString stringWithFormat:@"Please retry. \n\n If the problem persists contact us and mention this error code: %@", [errorInformation objectForKey:@"message"]];
+                [[Utils getInstance] showErrorMessage:alertTitle message: alertText];
             }
         }
         // Clear this token
@@ -168,14 +176,6 @@
 
 }
 
--(void)showMessage:(NSString*)alertText withTitle:(NSString*)alertTitle
-{
-    [[[UIAlertView alloc] initWithTitle:alertTitle
-                                message:alertText
-                               delegate:nil
-                      cancelButtonTitle:@"OK"
-                      otherButtonTitles:nil] show];
-}
 
 - (void)requestUserInfo
 {
@@ -266,7 +266,8 @@
             alertTitle = @"Something went wrong";
             alertText = [FBErrorUtility userMessageForError:error];
             
-            [self showMessage:alertText withTitle:alertTitle];
+            [[Utils getInstance] showErrorMessage:alertTitle message: alertText];
+
             [FBSession.activeSession closeAndClearTokenInformation];
             [self userLoggedOut];
 
@@ -297,13 +298,12 @@
     {
         if (error)
         {
-           // [[[UIAlertView alloc] initWithTitle:@"Error" message:error.localizedDescription delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil] show];
             
             NSString *alertText;
             NSString *alertTitle;
             alertTitle = @"Something went wrong";
             alertText = [FBErrorUtility userMessageForError:error];
-            [self showMessage:alertText withTitle:alertTitle];
+            [[Utils getInstance] showErrorMessage:alertTitle message: alertText];
 
             [FBSession.activeSession closeAndClearTokenInformation];
             [self userLoggedOut];

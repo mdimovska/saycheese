@@ -12,10 +12,19 @@
 @interface BIDUserAccountViewController : UIViewController
 @property (strong, nonatomic) NSDictionary *userDictionary;
 @property (strong, nonatomic) IBOutlet UILabel* userNameLabel;
+@property (strong, nonatomic) IBOutlet UIImageView* imageViewWhite;
 @property (strong, nonatomic) IBOutlet AsyncImageView* imageViewUserPicture;
 @property (strong, nonatomic) IBOutlet AsyncImageView* imageViewFriendPicture1;
 @property (strong, nonatomic) IBOutlet AsyncImageView* imageViewFriendPicture2;
 @property (strong, nonatomic) IBOutlet AsyncImageView* imageViewFriendPicture3;
+@property (strong, nonatomic) IBOutlet UILabel* labelNameFriendPicture1;
+@property (strong, nonatomic) IBOutlet UILabel* labelNameFriendPicture2;
+@property (strong, nonatomic) IBOutlet UILabel* labelNameFriendPicture3;
+
+@property (strong, nonatomic) IBOutlet UIButton* buttonFriends;
+@property (strong, nonatomic) IBOutlet UIButton* buttonPhotos;
+
+-(void) setImageViewRound:(UIImageView*) imageView;
 
 - (IBAction)logout:(id)sender;
 @end

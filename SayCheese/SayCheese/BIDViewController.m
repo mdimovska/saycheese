@@ -14,7 +14,6 @@
 #import <ImageIO/CGImageProperties.h>
 
 #import "BIDImageViewController.h"
-
 #pragma mark-
 
 // used for KVO observation of the @"capturingStillImage" property to perform flash bulb animation
@@ -833,8 +832,13 @@ bail:
                                                               
                                                           }
                                                          
-                                                          [previewLayer.session stopRunning];
-                                                [self.tabBarController performSegueWithIdentifier:@"ImageSegueIdentifier" sender:self];
+                                                          
+                                                          
+                                                       //   [previewLayer.session stopRunning];
+                                             //   [self.tabBarController performSegueWithIdentifier:@"ImageSegueIdentifier" sender:self];
+                                                          
+                                                          [self.tabBarController performSegueWithIdentifier:@"ImageSegueIdentifier" sender:self];
+
                                                           /*
                                                           UIViewController *loginViewController =
                                                           [[UIStoryboard storyboardWithName:@"Main" bundle:nil]instantiateViewControllerWithIdentifier:@"BIDImageViewController"];
@@ -843,6 +847,7 @@ bail:
                                                       }                                                  }
 	 ];
 }
+
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
     if ([[segue identifier] isEqualToString:@"ImageSegueIdentifier"])

@@ -21,4 +21,14 @@
 - (NSURL*) removeContactOrPendingRequestUrl;
 - (NSURL*) getFriendRequestsUrl:(NSString*) userId;
 - (NSURL*) acceptFriendUrl:(NSString*) userId;
+- (UIColor* ) greenColor;
+
+- (NSDictionary*) getUserDictionary;
+- (NSString* ) getLoggedInUserId;
+- (NSMutableArray*) getUserFriendsFromPrefs;
+- (void) setUserFriendsToPrefs: (NSMutableArray*) friendsArray;
+
+-(void) setImageViewRound:(UIImageView*) imageView;
+-(void) showErrorMessage: (NSString*) errorTitle message:(NSString*) message;
+- (UIColor* ) greenColorWithAlpha: (CGFloat) alpha;
 @end

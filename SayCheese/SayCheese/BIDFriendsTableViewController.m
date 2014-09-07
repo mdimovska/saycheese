@@ -8,6 +8,8 @@
 
 #import "BIDFriendsTableViewController.h"
 #import "BIDFriendsTableViewCell.h"
+#import "Utils.h"
+#import "RequestQueue.h"
 
 @interface BIDFriendsTableViewController ()
 
@@ -16,6 +18,8 @@
 @implementation BIDFriendsTableViewController
 
 @synthesize friendsArray;
+bool isRemoveFromFriendsRequestSent;
+NSString* userIdInFriendsController = @"";
 
 - (id)initWithStyle:(UITableViewStyle)style
 {
@@ -29,6 +33,11 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    
+    userIdInFriendsController = [[Utils getInstance]getLoggedInUserId];
+    
+    isRemoveFromFriendsRequestSent = NO;
+    self.tableView.allowsMultipleSelectionDuringEditing = NO;
     
     // Uncomment the following line to preserve selection between presentations.
     // self.clearsSelectionOnViewWillAppear = NO;
@@ -44,26 +53,41 @@
     self.navigationController.navigationBar.shadowImage = [UIImage new];
     self.navigationController.navigationBar.translucent = NO;
     
-      self.navigationController.view.backgroundColor = [UIColor  colorWithRed:((float) 235 / 255.0f)
-green:((float) 160 / 255.0f)
-blue:((float) 132/ 255.0f)
-alpha:0.8];
-  //  self.navigationController.navigationBar.backgroundColor = [UIColor clearColor] ;
-  
-    //self.navigationController.view.tintColor=[UIColor whiteColor];  !!!!!
-    self.navigationController.navigationBar.topItem.title = @"My account";
+    self.navigationController.view.backgroundColor = [[Utils getInstance]greenColor];
+    
+    self.navigationController.navigationBar.topItem.title = @"";
+    
+    //set white title of view
+    self.navigationController.navigationBar.titleTextAttributes = [NSDictionary dictionaryWithObject:[UIColor  whiteColor] forKey:NSForegroundColorAttributeName];
    
     
-    self.navigationController.navigationBar.barTintColor = [UIColor  colorWithRed:((float) 21 / 255.0f)
-                                                                             green:((float) 160 / 255.0f)
-                                                                              blue:((float) 132/ 255.0f)
-                                                                             alpha:0.8];
+    self.navigationController.navigationBar.barTintColor = [[Utils getInstance]greenColor];
     self.navigationController.navigationBar.tintColor = [UIColor whiteColor];
 
     [[UIApplication sharedApplication] setStatusBarStyle: UIStatusBarStyleLightContent];
     
-    NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
-    friendsArray = [prefs mutableArrayValueForKey:@"userFriends"];
+    [self setNavigationBarItems];
+}
+
+-(void) setNavigationBarItems
+{
+    
+    UIBarButtonItem *friendRequestsItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"friend_requests_icon.png"] style:UIBarButtonItemStylePlain target:self action:@selector(goToFriendRequestsController:)];
+    
+    UIBarButtonItem * addFriendsItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"add_friends_icon.png"] style:UIBarButtonItemStylePlain target:self action:@selector(goToAddFriendsController:)]; 
+    
+    NSArray *actionButtonItems = @[addFriendsItem, friendRequestsItem];
+    self.navigationItem.rightBarButtonItems = actionButtonItems;
+}
+
+- (void)goToAddFriendsController:(id)sender
+{
+ 
+ [[[self.navigationController viewControllers] lastObject] performSegueWithIdentifier:@"addFriendsSegueIdentifier" sender:self];
+}
+- (void)goToFriendRequestsController:(id)sender
+{
+     [[[self.navigationController viewControllers] lastObject] performSegueWithIdentifier:@"friendRequestsSegueIdentifier" sender:self];
 }
 
 - (void)didReceiveMemoryWarning
@@ -77,11 +101,16 @@ alpha:0.8];
     [super viewWillAppear:animated];
     [self.navigationController setNavigationBarHidden:NO animated:animated];
     [[UIApplication sharedApplication] setStatusBarHidden:NO];
+    //self.title = @"Friends";
+    self.navigationController.navigationBar.topItem.title = @"Friends";
+     friendsArray = [[Utils getInstance]getUserFriendsFromPrefs];
+    [self.tableView reloadData];
 }
 
 -(UIStatusBarStyle)preferredStatusBarStyle{
     return UIStatusBarStyleLightContent;
 }
+
 
 #pragma mark - Table view data source
 
@@ -113,6 +142,8 @@ alpha:0.8];
     
     cell.nameLabel.text = [[result[@"firstName"] stringByAppendingString: @" "] stringByAppendingString:result[@"lastName"]];
     //set temporaty img until image is loaded
+    
+    [[Utils getInstance] setImageViewRound:cell.imageViewFriendPicture];
     cell.imageViewFriendPicture.image = [UIImage imageNamed:@"squarePNG.png"];
     NSURL *URL = [NSURL URLWithString:result[@"pictureUrl"]];
     cell.imageViewFriendPicture.imageURL = URL;
@@ -120,27 +151,90 @@ alpha:0.8];
 }
 
 
-/*
-// Override to support conditional editing of the table view.
 - (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    // Return NO if you do not want the specified item to be editable.
     return YES;
 }
-*/
 
-/*
+
 // Override to support editing the table view.
 - (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath
 {
     if (editingStyle == UITableViewCellEditingStyleDelete) {
-        // Delete the row from the data source
-        [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
-    } else if (editingStyle == UITableViewCellEditingStyleInsert) {
-        // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
-    }   
+        if(!isRemoveFromFriendsRequestSent){
+            [self removeUserFromFriends:indexPath];
+        }
+       // NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
+       // [prefs setObject:favouritesArray forKey:@"favouritesArray"];
+    }
 }
-*/
+
+
+
+- (void)removeUserFromFriends: (NSIndexPath *)indexPath
+{
+    if(!isRemoveFromFriendsRequestSent){
+        isRemoveFromFriendsRequestSent = YES;
+        NSString* contactId;
+        NSMutableDictionary *contactDictionary =[friendsArray objectAtIndex: indexPath.row];
+        contactId = contactDictionary[@"userId"];
+        NSLog(@"Contact id: %@", contactId);
+        NSLog(@"User id: %@", userIdInFriendsController);
+        
+       // [sender setEnabled:NO];
+        
+        
+        //post request for adding friend...
+        NSLog(@"sending request for removing friend");
+        
+        NSURL *URL = [[Utils getInstance] removeContactOrPendingRequestUrl];
+        NSString *post = [NSString stringWithFormat:@"&userId=%@&contactId=%@", userIdInFriendsController, contactId];
+        
+        NSData *postData =   [post dataUsingEncoding:NSUTF8StringEncoding];
+        NSString *postLength = [NSString stringWithFormat:@"%d",[postData length]];
+        
+        NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:URL];
+        [request setHTTPMethod:@"POST"];
+        [request setValue:postLength forHTTPHeaderField:@"Content-Length"];
+        [request setValue:@"application/x-www-form-urlencoded" forHTTPHeaderField:@"Content-Type"];
+        [request setHTTPBody:postData];
+        
+        RQOperation *operation = [RQOperation operationWithRequest:request];
+        //add response handler
+        operation.completionHandler = ^(__unused NSURLResponse *response, NSData *data, NSError *error)
+        {
+            if (error)
+            {
+                [[Utils getInstance] showErrorMessage:@"Something went wrong" message:@"Could not remove friend"];
+
+                isRemoveFromFriendsRequestSent = NO;
+                //[sender setEnabled:YES];
+            }
+            else
+            {
+                NSHTTPURLResponse* httpResponse = (NSHTTPURLResponse*)response;
+                NSInteger code = [httpResponse statusCode];
+                
+                if(200 == code)
+                {
+                    NSLog(@"user %@ successfully removed", contactId);
+                    [friendsArray removeObjectAtIndex:indexPath.row];
+                    
+                    [self.tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
+                    [[Utils getInstance]setUserFriendsToPrefs:friendsArray];
+                }
+                else
+                {
+                    
+                }
+                //[sender setEnabled:YES];
+                isRemoveFromFriendsRequestSent = NO;
+            }
+        };
+        //make request
+        [[RequestQueue mainQueue] addOperation:operation];
+    }
+}
 
 /*
 // Override to support rearranging the table view.
@@ -168,5 +262,13 @@ alpha:0.8];
     // Pass the selected object to the new view controller.
 }
 */
+- (NSUInteger)supportedInterfaceOrientations
+{
+    return (UIInterfaceOrientationMaskPortrait);
+}
+
+-(UIInterfaceOrientation)preferredInterfaceOrientationForPresentation {
+    return (UIInterfaceOrientationPortrait);
+}
 
 @end

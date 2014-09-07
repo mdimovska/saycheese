@@ -21,11 +21,18 @@
 
 @synthesize userDictionary;
 @synthesize userNameLabel;
+@synthesize imageViewWhite;
 @synthesize imageViewUserPicture;
 @synthesize imageViewFriendPicture1;
 @synthesize imageViewFriendPicture2;
 @synthesize imageViewFriendPicture3;
+@synthesize labelNameFriendPicture1;
+@synthesize labelNameFriendPicture2;
+@synthesize labelNameFriendPicture3;
+@synthesize buttonFriends;
+@synthesize buttonPhotos;
 
+NSArray *friendsArray;
 bool areFriendsLoaded;
 NSUserDefaults *prefs;
 NSString* userId;
@@ -47,10 +54,10 @@ NSString* userId;
     
     //set placeholder image or cell won't update when image is loaded
     imageViewUserPicture.image = [UIImage imageNamed:@"background.jpg"];
-
+    
     // Do any additional setup after loading the view.
     prefs = [NSUserDefaults standardUserDefaults];
-    userDictionary = [prefs dictionaryForKey:@"userInfo"];
+    userDictionary = [[Utils getInstance]getUserDictionary];
     
     if(userDictionary){
         userNameLabel.text = userDictionary[@"user"][@"name"];
@@ -58,8 +65,6 @@ NSString* userId;
         //load the image
         NSURL *URL = [NSURL URLWithString:userDictionary[@"user"][@"picture"]];
         imageViewUserPicture.imageURL = URL;
-        
-    //    [self getFriends];
     }
     
     
@@ -75,7 +80,13 @@ NSString* userId;
     
     self.navigationController.navigationBar.backgroundColor = [UIColor clearColor];
     
-    [[UIApplication sharedApplication] setStatusBarStyle: UIStatusBarStyleDefault];
+    [[UIApplication sharedApplication] setStatusBarStyle: UIStatusBarStyleLightContent];
+    
+    [[Utils getInstance] setImageViewRound:imageViewUserPicture];
+    [[Utils getInstance] setImageViewRound:imageViewFriendPicture1];
+    [[Utils getInstance] setImageViewRound:imageViewFriendPicture2];
+    [[Utils getInstance] setImageViewRound:imageViewFriendPicture3];
+    [[Utils getInstance] setImageViewRound:imageViewWhite];
 }
 
 -(void) getFriends{
@@ -91,7 +102,7 @@ NSString* userId;
     {
         if (error)
         {
-            [[[UIAlertView alloc] initWithTitle:@"Error" message:error.localizedDescription delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil] show];
+            [[Utils getInstance] showErrorMessage:@"Something went wrong" message:@"Could not get user info"]; //?
             areFriendsLoaded = NO;
         }
         else
@@ -100,23 +111,22 @@ NSString* userId;
             NSError *myError = nil;
             NSMutableData* responseData = [NSMutableData data];
             [responseData appendData:data];
-
-            NSArray *friendsArray = [NSJSONSerialization JSONObjectWithData:responseData options:NSJSONReadingMutableLeaves error:&myError];
+            
+            friendsArray = [NSJSONSerialization JSONObjectWithData:responseData options:NSJSONReadingMutableLeaves error:&myError];
             
             if(myError){
                 areFriendsLoaded = NO;
                 return;
             }
-        
+            
             areFriendsLoaded = YES;
-          //  NSDictionary *user1 = [friendsArray objectAtIndex:0];
             
             NSLog(@"getting friends finished");
             
             [prefs setObject:friendsArray forKey:@"userFriends"];
             
             [self fillFriendsImageViews:friendsArray];
-         
+            
         }
     };
     
@@ -131,26 +141,42 @@ NSString* userId;
     [[UIApplication sharedApplication] setStatusBarHidden:NO];
 }
 
--(void) fillFriendsImageViews:(NSArray*) friendsArray{
+-(void) clearFriends
+{
+    imageViewFriendPicture1.image = nil;
+    imageViewFriendPicture2.image = nil;
+    imageViewFriendPicture3.image = nil;
+    labelNameFriendPicture1.text = @"";
+    labelNameFriendPicture2.text = @"";
+    labelNameFriendPicture3.text = @"";
+}
 
+-(void) fillFriendsImageViews:(NSArray*) friendsArray{
+    [self clearFriends];
+    
     if([friendsArray count] > 0){
         imageViewFriendPicture1.image = [UIImage imageNamed:@"squarePNG.png"];
         NSDictionary *user1 = [friendsArray objectAtIndex:0];
         NSURL *URL = [NSURL URLWithString:user1[@"pictureUrl"]];
         imageViewFriendPicture1.imageURL = URL;
+        labelNameFriendPicture1.text = user1[@"firstName"];
     }
     if([friendsArray count] > 1){
         imageViewFriendPicture2.image = [UIImage imageNamed:@"squarePNG.png"];
         NSDictionary *user2 = [friendsArray objectAtIndex:1];
         NSURL *URL = [NSURL URLWithString:user2[@"pictureUrl"]];
         imageViewFriendPicture2.imageURL = URL;
+        labelNameFriendPicture2.text = user2[@"firstName"];
     }
     if([friendsArray count] > 2){
         imageViewFriendPicture3.image = [UIImage imageNamed:@"squarePNG.png"];
         NSDictionary *user3 = [friendsArray objectAtIndex:2];
         NSURL *URL = [NSURL URLWithString:user3[@"pictureUrl"]];
         imageViewFriendPicture3.imageURL = URL;
+        labelNameFriendPicture3.text = user3[@"firstName"];
     }
+    [buttonFriends setTitle:[NSString stringWithFormat:@"Friends (%d)", [friendsArray count]] forState:UIControlStateNormal];
+    [buttonPhotos setTitle:[NSString stringWithFormat:@"Photos (%d)", [friendsArray count]] forState:UIControlStateNormal]; //FIX THIS! instead of friendsArray put photos array
 }
 
 
@@ -159,6 +185,10 @@ NSString* userId;
     [super viewDidAppear:animated];
     if(!areFriendsLoaded)
         [self getFriends];
+    else{
+        friendsArray = [[Utils getInstance] getUserFriendsFromPrefs];
+        [self fillFriendsImageViews:friendsArray];
+    }
 }
 
 - (void)didReceiveMemoryWarning
@@ -168,15 +198,15 @@ NSString* userId;
 }
 
 /*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
-{
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
+ #pragma mark - Navigation
+ 
+ // In a storyboard-based application, you will often want to do a little preparation before navigation
+ - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
+ {
+ // Get the new view controller using [segue destinationViewController].
+ // Pass the selected object to the new view controller.
+ }
+ */
 
 //hide the status bar
 - (BOOL)prefersStatusBarHidden
@@ -186,7 +216,7 @@ NSString* userId;
 
 
 -(UIStatusBarStyle)preferredStatusBarStyle{
-    return UIStatusBarStyleDefault;
+    return UIStatusBarStyleLightContent;
 }
 
 - (IBAction)logout:(id)sender{
@@ -194,7 +224,7 @@ NSString* userId;
     NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
     [prefs setObject:nil forKey:@"userInfo"];
     [prefs setObject:nil forKey:@"userFriends"];
-
+    
     UIViewController *loginViewController =
     [[UIStoryboard storyboardWithName:@"Main" bundle:nil]instantiateViewControllerWithIdentifier:@"loginViewController"];
     [[self navigationController] pushViewController:loginViewController
