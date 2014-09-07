@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="5056" systemVersion="13E28" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" initialViewController="2qv-O0-2Hm">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="5056" systemVersion="13E28" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" initialViewController="Gfl-iF-mUt">
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="3733"/>
     </dependencies>
@@ -29,6 +29,7 @@
                                 </state>
                                 <connections>
                                     <action selector="btnShowHideNavigationBarClick:" destination="vXZ-lx-hvc" eventType="touchUpInside" id="Ujx-Yp-Ukh"/>
+                                    <outletCollection property="gestureRecognizers" destination="Gz6-XV-ZQr" appends="YES" id="PH8-xI-Uk3"/>
                                 </connections>
                             </button>
                             <view alpha="0.49999999999999961" contentMode="scaleToFill" id="hwK-Qu-2SZ">
@@ -64,7 +65,7 @@
                         <outlet property="previewView" destination="H8t-Nl-LE2" id="blu-JI-DgW"/>
                         <outlet property="switchButton" destination="O4x-xM-kYQ" id="lJz-4F-WIh"/>
                         <outlet property="topView" destination="hwK-Qu-2SZ" id="lc6-hv-2P3"/>
-                        <segue destination="4xQ-p3-She" kind="push" identifier="ImageSegueIdentifier" id="QLB-DI-EEn"/>
+                        <segue destination="4xQ-p3-She" kind="push" identifier="ImageSegueIdentifier" id="ehx-6W-1QX"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="x5A-6p-PRh" sceneMemberID="firstResponder"/>
@@ -75,7 +76,7 @@
                     </connections>
                 </pinchGestureRecognizer>
             </objects>
-            <point key="canvasLocation" x="561" y="158"/>
+            <point key="canvasLocation" x="2808" y="955"/>
         </scene>
         <!--Image View Controller-->
         <scene sceneID="s7u-qK-8sv">
@@ -134,30 +135,33 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="xCO-86-e5v" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="987" y="151"/>
+            <point key="canvasLocation" x="3190" y="955"/>
         </scene>
-        <!--Navigation View Controller-->
-        <scene sceneID="Cq9-5B-7Y5">
+        <!--Navigation View Controller - Capture-->
+        <scene sceneID="rqL-uw-H0g">
             <objects>
-                <navigationController storyboardIdentifier="MainNav" automaticallyAdjustsScrollViewInsets="NO" id="2qv-O0-2Hm" customClass="BIDNavigationViewController" sceneMemberID="viewController">
+                <navigationController storyboardIdentifier="MainNav" automaticallyAdjustsScrollViewInsets="NO" id="Gfl-iF-mUt" customClass="BIDNavigationViewController" sceneMemberID="viewController">
+                    <tabBarItem key="tabBarItem" title="Capture" image="saycheese_logo_white.png" id="jyR-bB-Bk7"/>
                     <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="URN-NO-4ch">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="adA-m6-oug">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
                     <nil name="viewControllers"/>
                     <connections>
-                        <segue destination="vXZ-lx-hvc" kind="relationship" relationship="rootViewController" id="iWt-Aa-etd"/>
+                        <segue destination="vXZ-lx-hvc" kind="relationship" relationship="rootViewController" id="wsv-bU-DgC"/>
                     </connections>
                 </navigationController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="owh-r9-aq0" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Z9I-hs-ct0" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="40" y="151"/>
+            <point key="canvasLocation" x="2282" y="955"/>
         </scene>
     </scenes>
     <resources>
         <image name="camera_switch.png" width="44" height="44"/>
+        <image name="saycheese_logo_white.png" width="22" height="22"/>
     </resources>
+    <color key="tintColor" red="0.08235294118" green="0.62745098040000002" blue="0.51764705879999995" alpha="1" colorSpace="deviceRGB"/>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
         <simulatedStatusBarMetrics key="statusBar"/>
         <simulatedOrientationMetrics key="orientation"/>

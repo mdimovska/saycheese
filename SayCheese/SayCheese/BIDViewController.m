@@ -14,7 +14,6 @@
 #import <ImageIO/CGImageProperties.h>
 
 #import "BIDImageViewController.h"
-
 #pragma mark-
 
 // used for KVO observation of the @"capturingStillImage" property to perform flash bulb animation
@@ -114,7 +113,6 @@ static CGContextRef CreateCGBitmapContextForSize(CGSize size)
 	CGAffineTransform t = CGAffineTransformMakeRotation(DegreesToRadians(degrees));
 	rotatedViewBox.transform = t;
 	CGSize rotatedSize = rotatedViewBox.frame.size;
-	[rotatedViewBox release];
 	
 	// Create the bitmap context
 	UIGraphicsBeginImageContext(rotatedSize);
@@ -163,68 +161,55 @@ static CGContextRef CreateCGBitmapContextForSize(CGSize size)
     // Select a video device, make an input
 	AVCaptureDevice *device = [AVCaptureDevice defaultDeviceWithMediaType:AVMediaTypeVideo];
 	AVCaptureDeviceInput *deviceInput = [AVCaptureDeviceInput deviceInputWithDevice:device error:&error];
-	require( error == nil, bail );
-	
-    isUsingFrontFacingCamera = NO;
-    isPictureTaken = NO;
     
-	if ( [session canAddInput:deviceInput] ){
-        /*
-        AVCaptureDevicePosition desiredPosition;
-        if (isUsingFrontFacingCamera)
-            desiredPosition = AVCaptureDevicePositionFront;
-        else
-            desiredPosition = AVCaptureDevicePositionBack;
+    if(error) goto bail;
+	{
+        isUsingFrontFacingCamera = NO;
+        isPictureTaken = NO;
         
-        for (AVCaptureDevice *d in [AVCaptureDevice devicesWithMediaType:AVMediaTypeVideo]) {
-            if ([d position] == desiredPosition) {
-                AVCaptureDeviceInput *input = [AVCaptureDeviceInput deviceInputWithDevice:d error:nil];
-                [session addInput:input];
-            }
+        if ( [session canAddInput:deviceInput] ){
+            [session addInput:deviceInput];
         }
-        */
-        [session addInput:deviceInput];
+        
+        // Make a still image output
+        stillImageOutput = [AVCaptureStillImageOutput new];
+        [stillImageOutput addObserver:self forKeyPath:@"capturingStillImage" options:NSKeyValueObservingOptionNew context:(__bridge void*)AVCaptureStillImageIsCapturingStillImageContext];
+        if ( [session canAddOutput:stillImageOutput] )
+            [session addOutput:stillImageOutput];
+        
+        // Make a video data output
+        videoDataOutput = [AVCaptureVideoDataOutput new];
+        
+        // we want BGRA, both CoreGraphics and OpenGL work well with 'BGRA'
+        NSDictionary *rgbOutputSettings = [NSDictionary dictionaryWithObject:
+                                           [NSNumber numberWithInt:kCMPixelFormat_32BGRA] forKey:(id)kCVPixelBufferPixelFormatTypeKey];
+        [videoDataOutput setVideoSettings:rgbOutputSettings];
+        [videoDataOutput setAlwaysDiscardsLateVideoFrames:YES]; // discard if the data output queue is blocked (as we process the still image)
+        
+        // create a serial dispatch queue used for the sample buffer delegate as well as when a still image is captured
+        // a serial dispatch queue must be used to guarantee that video frames will be delivered in order
+        // see the header doc for setSampleBufferDelegate:queue: for more information
+        videoDataOutputQueue = dispatch_queue_create("VideoDataOutputQueue", DISPATCH_QUEUE_SERIAL);
+        [videoDataOutput setSampleBufferDelegate:self queue:videoDataOutputQueue];
+        
+        [[videoDataOutput connectionWithMediaType:AVMediaTypeVideo] setEnabled:NO];
+        
+        effectiveScale = 1.0;
+        previewLayer = [[AVCaptureVideoPreviewLayer alloc] initWithSession:session];
+        
+        [previewLayer setBackgroundColor:[[UIColor blackColor] CGColor]];
+        [previewLayer setVideoGravity:AVLayerVideoGravityResizeAspectFill];
+        CALayer *rootLayer = [previewView layer];
+        [rootLayer setMasksToBounds:YES];
+        [previewLayer setFrame:[rootLayer bounds]];
+        [rootLayer addSublayer:previewLayer];
+        [session startRunning];
+        
+        if ( [session canAddOutput:videoDataOutput] )
+            [session addOutput:videoDataOutput];
     }
-    
-    // Make a still image output
-	stillImageOutput = [AVCaptureStillImageOutput new];
-	[stillImageOutput addObserver:self forKeyPath:@"capturingStillImage" options:NSKeyValueObservingOptionNew context:AVCaptureStillImageIsCapturingStillImageContext];
-	if ( [session canAddOutput:stillImageOutput] )
-		[session addOutput:stillImageOutput];
-	
-    // Make a video data output
-	videoDataOutput = [AVCaptureVideoDataOutput new];
-	
-    // we want BGRA, both CoreGraphics and OpenGL work well with 'BGRA'
-	NSDictionary *rgbOutputSettings = [NSDictionary dictionaryWithObject:
-									   [NSNumber numberWithInt:kCMPixelFormat_32BGRA] forKey:(id)kCVPixelBufferPixelFormatTypeKey];
-	[videoDataOutput setVideoSettings:rgbOutputSettings];
-	[videoDataOutput setAlwaysDiscardsLateVideoFrames:YES]; // discard if the data output queue is blocked (as we process the still image)
-    
-    // create a serial dispatch queue used for the sample buffer delegate as well as when a still image is captured
-    // a serial dispatch queue must be used to guarantee that video frames will be delivered in order
-    // see the header doc for setSampleBufferDelegate:queue: for more information
-	videoDataOutputQueue = dispatch_queue_create("VideoDataOutputQueue", DISPATCH_QUEUE_SERIAL);
-	[videoDataOutput setSampleBufferDelegate:self queue:videoDataOutputQueue];
-	
-	[[videoDataOutput connectionWithMediaType:AVMediaTypeVideo] setEnabled:NO];
-	
-	effectiveScale = 1.0;
-	previewLayer = [[AVCaptureVideoPreviewLayer alloc] initWithSession:session];
-    
-	[previewLayer setBackgroundColor:[[UIColor blackColor] CGColor]];
-	[previewLayer setVideoGravity:AVLayerVideoGravityResizeAspectFill];
-	CALayer *rootLayer = [previewView layer];
-	[rootLayer setMasksToBounds:YES];
-	[previewLayer setFrame:[rootLayer bounds]];
-	[rootLayer addSublayer:previewLayer];
-	[session startRunning];
-    
-    if ( [session canAddOutput:videoDataOutput] )
-		[session addOutput:videoDataOutput];
-    
 bail:
-	[session release];
+	;
 	if (error) {
 		UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:[NSString stringWithFormat:@"Failed with error %d", (int)[error code]]
 															message:[error localizedDescription]
@@ -232,27 +217,22 @@ bail:
 												  cancelButtonTitle:@"Dismiss"
 												  otherButtonTitles:nil];
 		[alertView show];
-		[alertView release];
 		[self teardownAVCapture];
 	}
+    
 }
 
 // clean up capture setup
 - (void)teardownAVCapture
 {
-	[videoDataOutput release];
-	if (videoDataOutputQueue)
-		dispatch_release(videoDataOutputQueue);
 	[stillImageOutput removeObserver:self forKeyPath:@"isCapturingStillImage"];
-	[stillImageOutput release];
 	[previewLayer removeFromSuperlayer];
-	[previewLayer release];
 }
 
 // perform a flash bulb animation using KVO to monitor the value of the capturingStillImage property of the AVCaptureStillImageOutput class
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context
 {
-	if ( context == AVCaptureStillImageIsCapturingStillImageContext ) {
+	if ( context == (__bridge void *)(AVCaptureStillImageIsCapturingStillImageContext) ) {
 		BOOL isCapturingStillImage = [[change objectForKey:NSKeyValueChangeNewKey] boolValue];
 		
 		if ( isCapturingStillImage ) {
@@ -275,7 +255,6 @@ bail:
 							 }
 							 completion:^(BOOL finished){
 								 [flashView removeFromSuperview];
-								 [flashView release];
 								 flashView = nil;
 							 }
 			 ];
@@ -286,7 +265,7 @@ bail:
 // utility routing used during image capture to set up capture orientation
 - (AVCaptureVideoOrientation)avOrientationForDeviceOrientation:(UIDeviceOrientation)deviceOrientation
 {
-	AVCaptureVideoOrientation result = (AVCaptureVideoOrientation)deviceOrientation;
+	AVCaptureVideoOrientation result = (AVCaptureVideoOrientation) deviceOrientation;
 	if ( deviceOrientation == UIDeviceOrientationLandscapeLeft )
 		result = AVCaptureVideoOrientationLandscapeRight;
 	else if ( deviceOrientation == UIDeviceOrientationLandscapeRight )
@@ -303,9 +282,10 @@ bail:
 																		 1,
 																		 NULL);
 	BOOL success = (destination != NULL);
-	require(success, bail);
     
-	const float JPEGCompQuality = 0.85f; // JPEGHigherQuality
+    if(!success) goto bail;
+    
+	const float JPEGCompQuality = 0.85f;
 	CFMutableDictionaryRef optionsDict = NULL;
 	CFNumberRef qualityNum = NULL;
 	
@@ -322,24 +302,25 @@ bail:
     
 	if ( optionsDict )
 		CFRelease(optionsDict);
-	
-	require(success, bail);
-	
-	CFRetain(destinationData);
-	ALAssetsLibrary *library = [ALAssetsLibrary new];
-	[library writeImageDataToSavedPhotosAlbum:(id)destinationData metadata:metadata completionBlock:^(NSURL *assetURL, NSError *error) {
-		if (destinationData)
-			CFRelease(destinationData);
-	}];
-	[library release];
     
-    
+    if(!success) goto bail;
+    {
+        
+        CFRetain(destinationData);
+        ALAssetsLibrary *library = [ALAssetsLibrary new];
+        [library writeImageDataToSavedPhotosAlbum:(__bridge id)destinationData metadata:metadata completionBlock:^(NSURL *assetURL, NSError *error) {
+            if (destinationData)
+                CFRelease(destinationData);
+        }];
+        
+    }
 bail:
 	if (destinationData)
 		CFRelease(destinationData);
 	if (destination)
 		CFRelease(destination);
 	return success;
+    
 }
 
 // utility routine to display error aleart if takePicture fails
@@ -352,7 +333,6 @@ bail:
 												  cancelButtonTitle:@"Dismiss"
 												  otherButtonTitles:nil];
 		[alertView show];
-		[alertView release];
 	});
 }
 
@@ -425,15 +405,14 @@ bail:
     
 	CGSize parentFrameSize = [previewView frame].size;
 	NSString *gravity = [previewLayer videoGravity];
-    //OLD:
-    //BOOL isMirrored = [previewLayer isMirrored];
-
+    
 	BOOL isMirrored = [previewLayer.connection isVideoMirrored];
 	CGRect previewBox = [BIDViewController videoPreviewBoxForGravity:gravity
-                                                                 frameSize:parentFrameSize
-                                                              apertureSize:clap.size];
+                                                           frameSize:parentFrameSize
+                                                        apertureSize:clap.size];
 	
-	for ( CIFaceFeature *ff in features ) {
+	for ( CIFaceFeature *ff in features )
+    {
 		// find the correct position for the square layer within the previewLayer
 		// the feature box originates in the bottom left of the video frame.
 		// (Bottom right if mirroring is turned on)
@@ -476,7 +455,6 @@ bail:
 			[featureLayer setContents:(id)[square CGImage]];
 			[featureLayer setName:@"FaceLayer"];
 			[previewLayer addSublayer:featureLayer];
-			[featureLayer release];
 		}
 		[featureLayer setFrame:faceRect];
 		
@@ -507,15 +485,15 @@ bail:
 
 - (void)captureOutput:(AVCaptureOutput *)captureOutput didOutputSampleBuffer:(CMSampleBufferRef)sampleBuffer fromConnection:(AVCaptureConnection *)connection
 {
-      NSLog(@"didOutputSampleBuffer");
+    NSLog(@"didOutputSampleBuffer");
     
 	// got an image
 	CVPixelBufferRef pixelBuffer = CMSampleBufferGetImageBuffer(sampleBuffer);
 	CFDictionaryRef attachments = CMCopyDictionaryOfAttachments(kCFAllocatorDefault, sampleBuffer, kCMAttachmentMode_ShouldPropagate);
-	CIImage *ciImage = [[CIImage alloc] initWithCVPixelBuffer:pixelBuffer options:(NSDictionary *)attachments];
+	CIImage *ciImage = [[CIImage alloc] initWithCVPixelBuffer:pixelBuffer options:(__bridge NSDictionary *)attachments];
 	if (attachments)
 		CFRelease(attachments);
-	//NSDictionary *imageOptions = nil;
+	
 	UIDeviceOrientation curDeviceOrientation = [[UIDevice currentDevice] orientation];
 	int exifOrientation;
 	
@@ -560,28 +538,6 @@ bail:
 			break;
 	}
     
-    /*
-     imageOptions = [NSDictionary dictionaryWithObject:[NSNumber numberWithInt:exifOrientation] forKey:CIDetectorImageOrientation];
-     NSArray *features = [faceDetector featuresInImage:ciImage options:imageOptions];
-     [ciImage release];
-     
-     // get the clean aperture
-     // the clean aperture is a rectangle that defines the portion of the encoded pixel dimensions
-     // that represents image data valid for display.
-     
-     */
-    
-	//CMFormatDescriptionRef fdesc = CMSampleBufferGetFormatDescription(sampleBuffer);
-	//CGRect clap = CMVideoFormatDescriptionGetCleanAperture(fdesc, false /*originIsTopLeft == false*/);
-	
-    
-    
-    
-    //	dispatch_async(dispatch_get_main_queue(), ^(void) {
-    //[self drawFaceBoxesForFeatures:features forVideoBox:clap orientation:curDeviceOrientation];
-    //	});
-    
-    
     NSDictionary *imageSmileOptions = @{
                                         CIDetectorSmile: @(YES),
                                         CIDetectorEyeBlink: @(YES),
@@ -589,7 +545,6 @@ bail:
                                         };
     
     NSArray *featuresSmileDetection = [smileDetector featuresInImage:ciImage options:imageSmileOptions];
-    [ciImage release];
     
     NSMutableString *resultStr = @"DETECTED FACES:\n".mutableCopy;
     
@@ -608,7 +563,7 @@ bail:
     }
     
     CMFormatDescriptionRef fdesc = CMSampleBufferGetFormatDescription(sampleBuffer);
-    CGRect clap = CMVideoFormatDescriptionGetCleanAperture(fdesc, false );
+    CGRect clap = CMVideoFormatDescriptionGetCleanAperture(fdesc, false /*originIsTopLeft == false*/);
     
     
     dispatch_async(dispatch_get_main_queue(), ^(void) {
@@ -617,7 +572,10 @@ bail:
         {
             if(!isPictureTaken){
                 isPictureTaken = YES;
-               [self takePicture];
+                //take picture with delay of 0.3s
+                dispatch_after(dispatch_time(DISPATCH_TIME_NOW, 0.3 * NSEC_PER_SEC), dispatch_get_main_queue(), ^{
+                    [self takePicture];
+                });
             }
         }
     });
@@ -627,10 +585,6 @@ bail:
 - (void)dealloc
 {
 	[self teardownAVCapture];
-	[faceDetector release];
-    [smileDetector release];
-	[square release];
-	[super dealloc];
 }
 
 // use front/back camera
@@ -657,7 +611,8 @@ bail:
 	isUsingFrontFacingCamera = !isUsingFrontFacingCamera;
 }
 
--(void) changeSessionInput:(AVCaptureDevicePosition)desiredPosition{
+-(void) changeSessionInput:(AVCaptureDevicePosition)desiredPosition
+{
 	for (AVCaptureDevice *d in [AVCaptureDevice devicesWithMediaType:AVMediaTypeVideo]) {
 		if ([d position] == desiredPosition) {
 			[[previewLayer session] beginConfiguration];
@@ -679,8 +634,7 @@ bail:
     // Dispose of any resources that can be recreated.
 }
 
-// utility routine to create a new image with the red square overlay with appropriate orientation
-// and return the new composited image which can be saved to the camera roll
+// utility routine to create a new image which can be saved to the camera roll
 - (CGImageRef)newSquareOverlayedImageForFeatures:(NSArray *)features
                                        inCGImage:(CGImageRef)backgroundImage
                                  withOrientation:(UIDeviceOrientation)orientation
@@ -690,14 +644,10 @@ bail:
 	CGRect backgroundImageRect = CGRectMake(0., 0., CGImageGetWidth(backgroundImage), CGImageGetHeight(backgroundImage));
 	CGContextRef bitmapContext = CreateCGBitmapContextForSize(backgroundImageRect.size);
 	CGContextClearRect(bitmapContext, backgroundImageRect);
-		CGFloat rotationDegrees = 0.;
+    CGFloat rotationDegrees = 0.;
     
-    //NEW
-    if(isFrontFacing){
-      //  backgroundImage = [[CGImageCreateCopy(backgroundImage)] imageRotatedByDegrees:180];
-    }
 	CGContextDrawImage(bitmapContext, backgroundImageRect, backgroundImage);
-
+    
     
 	switch (orientation) {
 		case UIDeviceOrientationPortrait:
@@ -719,17 +669,7 @@ bail:
 		default:
 			break; // leave the layer in its last known orientation
 	}
-	
-    /*
-     UIImage *rotatedSquareImage = [square imageRotatedByDegrees:rotationDegrees];
-
-    // features found by the face detector
-	for ( CIFaceFeature *ff in features ) {
-		CGRect faceRect = [ff bounds];
-		CGContextDrawImage(bitmapContext, faceRect, [rotatedSquareImage CGImage]);
-	}
-     */
-   
+    
 	returnImage = CGBitmapContextCreateImage(bitmapContext);
 	CGContextRelease (bitmapContext);
 	
@@ -768,12 +708,12 @@ bail:
                                                               // Got an image.
                                                               CVPixelBufferRef pixelBuffer = CMSampleBufferGetImageBuffer(imageDataSampleBuffer);
                                                               CFDictionaryRef attachments = CMCopyDictionaryOfAttachments(kCFAllocatorDefault, imageDataSampleBuffer, kCMAttachmentMode_ShouldPropagate);
-                                                              CIImage *ciImage = [[CIImage alloc] initWithCVPixelBuffer:pixelBuffer options:(NSDictionary *)attachments];
+                                                              CIImage *ciImage = [[CIImage alloc] initWithCVPixelBuffer:pixelBuffer options:(__bridge NSDictionary *)attachments];
                                                               if (attachments)
                                                                   CFRelease(attachments);
                                                               
                                                               NSDictionary *imageOptions = nil;
-                                                              NSNumber *orientation = CMGetAttachment(imageDataSampleBuffer, kCGImagePropertyOrientation, NULL);
+                                                              NSNumber *orientation = (__bridge NSNumber *)(CMGetAttachment(imageDataSampleBuffer, kCGImagePropertyOrientation, NULL));
                                                               if (orientation) {
                                                                   imageOptions = [NSDictionary dictionaryWithObject:orientation forKey:CIDetectorImageOrientation];
                                                               }
@@ -793,38 +733,39 @@ bail:
                                                                   
                                                                   
                                                                   cgImageResult = [self newSquareOverlayedImageForFeatures:features
-                                                                                                                            inCGImage:srcImage
-                                                                                                                      withOrientation:curDeviceOrientation
-                                                                                                                          frontFacing:isUsingFrontFacingCamera];
+                                                                                                                 inCGImage:srcImage
+                                                                                                           withOrientation:curDeviceOrientation
+                                                                                                               frontFacing:isUsingFrontFacingCamera];
+                                                                  
                                                                   if (srcImage)
                                                                       CFRelease(srcImage);
                                                                   
                                                               });
                                                               
-                                                              [ciImage release];
                                                           }
                                                           else {
                                                               // trivial simple JPEG case
                                                               
                                                               jpegData = [AVCaptureStillImageOutput jpegStillImageNSDataRepresentation:imageDataSampleBuffer];
                                                               CFDictionaryRef attachments = CMCopyDictionaryOfAttachments(kCFAllocatorDefault,
-                                                                                                                imageDataSampleBuffer,
-                                                                                                                    kCMAttachmentMode_ShouldPropagate);
-                                                              ALAssetsLibrary *library = [[ALAssetsLibrary alloc] init];
-                                                             
+                                                                                                                          imageDataSampleBuffer,
+                                                                                                                          kCMAttachmentMode_ShouldPropagate);
+                                                              
                                                               if (attachments)
                                                                   CFRelease(attachments);
-                                                              [library release];
                                                               
                                                           }
-                                                         
-                                                          [previewLayer.session stopRunning];
-                                                                                                              [self performSegueWithIdentifier:@"ImageSegueIdentifier" sender:self];
+                                                          
+                                                          
+                                                          [[self.navigationController topViewController] performSegueWithIdentifier:@"ImageSegueIdentifier" sender:self];
+                                                          
                                                       }                                                  }
 	 ];
 }
 
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
+{
     if ([[segue identifier] isEqualToString:@"ImageSegueIdentifier"])
     {
         UIDeviceOrientation curDeviceOrientation = [[UIDevice currentDevice] orientation];
@@ -869,14 +810,12 @@ bail:
         BOOL doingFaceDetection = (effectiveScale == 1.0);
         if (doingFaceDetection){
             //rotate the image
-           imageViewController.image = [UIImage imageWithCGImage:cgImageResult scale:effectiveScale orientation:imageOrientation];
-           CFRelease(cgImageResult);
+            imageViewController.image = [UIImage imageWithCGImage:cgImageResult scale:effectiveScale orientation:imageOrientation];
+            CFRelease(cgImageResult);
             imageViewController.jpegData = NULL;
         }else {
-            //scale != 1.0
-   //         imageViewController.image =  [[UIImage alloc] initWithData:jpegData] ;
-           imageViewController.jpegData = jpegData;
-            imageViewController.image =  [UIImage imageWithData:jpegData scale:effectiveScale]; //imageRotatedByDegrees:rotationDegrees];
+            imageViewController.jpegData = jpegData;
+            imageViewController.image =  [UIImage imageWithData:jpegData scale:effectiveScale];
         }
     }
 }
@@ -888,7 +827,8 @@ bail:
 }
 
 
--(UIStatusBarStyle)preferredStatusBarStyle{
+-(UIStatusBarStyle)preferredStatusBarStyle
+{
     return UIStatusBarStyleDefault;
 }
 
@@ -898,24 +838,19 @@ bail:
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-	// Do any additional setup after loading the view, typically from a nib.
+    
     cgImageResult = NULL;
-   
-	square = [[UIImage imageNamed:@"squarePNG"] retain];
+    
+	square = [UIImage imageNamed:@"squarePNG"];
 	NSDictionary *detectorOptions = [[NSDictionary alloc] initWithObjectsAndKeys:CIDetectorAccuracyLow, CIDetectorAccuracy, nil];
-	faceDetector = [[CIDetector detectorOfType:CIDetectorTypeFace context:nil options:detectorOptions] retain];
+	faceDetector = [CIDetector detectorOfType:CIDetectorTypeFace context:nil options:detectorOptions];
     
-    /*  smileDetector = [[CIDetector detectorOfType:CIDetectorTypeFace
-     context:nil
-     options:@{CIDetectorAccuracy: CIDetectorAccuracyHigh}] retain];
-     */
-    smileDetector = [[CIDetector detectorOfType:CIDetectorTypeFace
-                                        context:nil
-                                        options: detectorOptions] retain];
+    smileDetector = [CIDetector detectorOfType:CIDetectorTypeFace
+                                       context:nil
+                                       options: detectorOptions];
     
-	[detectorOptions release];
     
-     [self setupAVCapture];
+    [self setupAVCapture];
     
     [[UIApplication sharedApplication] setStatusBarHidden:YES];
     
@@ -924,16 +859,14 @@ bail:
 - (void)viewDidUnload
 {
     [super viewDidUnload];
-    // Release any retained subviews of the main view.
-    // e.g. self.myOutlet = nil;
 }
 
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
     isPictureTaken = NO;
-     [previewLayer.session startRunning];
-     [self.navigationController setNavigationBarHidden:YES animated:animated];
+    [previewLayer.session startRunning];
+    [self.navigationController setNavigationBarHidden:YES animated:animated];
     [[UIApplication sharedApplication] setStatusBarHidden:YES];
 }
 
@@ -944,6 +877,7 @@ bail:
 
 - (void)viewWillDisappear:(BOOL)animated
 {
+    [previewLayer.session stopRunning];
 	[super viewWillDisappear:animated];
 }
 
@@ -954,7 +888,8 @@ bail:
 
 - (BOOL)gestureRecognizerShouldBegin:(UIGestureRecognizer *)gestureRecognizer
 {
-	if ( [gestureRecognizer isKindOfClass:[UIPinchGestureRecognizer class]] ) {
+	if ( [gestureRecognizer isKindOfClass:[UIPinchGestureRecognizer class]] )
+    {
 		beginGestureScale = effectiveScale;
 	}
     
@@ -989,6 +924,7 @@ bail:
 	}
 }
 
+//only portrait orientation allowed in this view
 
 - (NSUInteger)supportedInterfaceOrientations
 {
@@ -996,64 +932,17 @@ bail:
 }
 
 -(UIInterfaceOrientation)preferredInterfaceOrientationForPresentation {
+    
     return (UIInterfaceOrientationPortrait);
 }
--(BOOL) shouldAutorotate {
+-(BOOL) shouldAutorotate
+{
     return YES;
 }
 
--(void)willAnimateRotationToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation duration:(NSTimeInterval)duration{
-    NSLog(@"willAnimateRotationToInterfaceOrientation");
-
-    CGAffineTransform rotate = CGAffineTransformMakeRotation( 1.0 / 180.0 * 3.14 );
-    [switchButton setTransform:rotate];
-}
-
--(void) deviceDidRotate:(NSNotification *)notification
+- (IBAction)btnShowHideNavigationBarClick:(id)sender
 {
-    NSLog(@"deviceDidRotate");
-    UIDeviceOrientation currentOrientation = [[UIDevice currentDevice] orientation];
-    double rotation = 0;
-    UIInterfaceOrientation statusBarOrientation;
-    switch (currentOrientation) {
-        case UIDeviceOrientationFaceDown:
-        case UIDeviceOrientationFaceUp:
-        case UIDeviceOrientationUnknown:
-            return;
-        case UIDeviceOrientationPortrait:
-            rotation = 0;
-            statusBarOrientation = UIInterfaceOrientationPortrait;
-            break;
-        case UIDeviceOrientationPortraitUpsideDown:
-            rotation = -M_PI;
-            statusBarOrientation = UIInterfaceOrientationPortraitUpsideDown;
-            break;
-        case UIDeviceOrientationLandscapeLeft:
-            rotation = M_PI_2;
-            statusBarOrientation = UIInterfaceOrientationLandscapeRight;
-            break;
-        case UIDeviceOrientationLandscapeRight:
-            rotation = -M_PI_2;
-            statusBarOrientation = UIInterfaceOrientationLandscapeLeft;
-            break;
-    }
-    CGAffineTransform transform = CGAffineTransformMakeRotation(rotation);
-    [UIView animateWithDuration:0.4 delay:0.0 options:UIViewAnimationOptionBeginFromCurrentState animations:^{
-        [switchButton setTransform:transform];
-        [[UIApplication sharedApplication] setStatusBarOrientation:statusBarOrientation];
-    } completion:nil];
-}
-
-- (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
-{
-    [[UIDevice currentDevice] beginGeneratingDeviceOrientationNotifications];
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(deviceDidRotate:) name:UIDeviceOrientationDidChangeNotification object:nil];
-    // Override point for customization after application launch.
-    return YES;
-}
-
-- (IBAction)btnShowHideNavigationBarClick:(id)sender {
-    // show/hide nav bar and toolbar
+    // show/hide navigation bar and toolbar
     topView.hidden = !topView.hidden;
 }
 @end
