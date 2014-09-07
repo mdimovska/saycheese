@@ -98,8 +98,9 @@ bool isCancelRequestSent;
         [cell.addButton addTarget:self action:@selector(acceptFriendClicked:) forControlEvents:UIControlEventTouchUpInside];
 
     cell.nameLabel.text = [[result[@"firstName"] stringByAppendingString: @" "] stringByAppendingString:result[@"lastName"]];
+    
     [[Utils getInstance] setImageViewRound:cell.imageViewFriendPicture];
-    cell.imageViewFriendPicture.image = [UIImage imageNamed:@"squarePNG.png"];
+    cell.imageViewFriendPicture.image = [UIImage imageNamed:@"default_user1.jpg"];
     NSURL *URL = [NSURL URLWithString: result[@"pictureUrl"]];
     cell.imageViewFriendPicture.imageURL = URL;
     

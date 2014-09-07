@@ -71,10 +71,10 @@ NSString* userIdInFriendsController = @"";
 
 -(void) setNavigationBarItems
 {
-    
-    UIBarButtonItem *friendRequestsItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"friend_requests_icon.png"] style:UIBarButtonItemStylePlain target:self action:@selector(goToFriendRequestsController:)];
-    
-    UIBarButtonItem * addFriendsItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"add_friends_icon.png"] style:UIBarButtonItemStylePlain target:self action:@selector(goToAddFriendsController:)]; 
+    UIImage* image = [[UIImage imageNamed:@"icon_add_friends.png" ] imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
+    UIBarButtonItem *friendRequestsItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"icon_friend_requests.png"] style:UIBarButtonItemStylePlain target:self action:@selector(goToFriendRequestsController:)];
+  
+    UIBarButtonItem * addFriendsItem = [[UIBarButtonItem alloc] initWithImage:image style:UIBarButtonItemStylePlain target:self action:@selector(goToAddFriendsController:)];
     
     NSArray *actionButtonItems = @[addFriendsItem, friendRequestsItem];
     self.navigationItem.rightBarButtonItems = actionButtonItems;
@@ -137,14 +137,14 @@ NSString* userIdInFriendsController = @"";
         cell = [[BIDFriendsTableViewCell alloc]
                 initWithStyle:UITableViewCellStyleDefault
                 reuseIdentifier:CellIdentifier];
-    }
+     }
     NSMutableDictionary *result =[friendsArray objectAtIndex: [indexPath row]];
     
     cell.nameLabel.text = [[result[@"firstName"] stringByAppendingString: @" "] stringByAppendingString:result[@"lastName"]];
     //set temporaty img until image is loaded
-    
     [[Utils getInstance] setImageViewRound:cell.imageViewFriendPicture];
-    cell.imageViewFriendPicture.image = [UIImage imageNamed:@"squarePNG.png"];
+    
+    cell.imageViewFriendPicture.image = [UIImage imageNamed:@"default_user1.jpg"];
     NSURL *URL = [NSURL URLWithString:result[@"pictureUrl"]];
     cell.imageViewFriendPicture.imageURL = URL;
     return cell;

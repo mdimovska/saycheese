@@ -105,7 +105,7 @@ bool isCancelRequestSent;
         cell = [[BIDAddFriendsTableViewCell alloc]
                 initWithStyle:UITableViewCellStyleDefault
                 reuseIdentifier:CellIdentifier];
-    }
+          }
     NSMutableDictionary *result;
     
     //add click handler and button tag (tag = number of row clicked)
@@ -128,10 +128,10 @@ bool isCancelRequestSent;
         //      [cell.addButton  addTarget:self action:@selector(cancelPendingClicked:) forControlEvents:UIControlEventTouchUpInside];
     }
     cell.nameLabel.text = [[result[@"firstName"] stringByAppendingString: @" "] stringByAppendingString:result[@"lastName"]];
-    
     [[Utils getInstance] setImageViewRound:cell.imageViewFriendPicture];
-    //set temporaty img until image is loaded
-    cell.imageViewFriendPicture.image = [UIImage imageNamed:@"squarePNG.png"];
+    
+     //set temporaty img until image is loaded
+    cell.imageViewFriendPicture.image = [UIImage imageNamed:@"default_user1.jpg"];
     NSURL *URL = [NSURL URLWithString: result[@"pictureUrl"]];
     cell.imageViewFriendPicture.imageURL = URL;
     

@@ -53,7 +53,7 @@ NSString* userId;
     areFriendsLoaded = NO;
     
     //set placeholder image or cell won't update when image is loaded
-    imageViewUserPicture.image = [UIImage imageNamed:@"background.jpg"];
+    imageViewUserPicture.image = [UIImage imageNamed:@"default_user1.jpg"];
     
     // Do any additional setup after loading the view.
     prefs = [NSUserDefaults standardUserDefaults];
@@ -78,7 +78,7 @@ NSString* userId;
     [self.navigationController.navigationBar setBackgroundImage:[UIImage new]
                                                   forBarMetrics:UIBarMetricsDefault];
     self.navigationController.navigationBar.shadowImage = [UIImage new];
-    self.navigationController.navigationBar.translucent = YES;
+    self.navigationController.navigationBar.translucent = NO;
     
     self.navigationController.navigationBar.backgroundColor = [UIColor clearColor];
     
@@ -157,7 +157,7 @@ NSString* userId;
     [self clearFriends];
     
     if([friendsArray count] > 0){
-        imageViewFriendPicture1.image = [UIImage imageNamed:@"squarePNG.png"];
+        imageViewFriendPicture1.image = [UIImage imageNamed:@"default_user1.jpg"];
         NSDictionary *user1 = [friendsArray objectAtIndex:0];
        // NSURL *URL = [NSURL URLWithString:user1[@"pictureUrl"]];
         NSURL *URL = [NSURL URLWithString:user1[@"pictureUrl"]];
@@ -166,7 +166,7 @@ NSString* userId;
         labelNameFriendPicture1.text = user1[@"firstName"];
     }
     if([friendsArray count] > 1){
-        imageViewFriendPicture2.image = [UIImage imageNamed:@"squarePNG.png"];
+        imageViewFriendPicture2.image = [UIImage imageNamed:@"default_user.jpg"];
         NSDictionary *user2 = [friendsArray objectAtIndex:1];
         NSURL *URL = [NSURL URLWithString:user2[@"pictureUrl"]];
          [[Utils getInstance]makePictureUrl:user2[@"userId"]];
@@ -174,7 +174,7 @@ NSString* userId;
         labelNameFriendPicture2.text = user2[@"firstName"];
     }
     if([friendsArray count] > 2){
-        imageViewFriendPicture3.image = [UIImage imageNamed:@"squarePNG.png"];
+        imageViewFriendPicture3.image = [UIImage imageNamed:@"default_user.jpg"];
         NSDictionary *user3 = [friendsArray objectAtIndex:2];
         NSURL *URL = [NSURL URLWithString:user3[@"pictureUrl"]];
          [[Utils getInstance]makePictureUrl:user3[@"userId"]];

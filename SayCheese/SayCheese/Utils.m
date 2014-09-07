@@ -37,7 +37,7 @@
 
 - (NSString*) getDefaultUrl
 {
-    return @"http://95.180.244.51:9000";
+    return @"http://192.168.1.15:9000";
 }
 
 - (NSDictionary*) getUserDictionary
