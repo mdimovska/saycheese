@@ -31,4 +31,5 @@
 -(void) setImageViewRound:(UIImageView*) imageView;
 -(void) showErrorMessage: (NSString*) errorTitle message:(NSString*) message;
 - (UIColor* ) greenColorWithAlpha: (CGFloat) alpha;
+- (NSURL *) makePictureUrl:(NSString*) userId;
 @end

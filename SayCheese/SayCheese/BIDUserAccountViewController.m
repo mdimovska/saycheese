@@ -64,6 +64,8 @@ NSString* userId;
         userId = userDictionary[@"user"][@"id"];
         //load the image
         NSURL *URL = [NSURL URLWithString:userDictionary[@"user"][@"picture"]];
+        URL=[[Utils getInstance]makePictureUrl:
+             userId]; //FIX
         imageViewUserPicture.imageURL = URL;
     }
     
@@ -157,7 +159,9 @@ NSString* userId;
     if([friendsArray count] > 0){
         imageViewFriendPicture1.image = [UIImage imageNamed:@"squarePNG.png"];
         NSDictionary *user1 = [friendsArray objectAtIndex:0];
+       // NSURL *URL = [NSURL URLWithString:user1[@"pictureUrl"]];
         NSURL *URL = [NSURL URLWithString:user1[@"pictureUrl"]];
+      URL=  [[Utils getInstance]makePictureUrl:user1[@"userId"]]; //FIX: REMOVE THIS
         imageViewFriendPicture1.imageURL = URL;
         labelNameFriendPicture1.text = user1[@"firstName"];
     }
@@ -165,6 +169,7 @@ NSString* userId;
         imageViewFriendPicture2.image = [UIImage imageNamed:@"squarePNG.png"];
         NSDictionary *user2 = [friendsArray objectAtIndex:1];
         NSURL *URL = [NSURL URLWithString:user2[@"pictureUrl"]];
+         [[Utils getInstance]makePictureUrl:user2[@"userId"]];
         imageViewFriendPicture2.imageURL = URL;
         labelNameFriendPicture2.text = user2[@"firstName"];
     }
@@ -172,6 +177,7 @@ NSString* userId;
         imageViewFriendPicture3.image = [UIImage imageNamed:@"squarePNG.png"];
         NSDictionary *user3 = [friendsArray objectAtIndex:2];
         NSURL *URL = [NSURL URLWithString:user3[@"pictureUrl"]];
+         [[Utils getInstance]makePictureUrl:user3[@"userId"]];
         imageViewFriendPicture3.imageURL = URL;
         labelNameFriendPicture3.text = user3[@"firstName"];
     }

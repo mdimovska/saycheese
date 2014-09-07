@@ -74,7 +74,11 @@
 
 - (NSString *) getFacebookPictureUrl:(NSString*) userId
 {
-    return [NSString stringWithFormat:@"http://graph.facebook.com/%@/picture?type=square", userId];
+    return [NSString stringWithFormat:@"http://graph.facebook.com/%@/picture?type=normal", userId];
+}
+- (NSURL *) makePictureUrl:(NSString*) userId
+{
+return [NSURL URLWithString: [NSString stringWithFormat:@"http://graph.facebook.com/%@/picture?type=normal", userId]];
 }
 
 - (NSURL *) getRegisterUrl
