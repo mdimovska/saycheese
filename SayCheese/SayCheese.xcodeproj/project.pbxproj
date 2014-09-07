@@ -41,7 +41,6 @@
 		4ED0D89C19AA3E890081CF62 /* Icon-76@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4ED0D89419AA3E890081CF62 /* Icon-76@2x.png */; };
 		4ED0D89D19AA3E890081CF62 /* Icon-Small.png in Resources */ = {isa = PBXBuildFile; fileRef = 4ED0D89519AA3E890081CF62 /* Icon-Small.png */; };
 		4ED0D89E19AA3E890081CF62 /* Icon-Small@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4ED0D89619AA3E890081CF62 /* Icon-Small@2x.png */; };
-		4EF9490319BC777700FFF374 /* saycheese_logo_white@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4EF9490219BC777700FFF374 /* saycheese_logo_white@2x.png */; };
 		4EF9490919BC7B4B00FFF374 /* squarePNG.png in Resources */ = {isa = PBXBuildFile; fileRef = 4EF9490819BC7B4B00FFF374 /* squarePNG.png */; };
 /* End PBXBuildFile section */
 
@@ -70,7 +69,6 @@
 		4E936601199E542B00107C7E /* CoreImage.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreImage.framework; path = System/Library/Frameworks/CoreImage.framework; sourceTree = SDKROOT; };
 		4E936603199E543200107C7E /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
 		4E936605199E543700107C7E /* CoreVideo.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreVideo.framework; path = System/Library/Frameworks/CoreVideo.framework; sourceTree = SDKROOT; };
-		4E96789C19B21682001EF6A7 /* FacebookSDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = FacebookSDK.framework; sourceTree = "<group>"; };
 		4EA02AFD199CE46B00937E34 /* SayCheese.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SayCheese.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		4EA02B00199CE46B00937E34 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		4EA02B02199CE46B00937E34 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -98,7 +96,6 @@
 		4ED0D89419AA3E890081CF62 /* Icon-76@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon-76@2x.png"; sourceTree = "<group>"; };
 		4ED0D89519AA3E890081CF62 /* Icon-Small.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon-Small.png"; sourceTree = "<group>"; };
 		4ED0D89619AA3E890081CF62 /* Icon-Small@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon-Small@2x.png"; sourceTree = "<group>"; };
-		4EF9490219BC777700FFF374 /* saycheese_logo_white@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "saycheese_logo_white@2x.png"; sourceTree = "<group>"; };
 		4EF9490819BC7B4B00FFF374 /* squarePNG.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = squarePNG.png; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -157,7 +154,6 @@
 		4EA02AFF199CE46B00937E34 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				4E96789C19B21682001EF6A7 /* FacebookSDK.framework */,
 				4E0CC96619AA2D16009392DE /* MessageUI.framework */,
 				4E0CC96419AA2CFE009392DE /* Social.framework */,
 				4E936605199E543700107C7E /* CoreVideo.framework */,
@@ -196,8 +192,6 @@
 		4EA02B07199CE46B00937E34 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
-				4EF9490219BC777700FFF374 /* saycheese_logo_white@2x.png */,
-				4EF9490819BC7B4B00FFF374 /* squarePNG.png */,
 				4ED0D88F19AA3E890081CF62 /* Icon-40.png */,
 				4ED0D89019AA3E890081CF62 /* Icon-40@2x.png */,
 				4ED0D89119AA3E890081CF62 /* Icon-60.png */,
@@ -207,6 +201,7 @@
 				4ED0D89519AA3E890081CF62 /* Icon-Small.png */,
 				4ED0D89619AA3E890081CF62 /* Icon-Small@2x.png */,
 				4E0C6C38199E791A003E51F1 /* camera_switch.png */,
+				4EF9490819BC7B4B00FFF374 /* squarePNG.png */,
 				4EA02B08199CE46B00937E34 /* SayCheese-Info.plist */,
 				4EA02B09199CE46B00937E34 /* InfoPlist.strings */,
 				4EA02B0C199CE46B00937E34 /* main.m */,
@@ -317,7 +312,6 @@
 				4ED0D89C19AA3E890081CF62 /* Icon-76@2x.png in Resources */,
 				4EF9490919BC7B4B00FFF374 /* squarePNG.png in Resources */,
 				4ED0D89A19AA3E890081CF62 /* Icon-60@2x.png in Resources */,
-				4EF9490319BC777700FFF374 /* saycheese_logo_white@2x.png in Resources */,
 				4ED0D89819AA3E890081CF62 /* Icon-40@2x.png in Resources */,
 				4ED0D89D19AA3E890081CF62 /* Icon-Small.png in Resources */,
 				4ED0D89B19AA3E890081CF62 /* Icon-76.png in Resources */,
