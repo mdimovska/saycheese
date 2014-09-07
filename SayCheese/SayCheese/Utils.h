@@ -21,6 +21,8 @@
 - (NSURL*) removeContactOrPendingRequestUrl;
 - (NSURL*) getFriendRequestsUrl:(NSString*) userId;
 - (NSURL*) acceptFriendUrl:(NSString*) userId;
+- (NSURL*) sendPhotoUrl;
+
 - (UIColor* ) greenColor;
 
 - (NSDictionary*) getUserDictionary;

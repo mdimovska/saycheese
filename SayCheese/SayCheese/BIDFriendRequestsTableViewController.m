@@ -253,7 +253,7 @@ bool isCancelRequestSent;
                 NSHTTPURLResponse* httpResponse = (NSHTTPURLResponse*)response;
                 NSInteger code = [httpResponse statusCode];
                 
-                if(code!= nil && code == 200){
+                if(code == 200){
                     NSLog(@"friend request from user %@ to user %@ successfully sent", userId1, contactId);
                     [self removeFriendRequestAndReloadData:rowIndex];
                 }
@@ -270,7 +270,7 @@ bool isCancelRequestSent;
         [[RequestQueue mainQueue] addOperation:operation];
     }
 }
--(void) removeFriendRequestAndReloadData:(NSInteger*) rowIndex
+-(void) removeFriendRequestAndReloadData:(NSInteger) rowIndex
 {
     //remove friend from requests list (users are friends now!)
     NSMutableArray * requestsArrayNew = [friendRequestsArray mutableCopy];

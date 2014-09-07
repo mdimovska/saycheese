@@ -95,7 +95,7 @@ NSString* userId;
     NSLog(@"get friends called");
     
     NSURL *URL = [[Utils getInstance] getFriendsUrl:userId];
-    NSLog(userId);
+    NSLog(@"userId: %@", userId);
     NSURLRequest *request = [NSURLRequest requestWithURL:URL];
     
     RQOperation *operation = [RQOperation operationWithRequest:request];

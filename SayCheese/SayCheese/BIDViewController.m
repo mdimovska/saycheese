@@ -90,7 +90,7 @@ static CGContextRef CreateCGBitmapContextForSize(CGSize size)
 									 size.height,
 									 8,      // bits per component
 									 bitmapBytesPerRow,
-									 colorSpace,
+									 colorSpace, (CGBitmapInfo)
 									 kCGImageAlphaPremultipliedLast);
 	CGContextSetAllowsAntialiasing(context, NO);
     CGColorSpaceRelease( colorSpace );
@@ -179,7 +179,7 @@ static CGContextRef CreateCGBitmapContextForSize(CGSize size)
     
     // Make a still image output
 	stillImageOutput = [AVCaptureStillImageOutput new];
-	[stillImageOutput addObserver:self forKeyPath:@"capturingStillImage" options:NSKeyValueObservingOptionNew context:CFBridgingRetain(AVCaptureStillImageIsCapturingStillImageContext)];
+	[stillImageOutput addObserver:self forKeyPath:@"capturingStillImage" options:NSKeyValueObservingOptionNew context:(__bridge void *)(AVCaptureStillImageIsCapturingStillImageContext)];
 	if ( [session canAddOutput:stillImageOutput] )
 		[session addOutput:stillImageOutput];
 	
@@ -271,7 +271,7 @@ bail:
 // utility routing used during image capture to set up capture orientation
 - (AVCaptureVideoOrientation)avOrientationForDeviceOrientation:(UIDeviceOrientation)deviceOrientation
 {
-	AVCaptureVideoOrientation result = deviceOrientation;
+	AVCaptureVideoOrientation result = (AVCaptureVideoOrientation) deviceOrientation;
 	if ( deviceOrientation == UIDeviceOrientationLandscapeLeft )
 		result = AVCaptureVideoOrientationLandscapeRight;
 	else if ( deviceOrientation == UIDeviceOrientationLandscapeRight )
@@ -601,10 +601,6 @@ bail:
             [featuresSmileDetectionMutable removeObject:featureSmileDetection];
     }
     
-    
-    NSLog(resultStr);
-    
-    
     CMFormatDescriptionRef fdesc = CMSampleBufferGetFormatDescription(sampleBuffer);
     CGRect clap = CMVideoFormatDescriptionGetCleanAperture(fdesc, false /*originIsTopLeft == false*/);
     
@@ -817,33 +813,15 @@ bail:
                                                               CFDictionaryRef attachments = CMCopyDictionaryOfAttachments(kCFAllocatorDefault,
                                                                                                                 imageDataSampleBuffer,
                                                                                                                     kCMAttachmentMode_ShouldPropagate);
-                                                              ALAssetsLibrary *library = [[ALAssetsLibrary alloc] init];
                                                               
-                                                              /*
-                                                              [library writeImageDataToSavedPhotosAlbum:jpegData metadata:(id)attachments completionBlock:^(NSURL *assetURL, NSError *error) {
-                                                                  if (error) {
-                                                                      [self displayErrorOnMainQueue:error withMessage:@"Save to camera roll failed"];
-                                                                  }
-                                                              }];
-                                                              */
-                                                               
                                                               if (attachments)
                                                                   CFRelease(attachments);
                                                               
                                                           }
                                                          
                                                           
-                                                          
-                                                       //   [previewLayer.session stopRunning];
-                                             //   [self.tabBarController performSegueWithIdentifier:@"ImageSegueIdentifier" sender:self];
-                                                          
                                                           [self.tabBarController performSegueWithIdentifier:@"ImageSegueIdentifier" sender:self];
 
-                                                          /*
-                                                          UIViewController *loginViewController =
-                                                          [[UIStoryboard storyboardWithName:@"Main" bundle:nil]instantiateViewControllerWithIdentifier:@"BIDImageViewController"];
-                                                         [[self navigationController] pushViewController:loginViewController   animated:YES];
-                                                           */
                                                       }                                                  }
 	 ];
 }

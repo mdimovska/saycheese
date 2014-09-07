@@ -18,4 +18,5 @@
 @property (strong, nonatomic) IBOutlet UIToolbar* toolbar;
 - (IBAction)deletePhotoActionSheet:(id)sender;
 - (IBAction)sharePhoto:(id)sender;
+- (IBAction)savePhotoToServer:(id)sender;
 @end

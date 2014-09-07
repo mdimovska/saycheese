@@ -137,8 +137,7 @@
                 // https://developers.facebook.com/docs/ios/errors/
             } else {
                 //Get more error information from the error
-                NSDictionary *errorInformation = [[[error.userInfo objectForKey:@"com.facebook.sdk:ParsedJSONResponseKey"] objectForKey:@"body"] objectForKey:@"error"];
-                
+             
                 // Show the user an error message
                 alertTitle = @"Something went wrong";
                 alertText = @"Please retry";

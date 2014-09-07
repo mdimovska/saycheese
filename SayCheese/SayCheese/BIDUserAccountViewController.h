@@ -24,7 +24,6 @@
 @property (strong, nonatomic) IBOutlet UIButton* buttonFriends;
 @property (strong, nonatomic) IBOutlet UIButton* buttonPhotos;
 
--(void) setImageViewRound:(UIImageView*) imageView;
 
 - (IBAction)logout:(id)sender;
 @end

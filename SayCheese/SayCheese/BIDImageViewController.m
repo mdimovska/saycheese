@@ -10,6 +10,8 @@
 
 #import <AssetsLibrary/AssetsLibrary.h>
 #import <AVFoundation/AVFoundation.h>
+#import "RequestQueue.h"
+#import "Utils.h"
 
 @interface BIDImageViewController ()
 
@@ -38,28 +40,29 @@ BOOL isActionSheetDeleteShown = NO;
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    [self.navigationItem setHidesBackButton:YES];
     isPhotoDeleted=NO;
-   // CGRect r = self.imageView.frame;
-
+    // CGRect r = self.imageView.frame;
+    
     CGSize result = [[UIScreen mainScreen] bounds].size;
-   // CGRect screenBounds = [[UIScreen mainScreen] bounds];
+    // CGRect screenBounds = [[UIScreen mainScreen] bounds];
     if(result.height == 480)
     {
         // iPhone Classic
-     //   r.size.height = 480;
+        //   r.size.height = 480;
         // self.view.frame =  CGRectMake(0, 0, 320, 480);
-      //   imageView.frame = CGRectMake(0, 0, 320, image.size.height);
+        //   imageView.frame = CGRectMake(0, 0, 320, image.size.height);
     }
     if(result.height == 568)
     {
         // iPhone 5
-     //   r.size.height =568;
+        //   r.size.height =568;
         //self.view.frame =  CGRectMake(0, 0, 320, 568);
         // imageView.frame = CGRectMake(0, 0, 320,  image.size.height);
     }
     
     // Do any additional setup after loading the view.
-   [self setNeedsStatusBarAppearanceUpdate];
+    [self setNeedsStatusBarAppearanceUpdate];
     
     
     //navigation bar style (transparent navigation bar)
@@ -73,7 +76,7 @@ BOOL isActionSheetDeleteShown = NO;
     //set white title of view
     self.navigationController.navigationBar.titleTextAttributes = [NSDictionary dictionaryWithObject:[UIColor  whiteColor] forKey:NSForegroundColorAttributeName];
     
-     [[UINavigationBar appearance] setTintColor:[UIColor whiteColor]];
+    [[UINavigationBar appearance] setTintColor:[UIColor whiteColor]];
     
     //black transparent status bar
     //this covers navigation bar too
@@ -94,7 +97,7 @@ BOOL isActionSheetDeleteShown = NO;
         [imageView setImage:image];
         
         //set constrains to center and scale the image
-         imageView.translatesAutoresizingMaskIntoConstraints = NO;
+        imageView.translatesAutoresizingMaskIntoConstraints = NO;
         
         [self setConstraints];
     }
@@ -153,18 +156,127 @@ BOOL isActionSheetDeleteShown = NO;
     [super viewWillAppear:animated];
     [self.navigationController setNavigationBarHidden:NO animated:animated];
     [[UIApplication sharedApplication] setStatusBarHidden:NO];
-
+    
 }
 
-- (void)viewWillDisappear:(BOOL)animated{
-    [view removeFromSuperview];
-    //image is wriiten to photo album if it's not deleted
-    if(!isPhotoDeleted){
-        UIImageWriteToSavedPhotosAlbum(image, nil, nil, nil);
-    }
+- (void)viewWillDisappear:(BOOL)animated
+{
     [[UIApplication sharedApplication] setStatusBarHidden:YES];
     [super viewWillDisappear:animated];
 }
+
+- (IBAction)savePhotoToServer:(id)sender
+{
+    
+    if(!isPhotoDeleted){
+        UIImageWriteToSavedPhotosAlbum(image, nil, nil, nil);
+        [self sendPhotoToServer];
+    }
+    
+}
+
+
+-(void) sendPhotoToServer
+{
+    // create request
+    NSMutableURLRequest *request = [[NSMutableURLRequest alloc] init];
+    [request setCachePolicy:NSURLRequestReloadIgnoringLocalCacheData];
+    [request setHTTPShouldHandleCookies:NO];
+    [request setTimeoutInterval:30];
+    [request setHTTPMethod:@"POST"];
+    NSString* boundary = @"boundarySayCheese0907";
+    
+    // set Content-Type in HTTP header
+    NSString *contentType = [NSString stringWithFormat:@"multipart/form-data; boundary=%@", boundary];
+    [request setValue:contentType forHTTPHeaderField: @"Content-Type"];
+    
+    // post body
+    NSMutableData *body = [NSMutableData data];
+    
+    
+    NSDictionary* userDictionary = [[Utils getInstance]getUserDictionary];
+    NSString* filename = [self formNameOfPhoto:userDictionary[@"user"][@"id"]];
+    NSLog(@"Name of photo: %@)", filename);
+    
+    NSMutableDictionary* _params = [[NSMutableDictionary alloc] init];
+    [_params setObject:[NSString stringWithFormat:@"%@",userDictionary[@"user"][@"id"]] forKey:@"_id"];
+    [_params setObject:[NSString stringWithFormat:@"%@",userDictionary[@"user"][@"first_name"]] forKey:@"firstName"];
+     [_params setObject:[NSString stringWithFormat:@"%@",userDictionary[@"user"][@"last_name"]] forKey:@"lastName"];
+     [_params setObject:[NSString stringWithFormat:@"%@", filename] forKey:@"photoUrl"];
+     [_params setObject:[NSString stringWithFormat:@"%@", @""] forKey:@"caption"]; //FIX THIS: add caption
+    
+     // add params (all params are strings)
+     for (NSString *param in _params) {
+     [body appendData:[[NSString stringWithFormat:@"--%@\r\n", boundary] dataUsingEncoding:NSUTF8StringEncoding]];
+     [body appendData:[[NSString stringWithFormat:@"Content-Disposition: form-data; name=\"%@\"\r\n\r\n", param] dataUsingEncoding:NSUTF8StringEncoding]];
+     [body appendData:[[NSString stringWithFormat:@"%@\r\n", [_params objectForKey:param]] dataUsingEncoding:NSUTF8StringEncoding]];
+     }
+    
+    /*
+    NSLog(@"Sending photo to server (from user %@)",userId);
+    [body appendData:[[NSString stringWithFormat:@"--%@\r\n", boundary] dataUsingEncoding:NSUTF8StringEncoding]];
+    [body appendData:[[NSString stringWithFormat:@"Content-Disposition: form-data; name=\"%@\"\r\n\r\n", @"_id"] dataUsingEncoding:NSUTF8StringEncoding]];
+    [body appendData:[[NSString stringWithFormat:@"%@\r\n", userId] dataUsingEncoding:NSUTF8StringEncoding]];
+    */
+    
+
+    
+    // add image data
+    NSData *imageData = UIImageJPEGRepresentation(image, 1.0);
+    if (imageData) {
+        [body appendData:[[NSString stringWithFormat:@"--%@\r\n", boundary] dataUsingEncoding:NSUTF8StringEncoding]];
+        [body appendData:[[NSString stringWithFormat:@"Content-Disposition: form-data; name=\"%@\"; filename=\"%@\"\r\n", @"path", filename] dataUsingEncoding:NSUTF8StringEncoding]];
+        
+        [body appendData:[[NSString stringWithFormat:@"Content-Type: image/jpeg\r\n\r\n"] dataUsingEncoding:NSUTF8StringEncoding]];
+        [body appendData:imageData];
+        [body appendData:[[NSString stringWithFormat:@"\r\n"] dataUsingEncoding:NSUTF8StringEncoding]];
+    }
+    
+    [body appendData:[[NSString stringWithFormat:@"--%@--\r\n", boundary] dataUsingEncoding:NSUTF8StringEncoding]];
+    
+    // setting the body of the post to the reqeust
+    [request setHTTPBody:body];
+    
+    // set the content-length
+    NSString *postLength = [NSString stringWithFormat:@"%d", [body length]];
+    [request setValue:postLength forHTTPHeaderField:@"Content-Length"];
+    
+    // set URL
+    [request setURL:[[Utils getInstance] sendPhotoUrl]];
+    
+    
+    
+    RQOperation *operation = [RQOperation operationWithRequest:request];
+    
+    operation.completionHandler = ^(__unused NSURLResponse *response, NSData *data, NSError *error)
+    {
+        if (error)
+        {
+            [[Utils getInstance] showErrorMessage:@"Something went wrong" message:@"Could not save photo"];
+            // isCancelRequestSent = NO;
+        }
+        else
+        {
+            [view removeFromSuperview];
+            //image is wriiten to photo album if it's not deleted
+            [self.navigationController popViewControllerAnimated:YES];
+        }
+    };
+    //make request
+    [[RequestQueue mainQueue] addOperation:operation];
+    
+}
+
+- (NSString *) formNameOfPhoto: userId
+{
+    NSString *dateString;
+	NSDate *now = [NSDate date];
+	NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+    [dateFormatter setDateFormat:@"yyyyMMdd'T'HHmmssSSS"];
+	dateString = [dateFormatter stringFromDate:now];
+	return [[userId stringByAppendingString:dateString] stringByAppendingString: @".jpg"];
+}
+
 
 - (IBAction)btnShowHideNavigationBarClick:(id)sender {
     // show/hide nav bar and toolbar
@@ -223,8 +335,8 @@ BOOL isActionSheetDeleteShown = NO;
 }
 
 -(void) deletePhoto{
-     isPhotoDeleted=YES;
-     [self.navigationController popViewControllerAnimated:YES];
+    isPhotoDeleted=YES;
+    [self.navigationController popViewControllerAnimated:YES];
 }
 
 - (void) shareToTwitter{
@@ -232,10 +344,10 @@ BOOL isActionSheetDeleteShown = NO;
     {
         SLComposeViewController *tweetSheet = [SLComposeViewController
                                                composeViewControllerForServiceType:SLServiceTypeTwitter];
-     //   [tweetSheet setInitialText:text];
+        //   [tweetSheet setInitialText:text];
         [tweetSheet addImage:image];
-      //  if (venueUrl != NULL)
-      //      [tweetSheet addURL:[NSURL URLWithString:venueUrl]];
+        //  if (venueUrl != NULL)
+        //      [tweetSheet addURL:[NSURL URLWithString:venueUrl]];
         
         [tweetSheet setCompletionHandler:^(SLComposeViewControllerResult result) {
             NSString *output;
@@ -279,8 +391,8 @@ BOOL isActionSheetDeleteShown = NO;
         
         [controller addImage:image];
         
-       // if (venueUrl != NULL)
-         //   [controller addURL:[NSURL URLWithString:venueUrl]];
+        // if (venueUrl != NULL)
+        //   [controller addURL:[NSURL URLWithString:venueUrl]];
         
         [controller setCompletionHandler:^(SLComposeViewControllerResult result) {
             NSString *output;
@@ -303,7 +415,7 @@ BOOL isActionSheetDeleteShown = NO;
                                                   otherButtonTitles:nil];
             [alert show];
         }];
-    //    [controller setInitialText:text];
+        //    [controller setInitialText:text];
         [self presentViewController:controller animated:YES completion:Nil];
     }
     else {
@@ -320,15 +432,15 @@ BOOL isActionSheetDeleteShown = NO;
 
 
 /*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
-{
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
+ #pragma mark - Navigation
+ 
+ // In a storyboard-based application, you will often want to do a little preparation before navigation
+ - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
+ {
+ // Get the new view controller using [segue destinationViewController].
+ // Pass the selected object to the new view controller.
+ }
+ */
 
 - (NSUInteger)supportedInterfaceOrientations
 {
@@ -345,10 +457,10 @@ BOOL isActionSheetDeleteShown = NO;
 }
 
 /*
--(void)willAnimateRotationToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation duration:(NSTimeInterval)duration{
-    NSLog(@"willAnimateRotationToInterfaceOrientation");
-}
-*/
+ -(void)willAnimateRotationToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation duration:(NSTimeInterval)duration{
+ NSLog(@"willAnimateRotationToInterfaceOrientation");
+ }
+ */
 
 - (IBAction)sharePhoto:(id)sender {
     isActionSheetDeleteShown = NO;

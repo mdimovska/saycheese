@@ -405,7 +405,7 @@ bool isCancelRequestSent;
                 NSHTTPURLResponse* httpResponse = (NSHTTPURLResponse*)response;
                 NSInteger code = [httpResponse statusCode];
                 
-                if(code!= nil && code == 200){
+                if(code == 200){
                     NSLog(@"friend request from user %@ to user %@ successfully sent", userId, contactId);
                     [self removeFriendAndReloadData:rowIndex];
                 }
@@ -507,7 +507,7 @@ bool isCancelRequestSent;
     return view;
 }
 
--(void) removeFriendAndReloadData:(NSInteger*) rowIndex
+-(void) removeFriendAndReloadData:(NSInteger) rowIndex
 {
     // [friendsToAddArray removeObjectAtIndex:indexPath.row];
     
@@ -544,7 +544,7 @@ bool isCancelRequestSent;
     [self.tableView reloadData];
 }
 
--(void) removePendingRequestAndReloadData:(NSInteger*) rowIndex
+-(void) removePendingRequestAndReloadData:(NSInteger) rowIndex
 {
     
     //remove friend from  pending list and add to list with friends to add
