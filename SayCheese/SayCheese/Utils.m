@@ -132,6 +132,17 @@ return [NSURL URLWithString: [NSString stringWithFormat:@"http://graph.facebook.
     NSString* urlString = [NSString stringWithFormat:@"%@/upload", [self getDefaultUrl]];
     return [NSURL URLWithString: [urlString stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
 }
+- (NSURL*) addRemoveLikeUrl
+{
+    NSString* urlString = [NSString stringWithFormat:@"%@/photos/like", [self getDefaultUrl]];
+    return [NSURL URLWithString: [urlString stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
+}
+
+- (NSURL *) getSaycheesePictureUrl:(NSString*) photoName userId:(NSString*) userId
+{
+    NSString* urlString = [NSString stringWithFormat:@"%@/picture/%@/%@", [self getDefaultUrl], userId, photoName];
+    return [NSURL URLWithString: [urlString stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
+}
 
 - (UIColor* ) greenColor
 {

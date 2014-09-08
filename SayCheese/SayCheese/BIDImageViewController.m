@@ -212,15 +212,6 @@ BOOL isActionSheetDeleteShown = NO;
      [body appendData:[[NSString stringWithFormat:@"%@\r\n", [_params objectForKey:param]] dataUsingEncoding:NSUTF8StringEncoding]];
      }
     
-    /*
-    NSLog(@"Sending photo to server (from user %@)",userId);
-    [body appendData:[[NSString stringWithFormat:@"--%@\r\n", boundary] dataUsingEncoding:NSUTF8StringEncoding]];
-    [body appendData:[[NSString stringWithFormat:@"Content-Disposition: form-data; name=\"%@\"\r\n\r\n", @"_id"] dataUsingEncoding:NSUTF8StringEncoding]];
-    [body appendData:[[NSString stringWithFormat:@"%@\r\n", userId] dataUsingEncoding:NSUTF8StringEncoding]];
-    */
-    
-
-    
     // add image data
     NSData *imageData = UIImageJPEGRepresentation(image, 1.0);
     if (imageData) {
@@ -243,8 +234,6 @@ BOOL isActionSheetDeleteShown = NO;
     
     // set URL
     [request setURL:[[Utils getInstance] sendPhotoUrl]];
-    
-    
     
     RQOperation *operation = [RQOperation operationWithRequest:request];
     

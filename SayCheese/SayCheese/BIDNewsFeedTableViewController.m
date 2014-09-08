@@ -20,6 +20,8 @@
 
 @synthesize newsFeedArray;
 NSString* userId;
+NSDictionary* userDictionary;
+bool isLikeRequestSending;
 
 - (id)initWithStyle:(UITableViewStyle)style
 {
@@ -35,6 +37,8 @@ NSString* userId;
     [super viewDidLoad];
     
     userId = [[Utils getInstance]getLoggedInUserId];
+    userDictionary = [[Utils getInstance]getUserDictionary];
+    
     [self setNeedsStatusBarAppearanceUpdate];
     
     [self.navigationController.navigationBar setBackgroundImage:[UIImage new]
@@ -66,22 +70,23 @@ NSString* userId;
 
 - (void)viewWillAppear:(BOOL)animated
 {
+    isLikeRequestSending = NO;
     [super viewWillAppear:animated];
     [self.navigationController setNavigationBarHidden:NO animated:animated];
     [[UIApplication sharedApplication] setStatusBarHidden:NO];
     self.navigationController.navigationBar.topItem.title = @"News";
     newsFeedArray = [[Utils getInstance]getUserFriendsFromPrefs];
-   // [self.tableView reloadData];
+    // [self.tableView reloadData];
 }
 
 -(void) viewDidAppear:(BOOL)animated
 {
     [super viewDidAppear:animated];
- //   if(!areFriendsLoaded)
-        [self getNewsFeed];
-  //  else{
-      //  friendsArray = [[Utils getInstance] getUserFriendsFromPrefs];
-        //[self fillFriendsImageViews:friendsArray];
+    //   if(!areFriendsLoaded)
+    [self getNewsFeed];
+    //  else{
+    //  friendsArray = [[Utils getInstance] getUserFriendsFromPrefs];
+    //[self fillFriendsImageViews:friendsArray];
     //}
 }
 
@@ -113,23 +118,183 @@ NSString* userId;
                 initWithStyle:UITableViewCellStyleDefault
                 reuseIdentifier:CellIdentifier];
     }
+    [cell.buttonLike setEnabled:YES];
+    cell.buttonLike.tag = [indexPath row];
+    
+    bool likeFromUserExists = NO;
+    
+    [cell.buttonLike addTarget:self action:@selector(addOrRemoveLikeClicked:) forControlEvents:UIControlEventTouchUpInside];
+    
+    
     NSMutableDictionary *result =[newsFeedArray objectAtIndex: [indexPath row]];
-    NSLog( result[@"dateTaken"] );
+    if(result[@"likes"] != nil){
+        NSArray * likesArray = result[@"likes"];
+        cell.numOfLikesLabel.text = [NSString stringWithFormat:@"%lu", (unsigned long)[likesArray count]] ;
+        for(NSDictionary* likeDictionary in likesArray){
+            if([likeDictionary[@"userId"] isEqualToString:userId])
+            {
+                likeFromUserExists = YES;
+            }
+        }
+    }else{
+        cell.numOfLikesLabel.text = @"0";
+    }
+    
+    [cell.buttonLike setNeedsLayout];
+    if(
+       likeFromUserExists)
+    {
+        [ cell.buttonLike setImage:[UIImage imageNamed:@"like_icon_green.png"] forState:UIControlStateNormal];
+    }
+    else
+    {
+        [ cell.buttonLike setImage:[UIImage imageNamed:@"like_icon.png"] forState:UIControlStateNormal];
+    }
+    cell.buttonLike.tag = [indexPath row];
+    
     NSString* formattedDate =[self formatDate:result[@"dateTaken"]];
-    NSLog(formattedDate);
-    cell.nameLabel.text = [[result[@"firstName"] stringByAppendingString: @" "] stringByAppendingString:result[@"lastName"]];
     cell.dateLabel.text = formattedDate ;
+    
+    cell.nameLabel.text = [[result[@"firstName"] stringByAppendingString: @" "] stringByAppendingString:result[@"lastName"]];
+    
     [[Utils getInstance] setImageViewRound:cell.imageViewFriendPicture];
     
     cell.imageViewFriendPicture.image = [UIImage imageNamed:@"default_user1.jpg"];
-  
+    
     cell.imageViewFriendPicture.imageURL = [[Utils getInstance]makePictureUrl:result[@"userId"]];
     
     cell.imageViewFriendUploadedPhoto.image = [UIImage imageNamed:@"default_user1.jpg"]; //loading.....
-    cell.imageViewFriendUploadedPhoto.imageURL = [NSURL URLWithString:result[@"photoUrl"]];;
-    
+    NSURL *photoUrl =[[Utils getInstance] getSaycheesePictureUrl:result[@"photoUrl"] userId:result[@"userId"]];
+    cell.imageViewFriendUploadedPhoto.imageURL = photoUrl;
+  
     return cell;
 }
+
+
+- (void)addOrRemoveLikeClicked:(id)sender {
+    if(!isLikeRequestSending){
+        [sender setEnabled:NO];
+        isLikeRequestSending = YES;
+        NSInteger rowIndex = [sender tag];
+        NSString* photoId;
+        NSMutableDictionary *newsFeedDictionary =[newsFeedArray objectAtIndex: rowIndex];
+        photoId = newsFeedDictionary[@"_id"];
+        NSLog(@"adding/removing like");
+        NSLog(@"photo id: %@", photoId);
+        NSLog(@"user id: %@", userId);
+        
+        NSString* firstName =userDictionary[@"user"][@"first_name"];
+        NSString* lastName =userDictionary[@"user"][@"last_name"];
+        //post request for adding friend...
+        
+        
+        NSURL *URL = [[Utils getInstance] addRemoveLikeUrl];
+        NSString *post = [NSString stringWithFormat:@"&userId=%@&photoId=%@&firstName=%@&lastName=%@", userId, photoId, firstName, lastName];
+        
+        NSData *postData =   [post dataUsingEncoding:NSUTF8StringEncoding];
+        NSString *postLength = [NSString stringWithFormat:@"%d",[postData length]];
+        
+        NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:URL];
+        [request setHTTPMethod:@"POST"];
+        [request setValue:postLength forHTTPHeaderField:@"Content-Length"];
+        [request setValue:@"application/x-www-form-urlencoded" forHTTPHeaderField:@"Content-Type"];
+        [request setHTTPBody:postData];
+        
+        RQOperation *operation = [RQOperation operationWithRequest:request];
+        //add response handler
+        operation.completionHandler = ^(__unused NSURLResponse *response, NSData *data, NSError *error)
+        {
+            if (error)
+            {
+                //   [[Utils getInstance] showErrorMessage:@"Something went wrong" message:@"Could not send friend request"];
+                isLikeRequestSending = NO;
+                [sender setEnabled:YES];
+            }
+            else
+            {
+                NSHTTPURLResponse* httpResponse = (NSHTTPURLResponse*)response;
+                NSInteger code = [httpResponse statusCode];
+                
+                if(code == 200){
+                    [self addOrRemoveLikeInArray:rowIndex userId:userId firstName:firstName lastName: lastName];
+                    [self.tableView reloadData];
+                }
+                else
+                {
+                    
+                }
+                [sender setEnabled:YES];
+                isLikeRequestSending = NO;
+                
+            }
+        };
+        //make request
+        [[RequestQueue mainQueue] addOperation:operation];
+    }
+}
+
+-(void) addOrRemoveLikeInArray: (NSInteger) rowIndex userId:(NSString*) userId firstName: (NSString*) firstName lastName: (NSString*) lastName
+{
+    NSMutableDictionary *result =[newsFeedArray objectAtIndex: rowIndex];
+    if(result[@"likes"] != nil){
+        NSMutableArray * likesArray = result[@"likes"];
+        NSMutableDictionary * like = nil;
+        for(NSMutableDictionary* likeDictionary in likesArray){
+            if([likeDictionary[@"userId"] isEqualToString:userId])
+            {
+                like = [NSMutableDictionary dictionaryWithDictionary:likeDictionary];
+                break;
+            }
+        }
+        if(like != nil){
+            //exists -> should be removed
+            
+            NSMutableArray*  likesArrayNew = [likesArray mutableCopy];
+            [likesArrayNew removeObject:like];
+            
+            NSMutableDictionary* requestsArrayNew = [result mutableCopy];
+            [requestsArrayNew removeObjectForKey:@"likes"];
+            [requestsArrayNew setObject:likesArrayNew forKey:@"likes"];
+            result = [[NSMutableDictionary alloc] init];
+            result = [NSMutableDictionary dictionaryWithDictionary:requestsArrayNew];
+            
+            NSMutableArray* newsFeedArrayNew = [newsFeedArray mutableCopy];
+            
+            [newsFeedArrayNew setObject:result atIndexedSubscript:rowIndex];
+            newsFeedArray = [[NSMutableArray alloc] init];
+            newsFeedArray = [NSMutableArray arrayWithArray:newsFeedArrayNew];
+            
+            NSLog(@"like successfully removed");
+        }else{
+            //add like
+            like = [[NSMutableDictionary alloc] init];
+            [like setObject:userId forKey:@"userId"];
+            [like setObject:firstName forKey:@"firstName"];
+            [like setObject:lastName forKey:@"lastName"];
+            
+            NSMutableArray*  likesArrayNew = [likesArray mutableCopy];
+            [likesArrayNew addObject:like];
+            
+            NSMutableDictionary* requestsArrayNew = [result mutableCopy];
+            [requestsArrayNew removeObjectForKey:@"likes"];
+            [requestsArrayNew setObject:likesArrayNew forKey:@"likes"];
+            result = [[NSMutableDictionary alloc] init];
+            result = [NSMutableDictionary dictionaryWithDictionary:requestsArrayNew];
+            
+            NSMutableArray* newsFeedArrayNew = [newsFeedArray mutableCopy];
+            
+            [newsFeedArrayNew setObject:result atIndexedSubscript:rowIndex];
+            newsFeedArray = [[NSMutableArray alloc] init];
+            newsFeedArray = [NSMutableArray arrayWithArray:newsFeedArrayNew];
+            
+            //  [newsFeedArray addObject:like];
+            NSLog(@"like successfully added");
+        }
+    }
+    
+}
+
+
 
 - (NSString *)formatDate:(NSString *)rfc3339DateTimeString {
     
@@ -143,7 +308,7 @@ NSString* userId;
     
     NSTimeInterval secondsSinceNow = [[NSDate date] timeIntervalSinceDate:result];
     TTTTimeIntervalFormatter *timeIntervalFormatter = [[TTTTimeIntervalFormatter alloc] init];
- //   [timeIntervalFormatter setUsesIdiomaticDeicticExpressions:YES];
+    //   [timeIntervalFormatter setUsesIdiomaticDeicticExpressions:YES];
     [timeIntervalFormatter setPresentTimeIntervalMargin:10];
     [timeIntervalFormatter setFutureDeicticExpression:@"ago"];
     return  [timeIntervalFormatter stringForTimeInterval:secondsSinceNow];
@@ -203,7 +368,7 @@ NSString* userId;
         if (error)
         {
             [[Utils getInstance] showErrorMessage:@"Something went wrong" message:@"Could not load news feed"]; //?
-           // areFriendsLoaded = NO;
+            // areFriendsLoaded = NO;
         }
         else
         {
@@ -214,17 +379,17 @@ NSString* userId;
             newsFeedArray = [NSJSONSerialization JSONObjectWithData:responseData options:NSJSONReadingMutableLeaves error:&myError];
             
             if(myError){
-               // areFriendsLoaded = NO;
+                // areFriendsLoaded = NO;
                 return;
             }
             
-          //  areFriendsLoaded = YES;
+            //  areFriendsLoaded = YES;
             
             NSLog(@"loading news feed finished");
             
-           // [prefs setObject:friendsArray forKey:@"userFriends"];
+            // [prefs setObject:friendsArray forKey:@"userFriends"];
             
-           // [self fillFriendsImageViews:friendsArray];
+            // [self fillFriendsImageViews:friendsArray];
             [self.tableView reloadData];
         }
     };

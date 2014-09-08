@@ -26,11 +26,14 @@
 @synthesize imageViewFriendPicture1;
 @synthesize imageViewFriendPicture2;
 @synthesize imageViewFriendPicture3;
+@synthesize imageViewUploadedPhoto1;
+@synthesize imageViewUploadedPhoto2;
 @synthesize labelNameFriendPicture1;
 @synthesize labelNameFriendPicture2;
 @synthesize labelNameFriendPicture3;
 @synthesize buttonFriends;
 @synthesize buttonPhotos;
+@synthesize  scrollView;
 
 NSArray *friendsArray;
 bool areFriendsLoaded;
@@ -51,9 +54,13 @@ NSString* userId;
 {
     [super viewDidLoad];
     areFriendsLoaded = NO;
+    [scrollView setBackgroundColor:[UIColor whiteColor]];
+    scrollView.indicatorStyle = UIScrollViewIndicatorStyleWhite;
     
     //set placeholder image or cell won't update when image is loaded
     imageViewUserPicture.image = [UIImage imageNamed:@"default_user1.jpg"];
+    imageViewUploadedPhoto1.image = [UIImage imageNamed:@"default_user1.jpg"];
+    imageViewUploadedPhoto2.image = [UIImage imageNamed:@"default_user1.jpg"];
     
     // Do any additional setup after loading the view.
     prefs = [NSUserDefaults standardUserDefaults];
@@ -67,7 +74,14 @@ NSString* userId;
         URL=[[Utils getInstance]makePictureUrl:
              userId]; //FIX
         imageViewUserPicture.imageURL = URL;
+        imageViewUploadedPhoto1.clipsToBounds = YES;
+         imageViewUploadedPhoto2.clipsToBounds = YES;
+        imageViewUploadedPhoto1.imageURL = URL;
+        imageViewUploadedPhoto2.imageURL = URL;
+
     }
+    
+    scrollView.contentSize = CGSizeMake(320, 600);
     
     
     //navigation bar and status bar changes

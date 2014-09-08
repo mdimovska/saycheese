@@ -1064,7 +1064,7 @@ bail:
 }
 
 - (void)setTabBarVisible:(BOOL)visible animated:(BOOL)animated {
-    
+    //CHECK!
     // bail if the current state matches the desired state
     if ([self tabBarIsVisible] == visible) return;
     
