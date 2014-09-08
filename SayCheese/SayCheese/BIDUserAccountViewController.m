@@ -36,7 +36,9 @@
 @synthesize  scrollView;
 
 NSArray *friendsArray;
+NSArray *photosArray;
 bool areFriendsLoaded;
+bool arePhotosLoaded;
 NSUserDefaults *prefs;
 NSString* userId;
 
@@ -54,6 +56,7 @@ NSString* userId;
 {
     [super viewDidLoad];
     areFriendsLoaded = NO;
+    arePhotosLoaded = NO;
     [scrollView setBackgroundColor:[UIColor whiteColor]];
     scrollView.indicatorStyle = UIScrollViewIndicatorStyleWhite;
     
@@ -75,10 +78,8 @@ NSString* userId;
              userId]; //FIX
         imageViewUserPicture.imageURL = URL;
         imageViewUploadedPhoto1.clipsToBounds = YES;
-         imageViewUploadedPhoto2.clipsToBounds = YES;
-        imageViewUploadedPhoto1.imageURL = URL;
-        imageViewUploadedPhoto2.imageURL = URL;
-
+        imageViewUploadedPhoto2.clipsToBounds = YES;
+      
     }
     
     scrollView.contentSize = CGSizeMake(320, 600);
@@ -141,7 +142,7 @@ NSString* userId;
             
             [prefs setObject:friendsArray forKey:@"userFriends"];
             
-            [self fillFriendsImageViews:friendsArray];
+            [self fillFriendsImageViews];
             
         }
     };
@@ -149,6 +150,53 @@ NSString* userId;
     //make request
     [[RequestQueue mainQueue] addOperation:operation];
 }
+
+
+-(void) getPhotos{
+    NSLog(@"getting photos");
+    
+    NSURL *URL = [[Utils getInstance] getUserPhotos:userId];
+    NSLog(@"userId: %@", userId);
+    NSURLRequest *request = [NSURLRequest requestWithURL:URL];
+    
+    RQOperation *operation = [RQOperation operationWithRequest:request];
+    //add response handler
+    operation.completionHandler = ^(__unused NSURLResponse *response, NSData *data, NSError *error)
+    {
+        if (error)
+        {
+            [[Utils getInstance] showErrorMessage:@"Something went wrong" message:@"Could not get user photos"]; //?
+            arePhotosLoaded = NO;
+        }
+        else
+        {
+            // convert to JSON
+            NSError *myError = nil;
+            NSMutableData* responseData = [NSMutableData data];
+            [responseData appendData:data];
+            
+            photosArray = [NSJSONSerialization JSONObjectWithData:responseData options:NSJSONReadingMutableLeaves error:&myError];
+            
+            if(myError){
+                arePhotosLoaded = NO;
+                return;
+            }
+            
+            arePhotosLoaded = YES;
+            
+            NSLog(@"getting photos finished");
+            
+            [prefs setObject:photosArray forKey:@"userPhotos"];
+            
+            [self fillPhotosImageViews];
+            
+        }
+    };
+    
+    //make request
+    [[RequestQueue mainQueue] addOperation:operation];
+}
+
 
 - (void)viewWillAppear:(BOOL)animated
 {
@@ -167,38 +215,58 @@ NSString* userId;
     labelNameFriendPicture3.text = @"";
 }
 
--(void) fillFriendsImageViews:(NSArray*) friendsArray{
+-(void) fillFriendsImageViews{
     [self clearFriends];
     
     if([friendsArray count] > 0){
         imageViewFriendPicture1.image = [UIImage imageNamed:@"default_user1.jpg"];
-        NSDictionary *user1 = [friendsArray objectAtIndex:0];
-       // NSURL *URL = [NSURL URLWithString:user1[@"pictureUrl"]];
+        NSDictionary *user1 = [friendsArray objectAtIndex: [friendsArray count]-1];
+        // NSURL *URL = [NSURL URLWithString:user1[@"pictureUrl"]];
         NSURL *URL = [NSURL URLWithString:user1[@"pictureUrl"]];
-      URL=  [[Utils getInstance]makePictureUrl:user1[@"userId"]]; //FIX: REMOVE THIS
+        URL=  [[Utils getInstance]makePictureUrl:user1[@"userId"]]; //FIX: REMOVE THIS
         imageViewFriendPicture1.imageURL = URL;
         labelNameFriendPicture1.text = user1[@"firstName"];
     }
     if([friendsArray count] > 1){
         imageViewFriendPicture2.image = [UIImage imageNamed:@"default_user.jpg"];
-        NSDictionary *user2 = [friendsArray objectAtIndex:1];
+        NSDictionary *user2 = [friendsArray objectAtIndex:[friendsArray count]-2];
         NSURL *URL = [NSURL URLWithString:user2[@"pictureUrl"]];
-         [[Utils getInstance]makePictureUrl:user2[@"userId"]];
+        [[Utils getInstance]makePictureUrl:user2[@"userId"]];
         imageViewFriendPicture2.imageURL = URL;
         labelNameFriendPicture2.text = user2[@"firstName"];
     }
     if([friendsArray count] > 2){
         imageViewFriendPicture3.image = [UIImage imageNamed:@"default_user.jpg"];
-        NSDictionary *user3 = [friendsArray objectAtIndex:2];
+        NSDictionary *user3 = [friendsArray objectAtIndex:[friendsArray count]-3];
         NSURL *URL = [NSURL URLWithString:user3[@"pictureUrl"]];
-         [[Utils getInstance]makePictureUrl:user3[@"userId"]];
+        [[Utils getInstance]makePictureUrl:user3[@"userId"]];
         imageViewFriendPicture3.imageURL = URL;
         labelNameFriendPicture3.text = user3[@"firstName"];
     }
     [buttonFriends setTitle:[NSString stringWithFormat:@"Friends (%d)", [friendsArray count]] forState:UIControlStateNormal];
-    [buttonPhotos setTitle:[NSString stringWithFormat:@"Photos (%d)", [friendsArray count]] forState:UIControlStateNormal]; //FIX THIS! instead of friendsArray put photos array
 }
 
+-(void) fillPhotosImageViews{
+    // [self clearFriends];
+    
+    if([photosArray count] > 0){
+        imageViewUploadedPhoto1.image = [UIImage imageNamed:@"default_user1.jpg"];
+        NSDictionary *photo = [photosArray objectAtIndex: [photosArray count]-1];
+        
+       NSURL * URL=  [[Utils getInstance]getSaycheesePictureUrl:photo[@"photoUrl"] userId:userId];
+        imageViewUploadedPhoto1.imageURL = URL;
+    }
+    if([photosArray count] > 1){
+        imageViewUploadedPhoto2.image = [UIImage imageNamed:@"default_user1.jpg"];
+        NSDictionary *photo = [photosArray objectAtIndex: [photosArray count]-2];
+        
+        NSURL *URL = [NSURL URLWithString:photo[@"photoUrl"]];
+        URL=  [[Utils getInstance]getSaycheesePictureUrl:photo[@"photoUrl"] userId:userId];
+        imageViewUploadedPhoto2.imageURL = URL;
+        
+    }
+    [buttonPhotos setTitle:[NSString stringWithFormat:@"Photos (%d)", [photosArray count]] forState:UIControlStateNormal];
+}
 
 -(void) viewDidAppear:(BOOL)animated
 {
@@ -207,8 +275,14 @@ NSString* userId;
         [self getFriends];
     else{
         friendsArray = [[Utils getInstance] getUserFriendsFromPrefs];
-        [self fillFriendsImageViews:friendsArray];
+        [self fillFriendsImageViews];
     }
+    //  if(!arePhotosLoaded)
+    [self getPhotos];
+    //   else{
+    //  photosArray = [[Utils getInstance] get];
+    //     [self fillFriendsImageViews:friendsArray];
+    //  }
 }
 
 - (void)didReceiveMemoryWarning
