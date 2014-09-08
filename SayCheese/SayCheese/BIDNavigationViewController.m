@@ -2,7 +2,7 @@
 //  BIDNavigationViewController.m
 //  SayCheese
 //
-//  Created by Goran Kopevski on 8/23/14.
+//  Created by Milena Dimovska on 8/23/14.
 //
 //
 

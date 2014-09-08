@@ -2,7 +2,7 @@
 //  BIDViewController.m
 //  SayCheese
 //
-//  Created by Goran Kopevski on 8/14/14.
+//  Created by Milena Dimovska on 8/14/14.
 //
 //
 

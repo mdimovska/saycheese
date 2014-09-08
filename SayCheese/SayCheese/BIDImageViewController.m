@@ -2,7 +2,7 @@
 //  BIDImageViewController.m
 //  SayCheese
 //
-//  Created by Goran Kopevski on 8/15/14.
+//  Created by Milena Dimovska on 8/15/14.
 //
 //
 
@@ -198,10 +198,15 @@ BOOL isActionSheetDeleteShown = NO;
 }
 
 - (void)willPresentActionSheet:(UIActionSheet *)actionSheet {
+    actionSheet.alpha=0.80;
+    actionSheet.backgroundColor = [UIColor blackColor];
     [actionSheet.subviews enumerateObjectsUsingBlock:^(UIView *subview, NSUInteger idx, BOOL *stop) {
         if ([subview isKindOfClass:[UIButton class]]) {
             UIButton *button = (UIButton *)subview;
-            button.titleLabel.textColor = [UIColor colorWithRed:(0/255.0) green:(102/255.0) blue:(85/255.0) alpha:1];
+            
+            [button setTitleColor:[UIColor colorWithRed:(21/255.0) green:(160/255.0) blue:(132/255.0) alpha:1] forState:UIControlStateNormal];
+            [button setTitleColor: [UIColor colorWithRed:(0/255.0) green:(111/255.0) blue:(86/255.0) alpha:1] forState:UIControlStateSelected];
+            [button setTitleColor:[UIColor colorWithRed:(0/255.0) green:(111/255.0) blue:(86/255.0) alpha:1] forState:UIControlStateHighlighted];
         }
     }];
 }
@@ -218,9 +223,9 @@ BOOL isActionSheetDeleteShown = NO;
     {
         SLComposeViewController *tweetSheet = [SLComposeViewController
                                                composeViewControllerForServiceType:SLServiceTypeTwitter];
-     
+        
         [tweetSheet addImage:image];
-    
+        
         [tweetSheet setCompletionHandler:^(SLComposeViewControllerResult result) {
             NSString *output;
             

@@ -2,7 +2,7 @@
 //  BIDAppDelegate.m
 //  SayCheese
 //
-//  Created by Goran Kopevski on 8/14/14.
+//  Created by Milena Dimovska on 8/14/14.
 //
 //
 
@@ -16,7 +16,7 @@
     UIStoryboard *mainStoryboard = [UIStoryboard storyboardWithName:@"Main" bundle: nil];
     UINavigationController *myNavC = (UINavigationController*)[mainStoryboard instantiateViewControllerWithIdentifier:@"MainNav"];
     self.window.rootViewController = myNavC;
-     
+    
     return YES;
 }
 
@@ -28,7 +28,7 @@
 
 - (void)applicationDidEnterBackground:(UIApplication *)application
 {
-    // Use this method to release shared resources, save user data, invalidate timers, and store enough application state information to restore your application to its current state in case it is terminated later. 
+    // Use this method to release shared resources, save user data, invalidate timers, and store enough application state information to restore your application to its current state in case it is terminated later.
     // If your application supports background execution, this method is called instead of applicationWillTerminate: when the user quits.
 }
 
