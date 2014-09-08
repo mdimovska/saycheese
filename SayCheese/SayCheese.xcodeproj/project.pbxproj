@@ -80,6 +80,7 @@
 		4EFA068319BBC8100029FCBF /* plus_icon.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 4EFA068219BBC8100029FCBF /* plus_icon.jpg */; };
 		4EFA068519BBCA4C0029FCBF /* add_icon_green.png in Resources */ = {isa = PBXBuildFile; fileRef = 4EFA068419BBCA4C0029FCBF /* add_icon_green.png */; };
 		4EFC405F19BE0F9900DB32A5 /* like_icon_green.png in Resources */ = {isa = PBXBuildFile; fileRef = 4EFC405E19BE0F9900DB32A5 /* like_icon_green.png */; };
+		4EFC406119BE1FF100DB32A5 /* accept_icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 4EFC406019BE1FF100DB32A5 /* accept_icon.png */; };
 		4EFF0B3619B3724100680273 /* Utils.m in Sources */ = {isa = PBXBuildFile; fileRef = 4EFF0B3519B3724100680273 /* Utils.m */; };
 /* End PBXBuildFile section */
 
@@ -188,6 +189,7 @@
 		4EFA068219BBC8100029FCBF /* plus_icon.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = plus_icon.jpg; sourceTree = "<group>"; };
 		4EFA068419BBCA4C0029FCBF /* add_icon_green.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = add_icon_green.png; sourceTree = "<group>"; };
 		4EFC405E19BE0F9900DB32A5 /* like_icon_green.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = like_icon_green.png; sourceTree = "<group>"; };
+		4EFC406019BE1FF100DB32A5 /* accept_icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = accept_icon.png; sourceTree = "<group>"; };
 		4EFF0B3419B3724100680273 /* Utils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Utils.h; sourceTree = "<group>"; };
 		4EFF0B3519B3724100680273 /* Utils.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Utils.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -345,6 +347,7 @@
 				4EFA067E19BBC6FB0029FCBF /* add_friends_icon.png */,
 				4EFA067619BBC5C90029FCBF /* friend_requests_icon.png */,
 				4E9678AB19B26DEA001EF6A7 /* background_user_account.jpg */,
+				4EFC406019BE1FF100DB32A5 /* accept_icon.png */,
 				4EFA068019BBC7350029FCBF /* friend_requests_icon.png */,
 				4E9678A919B26CF9001EF6A7 /* background.jpg */,
 				4EF7846019B8FB2F00142930 /* plus_gray.png */,
@@ -471,6 +474,7 @@
 				4E76497219BDB7BB00B105E8 /* cameraPicture.jpg in Resources */,
 				4EF9490919BC7B4B00FFF374 /* squarePNG.png in Resources */,
 				4EF948F419BC627E00FFF374 /* icon_add_friends@2x.png in Resources */,
+				4EFC406119BE1FF100DB32A5 /* accept_icon.png in Resources */,
 				4EFC405F19BE0F9900DB32A5 /* like_icon_green.png in Resources */,
 				4EFA068119BBC7350029FCBF /* friend_requests_icon.png in Resources */,
 				4EF9490119BC72C200FFF374 /* account_icon@2x.png in Resources */,

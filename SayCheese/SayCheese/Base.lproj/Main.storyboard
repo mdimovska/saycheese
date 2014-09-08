@@ -554,7 +554,7 @@
                                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="Fbm-E7-Qix">
                                             <rect key="frame" x="270" y="21" width="30" height="30"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                            <state key="normal" image="add_icon_green.png">
+                                            <state key="normal" image="accept_icon.png">
                                                 <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                             </state>
                                             <state key="disabled" image="plus_gray.png"/>
@@ -599,6 +599,7 @@
         </scene>
     </scenes>
     <resources>
+        <image name="accept_icon.png" width="40" height="40"/>
         <image name="account_icon.png" width="22" height="22"/>
         <image name="add_icon_green.png" width="40" height="40"/>
         <image name="cameraImage.jpg" width="1500" height="991"/>

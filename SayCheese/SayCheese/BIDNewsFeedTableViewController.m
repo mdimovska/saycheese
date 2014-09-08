@@ -186,31 +186,15 @@ bool isLikeRequestSending;
         width =  [result[@"photoWidth"] floatValue];
         height= [result[@"photoHeight"] floatValue];
     }
-    
-    cell.imageViewFriendUploadedPhoto.frame = CGRectMake(cell.imageViewFriendUploadedPhoto.frame.origin.x, cell.imageViewFriendUploadedPhoto.frame.origin.y, width , height);
+    CGFloat percent = 245.0 / width;
+
+    cell.imageViewFriendUploadedPhoto.frame = CGRectMake(cell.imageViewFriendUploadedPhoto.frame.origin.x, cell.imageViewFriendUploadedPhoto.frame.origin.y, width* percent , height*percent);
     
     
    
   
     return cell;
 }
-/*
-- (UITableViewCell *)tableView:estimatedHeightForRowAtIndexPath: (NSIndexPath *) indexPath {
-    static BIDNewsFeedTableViewCell *sizingCell = nil;
-    static dispatch_once_t onceToken;
-    dispatch_once(&onceToken, ^{
-        sizingCell = [self.tableView dequeueReusableCellWithIdentifier:@"newsFeedTableCell"];
-    });
-    
-    [sizingCell setNeedsLayout];
-    [sizingCell layoutIfNeeded];
-    
-    CGSize size = [sizingCell.contentView systemLayoutSizeFittingSize:UILayoutFittingCompressedSize];
-
-    return size.height;
-}
-*/
-
 
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -226,7 +210,8 @@ bool isLikeRequestSending;
         width =  [result[@"photoWidth"] floatValue];
         height= [result[@"photoHeight"] floatValue];
     }
-    return 100 + height;
+    CGFloat percent = 245.0 / width;
+    return 100 + height*percent;
 }
 
 - (CGFloat)calculateHeightForConfiguredSizingCell:(UITableViewCell *)sizingCell {
@@ -433,7 +418,7 @@ bool isLikeRequestSending;
     {
         if (error)
         {
-            [[Utils getInstance] showErrorMessage:@"Something went wrong" message:@"Could not load news feed"]; //?
+            [[Utils getInstance] showErrorMessage:@"Something went wrong" message:@"Could not load news feed"];
             // areFriendsLoaded = NO;
         }
         else
