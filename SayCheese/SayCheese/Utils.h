@@ -25,6 +25,7 @@
 - (NSURL*) addRemoveLikeUrl;
 - (NSURL*) getNewsFeedUrl:(NSString*) userId;
 - (NSURL *) getSaycheesePictureUrl:(NSString*) photoName userId:(NSString*) userId;
+- (NSURL*) getUserPhotos:(NSString*) userId;
 
 - (UIColor* ) greenColor;
 

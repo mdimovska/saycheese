@@ -48,6 +48,7 @@ BOOL isActionSheetDeleteShown = NO;
     // CGRect screenBounds = [[UIScreen mainScreen] bounds];
     if(result.height == 480)
     {
+      //  NSLog(result.height);
         // iPhone Classic
         //   r.size.height = 480;
         // self.view.frame =  CGRectMake(0, 0, 320, 480);
@@ -193,7 +194,6 @@ BOOL isActionSheetDeleteShown = NO;
     // post body
     NSMutableData *body = [NSMutableData data];
     
-    
     NSDictionary* userDictionary = [[Utils getInstance]getUserDictionary];
     NSString* filename = [self formNameOfPhoto:userDictionary[@"user"][@"id"]];
     NSLog(@"Name of photo: %@)", filename);
@@ -202,6 +202,8 @@ BOOL isActionSheetDeleteShown = NO;
     [_params setObject:[NSString stringWithFormat:@"%@",userDictionary[@"user"][@"id"]] forKey:@"_id"];
     [_params setObject:[NSString stringWithFormat:@"%@",userDictionary[@"user"][@"first_name"]] forKey:@"firstName"];
      [_params setObject:[NSString stringWithFormat:@"%@",userDictionary[@"user"][@"last_name"]] forKey:@"lastName"];
+    [_params setObject:[NSString stringWithFormat:@"%f", image.size.width] forKey:@"photoWidth"];
+    [_params setObject:[NSString stringWithFormat:@"%f", image.size.height] forKey:@"photoHeight"];
      [_params setObject:[NSString stringWithFormat:@"%@", filename] forKey:@"photoUrl"];
      [_params setObject:[NSString stringWithFormat:@"%@", @""] forKey:@"caption"]; //FIX THIS: add caption
     
@@ -229,7 +231,7 @@ BOOL isActionSheetDeleteShown = NO;
     [request setHTTPBody:body];
     
     // set the content-length
-    NSString *postLength = [NSString stringWithFormat:@"%d", [body length]];
+    NSString *postLength = [NSString stringWithFormat:@"%lu", (unsigned long)[body length]];
     [request setValue:postLength forHTTPHeaderField:@"Content-Length"];
     
     // set URL

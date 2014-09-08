@@ -35,6 +35,11 @@ bool isLikeRequestSending;
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    [self.tabBarController.navigationItem setHidesBackButton:YES];
+    
+    self.tableView.rowHeight = UITableViewAutomaticDimension;
+    
+    newsFeedArray = [[NSMutableArray alloc] init];
     
     userId = [[Utils getInstance]getLoggedInUserId];
     userDictionary = [[Utils getInstance]getUserDictionary];
@@ -74,8 +79,9 @@ bool isLikeRequestSending;
     [super viewWillAppear:animated];
     [self.navigationController setNavigationBarHidden:NO animated:animated];
     [[UIApplication sharedApplication] setStatusBarHidden:NO];
-    self.navigationController.navigationBar.topItem.title = @"News";
+    self.navigationController.navigationBar.topItem.title = @"Say cheese";
     newsFeedArray = [[Utils getInstance]getUserFriendsFromPrefs];
+    [self.navigationItem setHidesBackButton:YES];
     // [self.tableView reloadData];
 }
 
@@ -88,6 +94,8 @@ bool isLikeRequestSending;
     //  friendsArray = [[Utils getInstance] getUserFriendsFromPrefs];
     //[self fillFriendsImageViews:friendsArray];
     //}
+    [self.tableView reloadData];
+
 }
 
 
@@ -141,6 +149,10 @@ bool isLikeRequestSending;
     }
     
     [cell.buttonLike setNeedsLayout];
+    [cell setNeedsLayout];
+   // [cell layoutIfNeeded];
+    cell.autoresizingMask = UIViewAutoresizingFlexibleHeight;
+
     if(
        likeFromUserExists)
     {
@@ -165,11 +177,65 @@ bool isLikeRequestSending;
     
     cell.imageViewFriendUploadedPhoto.image = [UIImage imageNamed:@"default_user1.jpg"]; //loading.....
     NSURL *photoUrl =[[Utils getInstance] getSaycheesePictureUrl:result[@"photoUrl"] userId:result[@"userId"]];
-    cell.imageViewFriendUploadedPhoto.imageURL = photoUrl;
+    
+     cell.imageViewFriendUploadedPhoto.imageURL = photoUrl;
+    
+    CGFloat width = 245.0;
+    CGFloat height = 480.0 * 245.0/320.0;
+    if(result[@"photoWidth"]!=nil && result[@"photoHeight"]!=nil){
+        width =  [result[@"photoWidth"] floatValue];
+        height= [result[@"photoHeight"] floatValue];
+    }
+    
+    cell.imageViewFriendUploadedPhoto.frame = CGRectMake(cell.imageViewFriendUploadedPhoto.frame.origin.x, cell.imageViewFriendUploadedPhoto.frame.origin.y, width , height);
+    
+    
+   
   
     return cell;
 }
+/*
+- (UITableViewCell *)tableView:estimatedHeightForRowAtIndexPath: (NSIndexPath *) indexPath {
+    static BIDNewsFeedTableViewCell *sizingCell = nil;
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        sizingCell = [self.tableView dequeueReusableCellWithIdentifier:@"newsFeedTableCell"];
+    });
+    
+    [sizingCell setNeedsLayout];
+    [sizingCell layoutIfNeeded];
+    
+    CGSize size = [sizingCell.contentView systemLayoutSizeFittingSize:UILayoutFittingCompressedSize];
 
+    return size.height;
+}
+*/
+
+
+
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
+ 
+        return [self heightForImageCellAtIndexPath:indexPath];
+}
+
+- (CGFloat)heightForImageCellAtIndexPath:(NSIndexPath *)indexPath {
+    NSDictionary* result = [newsFeedArray objectAtIndex:[indexPath row]];
+    CGFloat width = 245.0;
+    CGFloat height = 480.0 * 245.0/320.0;
+    if(result[@"photoWidth"]!=nil && result[@"photoHeight"]!=nil){
+        width =  [result[@"photoWidth"] floatValue];
+        height= [result[@"photoHeight"] floatValue];
+    }
+    return 100 + height;
+}
+
+- (CGFloat)calculateHeightForConfiguredSizingCell:(UITableViewCell *)sizingCell {
+    [sizingCell setNeedsLayout];
+    [sizingCell layoutIfNeeded];
+    
+    CGSize size = [sizingCell.contentView systemLayoutSizeFittingSize:UILayoutFittingCompressedSize];
+    return size.height;
+}
 
 - (void)addOrRemoveLikeClicked:(id)sender {
     if(!isLikeRequestSending){

@@ -144,6 +144,13 @@ return [NSURL URLWithString: [NSString stringWithFormat:@"http://graph.facebook.
     return [NSURL URLWithString: [urlString stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
 }
 
+- (NSURL*) getUserPhotos:(NSString*) userId
+{
+    NSString* urlString = [NSString stringWithFormat:@"%@/photos/%@", [self getDefaultUrl], userId];
+    return [NSURL URLWithString: [urlString stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
+
+}
+
 - (UIColor* ) greenColor
 {
    return [UIColor  colorWithRed:((float) 21 / 255.0f)
