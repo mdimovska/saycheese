@@ -18,6 +18,7 @@
 @implementation BIDFriendsTableViewController
 
 @synthesize friendsArray;
+
 bool isRemoveFromFriendsRequestSent;
 NSString* userIdInFriendsController = @"";
 
@@ -82,9 +83,9 @@ NSString* userIdInFriendsController = @"";
 
 - (void)goToAddFriendsController:(id)sender
 {
- 
  [[[self.navigationController viewControllers] lastObject] performSegueWithIdentifier:@"addFriendsSegueIdentifier" sender:self];
 }
+
 - (void)goToFriendRequestsController:(id)sender
 {
      [[[self.navigationController viewControllers] lastObject] performSegueWithIdentifier:@"friendRequestsSegueIdentifier" sender:self];
@@ -101,7 +102,6 @@ NSString* userIdInFriendsController = @"";
     [super viewWillAppear:animated];
     [self.navigationController setNavigationBarHidden:NO animated:animated];
     [[UIApplication sharedApplication] setStatusBarHidden:NO];
-    //self.title = @"Friends";
     self.navigationController.navigationBar.topItem.title = @"Friends";
      friendsArray = [[Utils getInstance]getUserFriendsFromPrefs];
     [self.tableView reloadData];

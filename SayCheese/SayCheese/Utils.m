@@ -114,9 +114,16 @@ return [NSURL URLWithString: [NSString stringWithFormat:@"http://graph.facebook.
     NSString* urlString = [NSString stringWithFormat:@"%@/users/%@/friendRequests", [self getDefaultUrl], userId];
     return [NSURL URLWithString: [urlString stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
 }
+
 - (NSURL*) acceptFriendUrl:(NSString*) userId
 {
     NSString* urlString = [NSString stringWithFormat:@"%@/users/%@/acceptFriend", [self getDefaultUrl], userId];
+    return [NSURL URLWithString: [urlString stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
+}
+
+- (NSURL*) getNewsFeedUrl:(NSString*) userId
+{
+    NSString* urlString = [NSString stringWithFormat:@"%@/photos/%@/latest", [self getDefaultUrl], userId];
     return [NSURL URLWithString: [urlString stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
 }
 

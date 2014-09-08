@@ -22,6 +22,7 @@
 - (NSURL*) getFriendRequestsUrl:(NSString*) userId;
 - (NSURL*) acceptFriendUrl:(NSString*) userId;
 - (NSURL*) sendPhotoUrl;
+- (NSURL*) getNewsFeedUrl:(NSString*) userId;
 
 - (UIColor* ) greenColor;
 
