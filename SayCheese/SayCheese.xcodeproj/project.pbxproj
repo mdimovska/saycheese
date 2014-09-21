@@ -1,767 +1,2626 @@
-// !$*UTF8*$!
-{
-	archiveVersion = 1;
-	classes = {
-	};
-	objectVersion = 46;
-	objects = {
-
-/* Begin PBXBuildFile section */
-		4E0C6C39199E791A003E51F1 /* camera_switch.png in Resources */ = {isa = PBXBuildFile; fileRef = 4E0C6C38199E791A003E51F1 /* camera_switch.png */; };
-		4E0CC95919A8F205009392DE /* BIDNavigationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E0CC95819A8F205009392DE /* BIDNavigationViewController.m */; };
-		4E0CC96519AA2CFE009392DE /* Social.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4E0CC96419AA2CFE009392DE /* Social.framework */; };
-		4E0CC96719AA2D16009392DE /* MessageUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4E0CC96619AA2D16009392DE /* MessageUI.framework */; };
-		4E76493C19BD2C6F00B105E8 /* TTTTimeIntervalFormatter.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E76493B19BD2C6F00B105E8 /* TTTTimeIntervalFormatter.m */; };
-		4E76496719BDB26E00B105E8 /* Icon-40.png in Resources */ = {isa = PBXBuildFile; fileRef = 4E76495F19BDB26E00B105E8 /* Icon-40.png */; };
-		4E76496819BDB26E00B105E8 /* Icon-40@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4E76496019BDB26E00B105E8 /* Icon-40@2x.png */; };
-		4E76496919BDB26E00B105E8 /* Icon-60.png in Resources */ = {isa = PBXBuildFile; fileRef = 4E76496119BDB26E00B105E8 /* Icon-60.png */; };
-		4E76496A19BDB26E00B105E8 /* Icon-60@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4E76496219BDB26E00B105E8 /* Icon-60@2x.png */; };
-		4E76496B19BDB26E00B105E8 /* Icon-76.png in Resources */ = {isa = PBXBuildFile; fileRef = 4E76496319BDB26E00B105E8 /* Icon-76.png */; };
-		4E76496C19BDB26E00B105E8 /* Icon-76@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4E76496419BDB26E00B105E8 /* Icon-76@2x.png */; };
-		4E76496D19BDB26E00B105E8 /* Icon-Small.png in Resources */ = {isa = PBXBuildFile; fileRef = 4E76496519BDB26E00B105E8 /* Icon-Small.png */; };
-		4E76496E19BDB26E00B105E8 /* Icon-Small@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4E76496619BDB26E00B105E8 /* Icon-Small@2x.png */; };
-		4E76497019BDB7B100B105E8 /* cameraImage.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 4E76496F19BDB7B100B105E8 /* cameraImage.jpg */; };
-		4E76497219BDB7BB00B105E8 /* cameraPicture.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 4E76497119BDB7BB00B105E8 /* cameraPicture.jpg */; };
-		4E76497419BDB89000B105E8 /* iphone.png in Resources */ = {isa = PBXBuildFile; fileRef = 4E76497319BDB89000B105E8 /* iphone.png */; };
-		4E76497619BDC0D200B105E8 /* like_icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 4E76497519BDC0D200B105E8 /* like_icon.png */; };
-		4E7C069519B3B2A800321FB0 /* BIDAddFriendsTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E7C069419B3B2A800321FB0 /* BIDAddFriendsTableViewController.m */; };
-		4E7C069819B3B36C00321FB0 /* BIDAddFriendsTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E7C069719B3B36C00321FB0 /* BIDAddFriendsTableViewCell.m */; };
-		4E8F8E6A199EAE23009ED73D /* BIDImageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E8F8E69199EAE23009ED73D /* BIDImageViewController.m */; };
-		4E9365FA199E540600107C7E /* ImageIO.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4E9365F9199E540600107C7E /* ImageIO.framework */; };
-		4E9365FC199E540E00107C7E /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4E9365FB199E540E00107C7E /* QuartzCore.framework */; };
-		4E9365FE199E541900107C7E /* CoreMedia.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4E9365FD199E541900107C7E /* CoreMedia.framework */; };
-		4E936600199E542200107C7E /* AssetsLibrary.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4E9365FF199E542200107C7E /* AssetsLibrary.framework */; };
-		4E936602199E542B00107C7E /* CoreImage.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4E936601199E542B00107C7E /* CoreImage.framework */; };
-		4E936604199E543200107C7E /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4E936603199E543200107C7E /* AVFoundation.framework */; };
-		4E936606199E543700107C7E /* CoreVideo.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4E936605199E543700107C7E /* CoreVideo.framework */; };
-		4E96789D19B21682001EF6A7 /* FacebookSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4E96789C19B21682001EF6A7 /* FacebookSDK.framework */; };
-		4E9678A019B22D62001EF6A7 /* BIDLoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E96789F19B22D62001EF6A7 /* BIDLoginViewController.m */; };
-		4E9678A319B2486C001EF6A7 /* BIDTabBarController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E9678A219B2486C001EF6A7 /* BIDTabBarController.m */; };
-		4E9678A619B24AC6001EF6A7 /* BIDUserAccountViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E9678A519B24AC6001EF6A7 /* BIDUserAccountViewController.m */; };
-		4E9678AA19B26CF9001EF6A7 /* background.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 4E9678A919B26CF9001EF6A7 /* background.jpg */; };
-		4E9678AC19B26DEA001EF6A7 /* background_user_account.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 4E9678AB19B26DEA001EF6A7 /* background_user_account.jpg */; };
-		4E9678AF19B32F34001EF6A7 /* AsyncImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E9678AE19B32F34001EF6A7 /* AsyncImageView.m */; };
-		4E9678B219B33AC2001EF6A7 /* BIDFriendsTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E9678B119B33AC2001EF6A7 /* BIDFriendsTableViewController.m */; };
-		4E9678B519B354FF001EF6A7 /* BIDFriendsTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E9678B419B354FF001EF6A7 /* BIDFriendsTableViewCell.m */; };
-		4E9678B819B3588B001EF6A7 /* RequestQueue.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E9678B719B3588B001EF6A7 /* RequestQueue.m */; };
-		4EA02B01199CE46B00937E34 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4EA02B00199CE46B00937E34 /* Foundation.framework */; };
-		4EA02B03199CE46B00937E34 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4EA02B02199CE46B00937E34 /* CoreGraphics.framework */; };
-		4EA02B05199CE46B00937E34 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4EA02B04199CE46B00937E34 /* UIKit.framework */; };
-		4EA02B0B199CE46B00937E34 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 4EA02B09199CE46B00937E34 /* InfoPlist.strings */; };
-		4EA02B0D199CE46B00937E34 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 4EA02B0C199CE46B00937E34 /* main.m */; };
-		4EA02B11199CE46B00937E34 /* BIDAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 4EA02B10199CE46B00937E34 /* BIDAppDelegate.m */; };
-		4EA02B14199CE46B00937E34 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4EA02B12199CE46B00937E34 /* Main.storyboard */; };
-		4EA02B17199CE46B00937E34 /* BIDViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4EA02B16199CE46B00937E34 /* BIDViewController.m */; };
-		4EA02B19199CE46B00937E34 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4EA02B18199CE46B00937E34 /* Images.xcassets */; };
-		4EA02B20199CE46B00937E34 /* XCTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4EA02B1F199CE46B00937E34 /* XCTest.framework */; };
-		4EA02B21199CE46B00937E34 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4EA02B00199CE46B00937E34 /* Foundation.framework */; };
-		4EA02B22199CE46B00937E34 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4EA02B04199CE46B00937E34 /* UIKit.framework */; };
-		4EA02B2A199CE46B00937E34 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 4EA02B28199CE46B00937E34 /* InfoPlist.strings */; };
-		4EA02B2C199CE46B00937E34 /* SayCheeseTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 4EA02B2B199CE46B00937E34 /* SayCheeseTests.m */; };
-		4EF76CF219BC4EF600592D61 /* default_user1.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 4EF76CF119BC4EF600592D61 /* default_user1.jpg */; };
-		4EF76CF519BC515500592D61 /* icon_add_friends.png in Resources */ = {isa = PBXBuildFile; fileRef = 4EF76CF319BC515500592D61 /* icon_add_friends.png */; };
-		4EF76CF619BC515500592D61 /* icon_friend_requests.png in Resources */ = {isa = PBXBuildFile; fileRef = 4EF76CF419BC515500592D61 /* icon_friend_requests.png */; };
-		4EF7846219B8FB2F00142930 /* plus_gray.png in Resources */ = {isa = PBXBuildFile; fileRef = 4EF7846019B8FB2F00142930 /* plus_gray.png */; };
-		4EF7846319B8FB2F00142930 /* plus_green.png in Resources */ = {isa = PBXBuildFile; fileRef = 4EF7846119B8FB2F00142930 /* plus_green.png */; };
-		4EF7846619B92C7A00142930 /* BIDFriendRequestsTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4EF7846519B92C7A00142930 /* BIDFriendRequestsTableViewController.m */; };
-		4EF7846919B92CA000142930 /* BIDFriendRequestsTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4EF7846819B92CA000142930 /* BIDFriendRequestsTableViewCell.m */; };
-		4EF7E18019BCF14B00B63613 /* BIDNewsFeedTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4EF7E17F19BCF14B00B63613 /* BIDNewsFeedTableViewCell.m */; };
-		4EF7E18319BCF16000B63613 /* BIDNewsFeedTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4EF7E18219BCF16000B63613 /* BIDNewsFeedTableViewController.m */; };
-		4EF948F419BC627E00FFF374 /* icon_add_friends@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4EF948F219BC627E00FFF374 /* icon_add_friends@2x.png */; };
-		4EF948F719BC668600FFF374 /* icon_friend_requests@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4EF948F619BC668600FFF374 /* icon_friend_requests@2x.png */; };
-		4EF948FF19BC721C00FFF374 /* list@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4EF948FE19BC721C00FFF374 /* list@2x.png */; };
-		4EF9490119BC72C200FFF374 /* account_icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4EF9490019BC72C200FFF374 /* account_icon@2x.png */; };
-		4EF9490319BC777700FFF374 /* saycheese_logo_white@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4EF9490219BC777700FFF374 /* saycheese_logo_white@2x.png */; };
-		4EF9490919BC7B4B00FFF374 /* squarePNG.png in Resources */ = {isa = PBXBuildFile; fileRef = 4EF9490819BC7B4B00FFF374 /* squarePNG.png */; };
-		4EF9B11919BC464600C20DB9 /* default_user.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 4EF9B11719BC464600C20DB9 /* default_user.jpg */; };
-		4EFA067819BBC5C90029FCBF /* friend_requests_icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 4EFA067619BBC5C90029FCBF /* friend_requests_icon.png */; };
-		4EFA067F19BBC6FB0029FCBF /* add_friends_icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 4EFA067E19BBC6FB0029FCBF /* add_friends_icon.png */; };
-		4EFA068119BBC7350029FCBF /* friend_requests_icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 4EFA068019BBC7350029FCBF /* friend_requests_icon.png */; };
-		4EFA068319BBC8100029FCBF /* plus_icon.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 4EFA068219BBC8100029FCBF /* plus_icon.jpg */; };
-		4EFA068519BBCA4C0029FCBF /* add_icon_green.png in Resources */ = {isa = PBXBuildFile; fileRef = 4EFA068419BBCA4C0029FCBF /* add_icon_green.png */; };
-		4EFC405F19BE0F9900DB32A5 /* like_icon_green.png in Resources */ = {isa = PBXBuildFile; fileRef = 4EFC405E19BE0F9900DB32A5 /* like_icon_green.png */; };
-		4EFC406119BE1FF100DB32A5 /* accept_icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 4EFC406019BE1FF100DB32A5 /* accept_icon.png */; };
-		4EFF0B3619B3724100680273 /* Utils.m in Sources */ = {isa = PBXBuildFile; fileRef = 4EFF0B3519B3724100680273 /* Utils.m */; };
-/* End PBXBuildFile section */
-
-/* Begin PBXContainerItemProxy section */
-		4EA02B23199CE46B00937E34 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 4EA02AF5199CE46B00937E34 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 4EA02AFC199CE46B00937E34;
-			remoteInfo = SayCheese;
-		};
-/* End PBXContainerItemProxy section */
-
-/* Begin PBXFileReference section */
-		4E0C6C38199E791A003E51F1 /* camera_switch.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = camera_switch.png; sourceTree = "<group>"; };
-		4E0CC95719A8F205009392DE /* BIDNavigationViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BIDNavigationViewController.h; sourceTree = "<group>"; };
-		4E0CC95819A8F205009392DE /* BIDNavigationViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BIDNavigationViewController.m; sourceTree = "<group>"; };
-		4E0CC96419AA2CFE009392DE /* Social.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Social.framework; path = System/Library/Frameworks/Social.framework; sourceTree = SDKROOT; };
-		4E0CC96619AA2D16009392DE /* MessageUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MessageUI.framework; path = System/Library/Frameworks/MessageUI.framework; sourceTree = SDKROOT; };
-		4E76493A19BD2C6F00B105E8 /* TTTTimeIntervalFormatter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TTTTimeIntervalFormatter.h; sourceTree = "<group>"; };
-		4E76493B19BD2C6F00B105E8 /* TTTTimeIntervalFormatter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TTTTimeIntervalFormatter.m; sourceTree = "<group>"; };
-		4E76495F19BDB26E00B105E8 /* Icon-40.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon-40.png"; sourceTree = "<group>"; };
-		4E76496019BDB26E00B105E8 /* Icon-40@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon-40@2x.png"; sourceTree = "<group>"; };
-		4E76496119BDB26E00B105E8 /* Icon-60.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon-60.png"; sourceTree = "<group>"; };
-		4E76496219BDB26E00B105E8 /* Icon-60@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon-60@2x.png"; sourceTree = "<group>"; };
-		4E76496319BDB26E00B105E8 /* Icon-76.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon-76.png"; sourceTree = "<group>"; };
-		4E76496419BDB26E00B105E8 /* Icon-76@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon-76@2x.png"; sourceTree = "<group>"; };
-		4E76496519BDB26E00B105E8 /* Icon-Small.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon-Small.png"; sourceTree = "<group>"; };
-		4E76496619BDB26E00B105E8 /* Icon-Small@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon-Small@2x.png"; sourceTree = "<group>"; };
-		4E76496F19BDB7B100B105E8 /* cameraImage.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = cameraImage.jpg; sourceTree = "<group>"; };
-		4E76497119BDB7BB00B105E8 /* cameraPicture.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = cameraPicture.jpg; sourceTree = "<group>"; };
-		4E76497319BDB89000B105E8 /* iphone.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = iphone.png; sourceTree = "<group>"; };
-		4E76497519BDC0D200B105E8 /* like_icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = like_icon.png; sourceTree = "<group>"; };
-		4E7C069319B3B2A800321FB0 /* BIDAddFriendsTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BIDAddFriendsTableViewController.h; path = ../BIDAddFriendsTableViewController.h; sourceTree = "<group>"; };
-		4E7C069419B3B2A800321FB0 /* BIDAddFriendsTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = BIDAddFriendsTableViewController.m; path = ../BIDAddFriendsTableViewController.m; sourceTree = "<group>"; };
-		4E7C069619B3B36C00321FB0 /* BIDAddFriendsTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BIDAddFriendsTableViewCell.h; sourceTree = "<group>"; };
-		4E7C069719B3B36C00321FB0 /* BIDAddFriendsTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BIDAddFriendsTableViewCell.m; sourceTree = "<group>"; };
-		4E8F8E68199EAE23009ED73D /* BIDImageViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BIDImageViewController.h; sourceTree = "<group>"; };
-		4E8F8E69199EAE23009ED73D /* BIDImageViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BIDImageViewController.m; sourceTree = "<group>"; };
-		4E9365F9199E540600107C7E /* ImageIO.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ImageIO.framework; path = System/Library/Frameworks/ImageIO.framework; sourceTree = SDKROOT; };
-		4E9365FB199E540E00107C7E /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
-		4E9365FD199E541900107C7E /* CoreMedia.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreMedia.framework; path = System/Library/Frameworks/CoreMedia.framework; sourceTree = SDKROOT; };
-		4E9365FF199E542200107C7E /* AssetsLibrary.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AssetsLibrary.framework; path = System/Library/Frameworks/AssetsLibrary.framework; sourceTree = SDKROOT; };
-		4E936601199E542B00107C7E /* CoreImage.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreImage.framework; path = System/Library/Frameworks/CoreImage.framework; sourceTree = SDKROOT; };
-		4E936603199E543200107C7E /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
-		4E936605199E543700107C7E /* CoreVideo.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreVideo.framework; path = System/Library/Frameworks/CoreVideo.framework; sourceTree = SDKROOT; };
-		4E96789C19B21682001EF6A7 /* FacebookSDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = FacebookSDK.framework; sourceTree = "<group>"; };
-		4E96789E19B22D62001EF6A7 /* BIDLoginViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BIDLoginViewController.h; sourceTree = "<group>"; };
-		4E96789F19B22D62001EF6A7 /* BIDLoginViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BIDLoginViewController.m; sourceTree = "<group>"; };
-		4E9678A119B2486C001EF6A7 /* BIDTabBarController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BIDTabBarController.h; sourceTree = "<group>"; };
-		4E9678A219B2486C001EF6A7 /* BIDTabBarController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BIDTabBarController.m; sourceTree = "<group>"; };
-		4E9678A419B24AC6001EF6A7 /* BIDUserAccountViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BIDUserAccountViewController.h; sourceTree = "<group>"; };
-		4E9678A519B24AC6001EF6A7 /* BIDUserAccountViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BIDUserAccountViewController.m; sourceTree = "<group>"; };
-		4E9678A919B26CF9001EF6A7 /* background.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = background.jpg; sourceTree = "<group>"; };
-		4E9678AB19B26DEA001EF6A7 /* background_user_account.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = background_user_account.jpg; sourceTree = "<group>"; };
-		4E9678AD19B32F34001EF6A7 /* AsyncImageView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AsyncImageView.h; sourceTree = "<group>"; };
-		4E9678AE19B32F34001EF6A7 /* AsyncImageView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AsyncImageView.m; sourceTree = "<group>"; };
-		4E9678B019B33AC2001EF6A7 /* BIDFriendsTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BIDFriendsTableViewController.h; sourceTree = "<group>"; };
-		4E9678B119B33AC2001EF6A7 /* BIDFriendsTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BIDFriendsTableViewController.m; sourceTree = "<group>"; };
-		4E9678B319B354FF001EF6A7 /* BIDFriendsTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BIDFriendsTableViewCell.h; sourceTree = "<group>"; };
-		4E9678B419B354FF001EF6A7 /* BIDFriendsTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BIDFriendsTableViewCell.m; sourceTree = "<group>"; };
-		4E9678B619B3588B001EF6A7 /* RequestQueue.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RequestQueue.h; sourceTree = "<group>"; };
-		4E9678B719B3588B001EF6A7 /* RequestQueue.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RequestQueue.m; sourceTree = "<group>"; };
-		4EA02AFD199CE46B00937E34 /* SayCheese.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SayCheese.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		4EA02B00199CE46B00937E34 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
-		4EA02B02199CE46B00937E34 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
-		4EA02B04199CE46B00937E34 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
-		4EA02B08199CE46B00937E34 /* SayCheese-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "SayCheese-Info.plist"; sourceTree = "<group>"; };
-		4EA02B0A199CE46B00937E34 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
-		4EA02B0C199CE46B00937E34 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
-		4EA02B0E199CE46B00937E34 /* SayCheese-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "SayCheese-Prefix.pch"; sourceTree = "<group>"; };
-		4EA02B0F199CE46B00937E34 /* BIDAppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BIDAppDelegate.h; sourceTree = "<group>"; };
-		4EA02B10199CE46B00937E34 /* BIDAppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BIDAppDelegate.m; sourceTree = "<group>"; };
-		4EA02B13199CE46B00937E34 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
-		4EA02B15199CE46B00937E34 /* BIDViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BIDViewController.h; sourceTree = "<group>"; };
-		4EA02B16199CE46B00937E34 /* BIDViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BIDViewController.m; sourceTree = "<group>"; };
-		4EA02B18199CE46B00937E34 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
-		4EA02B1E199CE46B00937E34 /* SayCheeseTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SayCheeseTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		4EA02B1F199CE46B00937E34 /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
-		4EA02B27199CE46B00937E34 /* SayCheeseTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "SayCheeseTests-Info.plist"; sourceTree = "<group>"; };
-		4EA02B29199CE46B00937E34 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
-		4EA02B2B199CE46B00937E34 /* SayCheeseTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SayCheeseTests.m; sourceTree = "<group>"; };
-		4EF76CF119BC4EF600592D61 /* default_user1.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = default_user1.jpg; sourceTree = "<group>"; };
-		4EF76CF319BC515500592D61 /* icon_add_friends.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = icon_add_friends.png; sourceTree = "<group>"; };
-		4EF76CF419BC515500592D61 /* icon_friend_requests.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = icon_friend_requests.png; sourceTree = "<group>"; };
-		4EF7846019B8FB2F00142930 /* plus_gray.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = plus_gray.png; sourceTree = "<group>"; };
-		4EF7846119B8FB2F00142930 /* plus_green.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = plus_green.png; sourceTree = "<group>"; };
-		4EF7846419B92C7A00142930 /* BIDFriendRequestsTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BIDFriendRequestsTableViewController.h; sourceTree = "<group>"; };
-		4EF7846519B92C7A00142930 /* BIDFriendRequestsTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BIDFriendRequestsTableViewController.m; sourceTree = "<group>"; };
-		4EF7846719B92CA000142930 /* BIDFriendRequestsTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BIDFriendRequestsTableViewCell.h; sourceTree = "<group>"; };
-		4EF7846819B92CA000142930 /* BIDFriendRequestsTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BIDFriendRequestsTableViewCell.m; sourceTree = "<group>"; };
-		4EF7E17E19BCF14B00B63613 /* BIDNewsFeedTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BIDNewsFeedTableViewCell.h; sourceTree = "<group>"; };
-		4EF7E17F19BCF14B00B63613 /* BIDNewsFeedTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BIDNewsFeedTableViewCell.m; sourceTree = "<group>"; };
-		4EF7E18119BCF16000B63613 /* BIDNewsFeedTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BIDNewsFeedTableViewController.h; sourceTree = "<group>"; };
-		4EF7E18219BCF16000B63613 /* BIDNewsFeedTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BIDNewsFeedTableViewController.m; sourceTree = "<group>"; };
-		4EF948F219BC627E00FFF374 /* icon_add_friends@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon_add_friends@2x.png"; sourceTree = "<group>"; };
-		4EF948F619BC668600FFF374 /* icon_friend_requests@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon_friend_requests@2x.png"; sourceTree = "<group>"; };
-		4EF948FE19BC721C00FFF374 /* list@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "list@2x.png"; sourceTree = "<group>"; };
-		4EF9490019BC72C200FFF374 /* account_icon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "account_icon@2x.png"; sourceTree = "<group>"; };
-		4EF9490219BC777700FFF374 /* saycheese_logo_white@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "saycheese_logo_white@2x.png"; sourceTree = "<group>"; };
-		4EF9490819BC7B4B00FFF374 /* squarePNG.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = squarePNG.png; sourceTree = "<group>"; };
-		4EF9B11719BC464600C20DB9 /* default_user.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = default_user.jpg; sourceTree = "<group>"; };
-		4EFA067619BBC5C90029FCBF /* friend_requests_icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = friend_requests_icon.png; sourceTree = "<group>"; };
-		4EFA067E19BBC6FB0029FCBF /* add_friends_icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = add_friends_icon.png; sourceTree = "<group>"; };
-		4EFA068019BBC7350029FCBF /* friend_requests_icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = friend_requests_icon.png; sourceTree = "<group>"; };
-		4EFA068219BBC8100029FCBF /* plus_icon.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = plus_icon.jpg; sourceTree = "<group>"; };
-		4EFA068419BBCA4C0029FCBF /* add_icon_green.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = add_icon_green.png; sourceTree = "<group>"; };
-		4EFC405E19BE0F9900DB32A5 /* like_icon_green.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = like_icon_green.png; sourceTree = "<group>"; };
-		4EFC406019BE1FF100DB32A5 /* accept_icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = accept_icon.png; sourceTree = "<group>"; };
-		4EFF0B3419B3724100680273 /* Utils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Utils.h; sourceTree = "<group>"; };
-		4EFF0B3519B3724100680273 /* Utils.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Utils.m; sourceTree = "<group>"; };
-/* End PBXFileReference section */
-
-/* Begin PBXFrameworksBuildPhase section */
-		4EA02AFA199CE46B00937E34 /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				4E0CC96719AA2D16009392DE /* MessageUI.framework in Frameworks */,
-				4E0CC96519AA2CFE009392DE /* Social.framework in Frameworks */,
-				4EA02B05199CE46B00937E34 /* UIKit.framework in Frameworks */,
-				4E936606199E543700107C7E /* CoreVideo.framework in Frameworks */,
-				4E936604199E543200107C7E /* AVFoundation.framework in Frameworks */,
-				4E936602199E542B00107C7E /* CoreImage.framework in Frameworks */,
-				4E936600199E542200107C7E /* AssetsLibrary.framework in Frameworks */,
-				4E9365FE199E541900107C7E /* CoreMedia.framework in Frameworks */,
-				4E96789D19B21682001EF6A7 /* FacebookSDK.framework in Frameworks */,
-				4E9365FC199E540E00107C7E /* QuartzCore.framework in Frameworks */,
-				4E9365FA199E540600107C7E /* ImageIO.framework in Frameworks */,
-				4EA02B03199CE46B00937E34 /* CoreGraphics.framework in Frameworks */,
-				4EA02B01199CE46B00937E34 /* Foundation.framework in Frameworks */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		4EA02B1B199CE46B00937E34 /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				4EA02B20199CE46B00937E34 /* XCTest.framework in Frameworks */,
-				4EA02B22199CE46B00937E34 /* UIKit.framework in Frameworks */,
-				4EA02B21199CE46B00937E34 /* Foundation.framework in Frameworks */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-/* End PBXFrameworksBuildPhase section */
-
-/* Begin PBXGroup section */
-		4EA02AF4199CE46B00937E34 = {
-			isa = PBXGroup;
-			children = (
-				4EA02B06199CE46B00937E34 /* SayCheese */,
-				4EA02B25199CE46B00937E34 /* SayCheeseTests */,
-				4EA02AFF199CE46B00937E34 /* Frameworks */,
-				4EA02AFE199CE46B00937E34 /* Products */,
-			);
-			sourceTree = "<group>";
-		};
-		4EA02AFE199CE46B00937E34 /* Products */ = {
-			isa = PBXGroup;
-			children = (
-				4EA02AFD199CE46B00937E34 /* SayCheese.app */,
-				4EA02B1E199CE46B00937E34 /* SayCheeseTests.xctest */,
-			);
-			name = Products;
-			sourceTree = "<group>";
-		};
-		4EA02AFF199CE46B00937E34 /* Frameworks */ = {
-			isa = PBXGroup;
-			children = (
-				4E96789C19B21682001EF6A7 /* FacebookSDK.framework */,
-				4E0CC96619AA2D16009392DE /* MessageUI.framework */,
-				4E0CC96419AA2CFE009392DE /* Social.framework */,
-				4E936605199E543700107C7E /* CoreVideo.framework */,
-				4E936603199E543200107C7E /* AVFoundation.framework */,
-				4E936601199E542B00107C7E /* CoreImage.framework */,
-				4E9365FF199E542200107C7E /* AssetsLibrary.framework */,
-				4E9365FD199E541900107C7E /* CoreMedia.framework */,
-				4E9365FB199E540E00107C7E /* QuartzCore.framework */,
-				4E9365F9199E540600107C7E /* ImageIO.framework */,
-				4EA02B00199CE46B00937E34 /* Foundation.framework */,
-				4EA02B02199CE46B00937E34 /* CoreGraphics.framework */,
-				4EA02B04199CE46B00937E34 /* UIKit.framework */,
-				4EA02B1F199CE46B00937E34 /* XCTest.framework */,
-			);
-			name = Frameworks;
-			sourceTree = "<group>";
-		};
-		4EA02B06199CE46B00937E34 /* SayCheese */ = {
-			isa = PBXGroup;
-			children = (
-				4E9678B619B3588B001EF6A7 /* RequestQueue.h */,
-				4E9678B719B3588B001EF6A7 /* RequestQueue.m */,
-				4E9678AD19B32F34001EF6A7 /* AsyncImageView.h */,
-				4E9678AE19B32F34001EF6A7 /* AsyncImageView.m */,
-				4EA02B0F199CE46B00937E34 /* BIDAppDelegate.h */,
-				4EA02B10199CE46B00937E34 /* BIDAppDelegate.m */,
-				4EA02B12199CE46B00937E34 /* Main.storyboard */,
-				4EA02B15199CE46B00937E34 /* BIDViewController.h */,
-				4EA02B16199CE46B00937E34 /* BIDViewController.m */,
-				4E8F8E68199EAE23009ED73D /* BIDImageViewController.h */,
-				4E8F8E69199EAE23009ED73D /* BIDImageViewController.m */,
-				4EA02B18199CE46B00937E34 /* Images.xcassets */,
-				4EA02B07199CE46B00937E34 /* Supporting Files */,
-				4E0CC95719A8F205009392DE /* BIDNavigationViewController.h */,
-				4E0CC95819A8F205009392DE /* BIDNavigationViewController.m */,
-				4E96789E19B22D62001EF6A7 /* BIDLoginViewController.h */,
-				4E96789F19B22D62001EF6A7 /* BIDLoginViewController.m */,
-				4E9678A119B2486C001EF6A7 /* BIDTabBarController.h */,
-				4E9678A219B2486C001EF6A7 /* BIDTabBarController.m */,
-				4E9678A419B24AC6001EF6A7 /* BIDUserAccountViewController.h */,
-				4E9678A519B24AC6001EF6A7 /* BIDUserAccountViewController.m */,
-				4E9678B319B354FF001EF6A7 /* BIDFriendsTableViewCell.h */,
-				4E9678B419B354FF001EF6A7 /* BIDFriendsTableViewCell.m */,
-				4E9678B019B33AC2001EF6A7 /* BIDFriendsTableViewController.h */,
-				4E9678B119B33AC2001EF6A7 /* BIDFriendsTableViewController.m */,
-				4E7C069619B3B36C00321FB0 /* BIDAddFriendsTableViewCell.h */,
-				4E7C069719B3B36C00321FB0 /* BIDAddFriendsTableViewCell.m */,
-				4E7C069319B3B2A800321FB0 /* BIDAddFriendsTableViewController.h */,
-				4E7C069419B3B2A800321FB0 /* BIDAddFriendsTableViewController.m */,
-				4EF7846719B92CA000142930 /* BIDFriendRequestsTableViewCell.h */,
-				4EF7846819B92CA000142930 /* BIDFriendRequestsTableViewCell.m */,
-				4EF7846419B92C7A00142930 /* BIDFriendRequestsTableViewController.h */,
-				4EF7846519B92C7A00142930 /* BIDFriendRequestsTableViewController.m */,
-				4EF7E17E19BCF14B00B63613 /* BIDNewsFeedTableViewCell.h */,
-				4EF7E17F19BCF14B00B63613 /* BIDNewsFeedTableViewCell.m */,
-				4EF7E18119BCF16000B63613 /* BIDNewsFeedTableViewController.h */,
-				4EF7E18219BCF16000B63613 /* BIDNewsFeedTableViewController.m */,
-				4E76493A19BD2C6F00B105E8 /* TTTTimeIntervalFormatter.h */,
-				4E76493B19BD2C6F00B105E8 /* TTTTimeIntervalFormatter.m */,
-				4EFF0B3419B3724100680273 /* Utils.h */,
-				4EFF0B3519B3724100680273 /* Utils.m */,
-			);
-			path = SayCheese;
-			sourceTree = "<group>";
-		};
-		4EA02B07199CE46B00937E34 /* Supporting Files */ = {
-			isa = PBXGroup;
-			children = (
-				4E76497519BDC0D200B105E8 /* like_icon.png */,
-				4EFC405E19BE0F9900DB32A5 /* like_icon_green.png */,
-				4E76497319BDB89000B105E8 /* iphone.png */,
-				4E76496F19BDB7B100B105E8 /* cameraImage.jpg */,
-				4E76495F19BDB26E00B105E8 /* Icon-40.png */,
-				4E76496019BDB26E00B105E8 /* Icon-40@2x.png */,
-				4E76497119BDB7BB00B105E8 /* cameraPicture.jpg */,
-				4E76496119BDB26E00B105E8 /* Icon-60.png */,
-				4E76496219BDB26E00B105E8 /* Icon-60@2x.png */,
-				4E76496319BDB26E00B105E8 /* Icon-76.png */,
-				4E76496419BDB26E00B105E8 /* Icon-76@2x.png */,
-				4E76496519BDB26E00B105E8 /* Icon-Small.png */,
-				4E76496619BDB26E00B105E8 /* Icon-Small@2x.png */,
-				4EF9490219BC777700FFF374 /* saycheese_logo_white@2x.png */,
-				4EF948FE19BC721C00FFF374 /* list@2x.png */,
-				4EF948F219BC627E00FFF374 /* icon_add_friends@2x.png */,
-				4EF76CF119BC4EF600592D61 /* default_user1.jpg */,
-				4EF9490819BC7B4B00FFF374 /* squarePNG.png */,
-				4EF948F619BC668600FFF374 /* icon_friend_requests@2x.png */,
-				4EF9B11719BC464600C20DB9 /* default_user.jpg */,
-				4EF9490019BC72C200FFF374 /* account_icon@2x.png */,
-				4EFA068419BBCA4C0029FCBF /* add_icon_green.png */,
-				4EF76CF319BC515500592D61 /* icon_add_friends.png */,
-				4EF76CF419BC515500592D61 /* icon_friend_requests.png */,
-				4EFA068219BBC8100029FCBF /* plus_icon.jpg */,
-				4EFA067E19BBC6FB0029FCBF /* add_friends_icon.png */,
-				4EFA067619BBC5C90029FCBF /* friend_requests_icon.png */,
-				4E9678AB19B26DEA001EF6A7 /* background_user_account.jpg */,
-				4EFC406019BE1FF100DB32A5 /* accept_icon.png */,
-				4EFA068019BBC7350029FCBF /* friend_requests_icon.png */,
-				4E9678A919B26CF9001EF6A7 /* background.jpg */,
-				4EF7846019B8FB2F00142930 /* plus_gray.png */,
-				4EF7846119B8FB2F00142930 /* plus_green.png */,
-				4E0C6C38199E791A003E51F1 /* camera_switch.png */,
-				4EA02B08199CE46B00937E34 /* SayCheese-Info.plist */,
-				4EA02B09199CE46B00937E34 /* InfoPlist.strings */,
-				4EA02B0C199CE46B00937E34 /* main.m */,
-				4EA02B0E199CE46B00937E34 /* SayCheese-Prefix.pch */,
-			);
-			name = "Supporting Files";
-			sourceTree = "<group>";
-		};
-		4EA02B25199CE46B00937E34 /* SayCheeseTests */ = {
-			isa = PBXGroup;
-			children = (
-				4EA02B2B199CE46B00937E34 /* SayCheeseTests.m */,
-				4EA02B26199CE46B00937E34 /* Supporting Files */,
-			);
-			path = SayCheeseTests;
-			sourceTree = "<group>";
-		};
-		4EA02B26199CE46B00937E34 /* Supporting Files */ = {
-			isa = PBXGroup;
-			children = (
-				4EA02B27199CE46B00937E34 /* SayCheeseTests-Info.plist */,
-				4EA02B28199CE46B00937E34 /* InfoPlist.strings */,
-			);
-			name = "Supporting Files";
-			sourceTree = "<group>";
-		};
-/* End PBXGroup section */
-
-/* Begin PBXNativeTarget section */
-		4EA02AFC199CE46B00937E34 /* SayCheese */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = 4EA02B2F199CE46B00937E34 /* Build configuration list for PBXNativeTarget "SayCheese" */;
-			buildPhases = (
-				4EA02AF9199CE46B00937E34 /* Sources */,
-				4EA02AFA199CE46B00937E34 /* Frameworks */,
-				4EA02AFB199CE46B00937E34 /* Resources */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-			);
-			name = SayCheese;
-			productName = SayCheese;
-			productReference = 4EA02AFD199CE46B00937E34 /* SayCheese.app */;
-			productType = "com.apple.product-type.application";
-		};
-		4EA02B1D199CE46B00937E34 /* SayCheeseTests */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = 4EA02B32199CE46B00937E34 /* Build configuration list for PBXNativeTarget "SayCheeseTests" */;
-			buildPhases = (
-				4EA02B1A199CE46B00937E34 /* Sources */,
-				4EA02B1B199CE46B00937E34 /* Frameworks */,
-				4EA02B1C199CE46B00937E34 /* Resources */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-				4EA02B24199CE46B00937E34 /* PBXTargetDependency */,
-			);
-			name = SayCheeseTests;
-			productName = SayCheeseTests;
-			productReference = 4EA02B1E199CE46B00937E34 /* SayCheeseTests.xctest */;
-			productType = "com.apple.product-type.bundle.unit-test";
-		};
-/* End PBXNativeTarget section */
-
-/* Begin PBXProject section */
-		4EA02AF5199CE46B00937E34 /* Project object */ = {
-			isa = PBXProject;
-			attributes = {
-				CLASSPREFIX = BID;
-				LastUpgradeCheck = 0510;
-				TargetAttributes = {
-					4EA02B1D199CE46B00937E34 = {
-						TestTargetID = 4EA02AFC199CE46B00937E34;
-					};
-				};
-			};
-			buildConfigurationList = 4EA02AF8199CE46B00937E34 /* Build configuration list for PBXProject "SayCheese" */;
-			compatibilityVersion = "Xcode 3.2";
-			developmentRegion = English;
-			hasScannedForEncodings = 0;
-			knownRegions = (
-				en,
-				Base,
-			);
-			mainGroup = 4EA02AF4199CE46B00937E34;
-			productRefGroup = 4EA02AFE199CE46B00937E34 /* Products */;
-			projectDirPath = "";
-			projectRoot = "";
-			targets = (
-				4EA02AFC199CE46B00937E34 /* SayCheese */,
-				4EA02B1D199CE46B00937E34 /* SayCheeseTests */,
-			);
-		};
-/* End PBXProject section */
-
-/* Begin PBXResourcesBuildPhase section */
-		4EA02AFB199CE46B00937E34 /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				4EFA068519BBCA4C0029FCBF /* add_icon_green.png in Resources */,
-				4EF948FF19BC721C00FFF374 /* list@2x.png in Resources */,
-				4EA02B19199CE46B00937E34 /* Images.xcassets in Resources */,
-				4E76496E19BDB26E00B105E8 /* Icon-Small@2x.png in Resources */,
-				4EF9B11919BC464600C20DB9 /* default_user.jpg in Resources */,
-				4EA02B0B199CE46B00937E34 /* InfoPlist.strings in Resources */,
-				4EFA067F19BBC6FB0029FCBF /* add_friends_icon.png in Resources */,
-				4EF76CF519BC515500592D61 /* icon_add_friends.png in Resources */,
-				4E76497419BDB89000B105E8 /* iphone.png in Resources */,
-				4E76497619BDC0D200B105E8 /* like_icon.png in Resources */,
-				4EF7846219B8FB2F00142930 /* plus_gray.png in Resources */,
-				4E76496D19BDB26E00B105E8 /* Icon-Small.png in Resources */,
-				4E76497019BDB7B100B105E8 /* cameraImage.jpg in Resources */,
-				4E76496719BDB26E00B105E8 /* Icon-40.png in Resources */,
-				4EFA067819BBC5C90029FCBF /* friend_requests_icon.png in Resources */,
-				4E76496C19BDB26E00B105E8 /* Icon-76@2x.png in Resources */,
-				4E76497219BDB7BB00B105E8 /* cameraPicture.jpg in Resources */,
-				4EF9490919BC7B4B00FFF374 /* squarePNG.png in Resources */,
-				4EF948F419BC627E00FFF374 /* icon_add_friends@2x.png in Resources */,
-				4EFC406119BE1FF100DB32A5 /* accept_icon.png in Resources */,
-				4EFC405F19BE0F9900DB32A5 /* like_icon_green.png in Resources */,
-				4EFA068119BBC7350029FCBF /* friend_requests_icon.png in Resources */,
-				4EF9490119BC72C200FFF374 /* account_icon@2x.png in Resources */,
-				4E76496A19BDB26E00B105E8 /* Icon-60@2x.png in Resources */,
-				4EF9490319BC777700FFF374 /* saycheese_logo_white@2x.png in Resources */,
-				4E9678AC19B26DEA001EF6A7 /* background_user_account.jpg in Resources */,
-				4E76496B19BDB26E00B105E8 /* Icon-76.png in Resources */,
-				4E9678AA19B26CF9001EF6A7 /* background.jpg in Resources */,
-				4EA02B14199CE46B00937E34 /* Main.storyboard in Resources */,
-				4EF76CF219BC4EF600592D61 /* default_user1.jpg in Resources */,
-				4EFA068319BBC8100029FCBF /* plus_icon.jpg in Resources */,
-				4E76496919BDB26E00B105E8 /* Icon-60.png in Resources */,
-				4E0C6C39199E791A003E51F1 /* camera_switch.png in Resources */,
-				4EF76CF619BC515500592D61 /* icon_friend_requests.png in Resources */,
-				4EF7846319B8FB2F00142930 /* plus_green.png in Resources */,
-				4EF948F719BC668600FFF374 /* icon_friend_requests@2x.png in Resources */,
-				4E76496819BDB26E00B105E8 /* Icon-40@2x.png in Resources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		4EA02B1C199CE46B00937E34 /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				4EA02B2A199CE46B00937E34 /* InfoPlist.strings in Resources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-/* End PBXResourcesBuildPhase section */
-
-/* Begin PBXSourcesBuildPhase section */
-		4EA02AF9199CE46B00937E34 /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				4E9678A319B2486C001EF6A7 /* BIDTabBarController.m in Sources */,
-				4E9678AF19B32F34001EF6A7 /* AsyncImageView.m in Sources */,
-				4E0CC95919A8F205009392DE /* BIDNavigationViewController.m in Sources */,
-				4EFF0B3619B3724100680273 /* Utils.m in Sources */,
-				4EF7E18019BCF14B00B63613 /* BIDNewsFeedTableViewCell.m in Sources */,
-				4E9678B219B33AC2001EF6A7 /* BIDFriendsTableViewController.m in Sources */,
-				4E7C069819B3B36C00321FB0 /* BIDAddFriendsTableViewCell.m in Sources */,
-				4E7C069519B3B2A800321FB0 /* BIDAddFriendsTableViewController.m in Sources */,
-				4E8F8E6A199EAE23009ED73D /* BIDImageViewController.m in Sources */,
-				4EF7E18319BCF16000B63613 /* BIDNewsFeedTableViewController.m in Sources */,
-				4E9678A619B24AC6001EF6A7 /* BIDUserAccountViewController.m in Sources */,
-				4EA02B11199CE46B00937E34 /* BIDAppDelegate.m in Sources */,
-				4EA02B17199CE46B00937E34 /* BIDViewController.m in Sources */,
-				4EF7846619B92C7A00142930 /* BIDFriendRequestsTableViewController.m in Sources */,
-				4E9678A019B22D62001EF6A7 /* BIDLoginViewController.m in Sources */,
-				4E9678B519B354FF001EF6A7 /* BIDFriendsTableViewCell.m in Sources */,
-				4EF7846919B92CA000142930 /* BIDFriendRequestsTableViewCell.m in Sources */,
-				4E76493C19BD2C6F00B105E8 /* TTTTimeIntervalFormatter.m in Sources */,
-				4EA02B0D199CE46B00937E34 /* main.m in Sources */,
-				4E9678B819B3588B001EF6A7 /* RequestQueue.m in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		4EA02B1A199CE46B00937E34 /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				4EA02B2C199CE46B00937E34 /* SayCheeseTests.m in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-/* End PBXSourcesBuildPhase section */
-
-/* Begin PBXTargetDependency section */
-		4EA02B24199CE46B00937E34 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = 4EA02AFC199CE46B00937E34 /* SayCheese */;
-			targetProxy = 4EA02B23199CE46B00937E34 /* PBXContainerItemProxy */;
-		};
-/* End PBXTargetDependency section */
-
-/* Begin PBXVariantGroup section */
-		4EA02B09199CE46B00937E34 /* InfoPlist.strings */ = {
-			isa = PBXVariantGroup;
-			children = (
-				4EA02B0A199CE46B00937E34 /* en */,
-			);
-			name = InfoPlist.strings;
-			sourceTree = "<group>";
-		};
-		4EA02B12199CE46B00937E34 /* Main.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				4EA02B13199CE46B00937E34 /* Base */,
-			);
-			name = Main.storyboard;
-			sourceTree = "<group>";
-		};
-		4EA02B28199CE46B00937E34 /* InfoPlist.strings */ = {
-			isa = PBXVariantGroup;
-			children = (
-				4EA02B29199CE46B00937E34 /* en */,
-			);
-			name = InfoPlist.strings;
-			sourceTree = "<group>";
-		};
-/* End PBXVariantGroup section */
-
-/* Begin XCBuildConfiguration section */
-		4EA02B2D199CE46B00937E34 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ALWAYS_SEARCH_USER_PATHS = NO;
-				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
-				CLANG_CXX_LIBRARY = "libc++";
-				CLANG_ENABLE_MODULES = YES;
-				CLANG_ENABLE_OBJC_ARC = YES;
-				CLANG_WARN_BOOL_CONVERSION = YES;
-				CLANG_WARN_CONSTANT_CONVERSION = YES;
-				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
-				CLANG_WARN_EMPTY_BODY = YES;
-				CLANG_WARN_ENUM_CONVERSION = YES;
-				CLANG_WARN_INT_CONVERSION = YES;
-				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
-				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				COPY_PHASE_STRIP = NO;
-				GCC_C_LANGUAGE_STANDARD = gnu99;
-				GCC_DYNAMIC_NO_PIC = NO;
-				GCC_OPTIMIZATION_LEVEL = 0;
-				GCC_PREPROCESSOR_DEFINITIONS = (
-					"DEBUG=1",
-					"$(inherited)",
-				);
-				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
-				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
-				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
-				GCC_WARN_UNDECLARED_SELECTOR = YES;
-				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
-				GCC_WARN_UNUSED_FUNCTION = YES;
-				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
-				ONLY_ACTIVE_ARCH = YES;
-				SDKROOT = iphoneos;
-				VALID_ARCHS = "arm64 armv7s armv7";
-			};
-			name = Debug;
-		};
-		4EA02B2E199CE46B00937E34 /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ALWAYS_SEARCH_USER_PATHS = NO;
-				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
-				CLANG_CXX_LIBRARY = "libc++";
-				CLANG_ENABLE_MODULES = YES;
-				CLANG_ENABLE_OBJC_ARC = YES;
-				CLANG_WARN_BOOL_CONVERSION = YES;
-				CLANG_WARN_CONSTANT_CONVERSION = YES;
-				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
-				CLANG_WARN_EMPTY_BODY = YES;
-				CLANG_WARN_ENUM_CONVERSION = YES;
-				CLANG_WARN_INT_CONVERSION = YES;
-				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
-				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				COPY_PHASE_STRIP = YES;
-				ENABLE_NS_ASSERTIONS = NO;
-				GCC_C_LANGUAGE_STANDARD = gnu99;
-				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
-				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
-				GCC_WARN_UNDECLARED_SELECTOR = YES;
-				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
-				GCC_WARN_UNUSED_FUNCTION = YES;
-				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
-				SDKROOT = iphoneos;
-				VALIDATE_PRODUCT = YES;
-				VALID_ARCHS = "arm64 armv7s armv7";
-			};
-			name = Release;
-		};
-		4EA02B30199CE46B00937E34 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
-				CLANG_ENABLE_OBJC_ARC = YES;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(inherited)",
-					"$(PROJECT_DIR)",
-				);
-				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "SayCheese/SayCheese-Prefix.pch";
-				INFOPLIST_FILE = "SayCheese/SayCheese-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				WRAPPER_EXTENSION = app;
-			};
-			name = Debug;
-		};
-		4EA02B31199CE46B00937E34 /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
-				CLANG_ENABLE_OBJC_ARC = YES;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(inherited)",
-					"$(PROJECT_DIR)",
-				);
-				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "SayCheese/SayCheese-Prefix.pch";
-				INFOPLIST_FILE = "SayCheese/SayCheese-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				WRAPPER_EXTENSION = app;
-			};
-			name = Release;
-		};
-		4EA02B33199CE46B00937E34 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/SayCheese.app/SayCheese";
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(SDKROOT)/Developer/Library/Frameworks",
-					"$(inherited)",
-					"$(DEVELOPER_FRAMEWORKS_DIR)",
-				);
-				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "SayCheese/SayCheese-Prefix.pch";
-				GCC_PREPROCESSOR_DEFINITIONS = (
-					"DEBUG=1",
-					"$(inherited)",
-				);
-				INFOPLIST_FILE = "SayCheeseTests/SayCheeseTests-Info.plist";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				TEST_HOST = "$(BUNDLE_LOADER)";
-				WRAPPER_EXTENSION = xctest;
-			};
-			name = Debug;
-		};
-		4EA02B34199CE46B00937E34 /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/SayCheese.app/SayCheese";
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(SDKROOT)/Developer/Library/Frameworks",
-					"$(inherited)",
-					"$(DEVELOPER_FRAMEWORKS_DIR)",
-				);
-				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "SayCheese/SayCheese-Prefix.pch";
-				INFOPLIST_FILE = "SayCheeseTests/SayCheeseTests-Info.plist";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				TEST_HOST = "$(BUNDLE_LOADER)";
-				WRAPPER_EXTENSION = xctest;
-			};
-			name = Release;
-		};
-/* End XCBuildConfiguration section */
-
-/* Begin XCConfigurationList section */
-		4EA02AF8199CE46B00937E34 /* Build configuration list for PBXProject "SayCheese" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				4EA02B2D199CE46B00937E34 /* Debug */,
-				4EA02B2E199CE46B00937E34 /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		4EA02B2F199CE46B00937E34 /* Build configuration list for PBXNativeTarget "SayCheese" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				4EA02B30199CE46B00937E34 /* Debug */,
-				4EA02B31199CE46B00937E34 /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		4EA02B32199CE46B00937E34 /* Build configuration list for PBXNativeTarget "SayCheeseTests" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				4EA02B33199CE46B00937E34 /* Debug */,
-				4EA02B34199CE46B00937E34 /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-/* End XCConfigurationList section */
-	};
-	rootObject = 4EA02AF5199CE46B00937E34 /* Project object */;
-}
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>archiveVersion</key>
+	<string>1</string>
+	<key>classes</key>
+	<dict/>
+	<key>objectVersion</key>
+	<string>46</string>
+	<key>objects</key>
+	<dict>
+		<key>1F1E4472D1B8449CB373A4B4</key>
+		<dict>
+			<key>fileRef</key>
+			<string>8224C5619B4847169C278534</string>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
+		</dict>
+		<key>4E0C6C38199E791A003E51F1</key>
+		<dict>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>image.png</string>
+			<key>path</key>
+			<string>camera_switch.png</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>4E0C6C39199E791A003E51F1</key>
+		<dict>
+			<key>fileRef</key>
+			<string>4E0C6C38199E791A003E51F1</string>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
+		</dict>
+		<key>4E0CC95719A8F205009392DE</key>
+		<dict>
+			<key>fileEncoding</key>
+			<string>4</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>sourcecode.c.h</string>
+			<key>path</key>
+			<string>BIDNavigationViewController.h</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>4E0CC95819A8F205009392DE</key>
+		<dict>
+			<key>fileEncoding</key>
+			<string>4</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>sourcecode.c.objc</string>
+			<key>path</key>
+			<string>BIDNavigationViewController.m</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>4E0CC95919A8F205009392DE</key>
+		<dict>
+			<key>fileRef</key>
+			<string>4E0CC95819A8F205009392DE</string>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
+		</dict>
+		<key>4E0CC96419AA2CFE009392DE</key>
+		<dict>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>wrapper.framework</string>
+			<key>name</key>
+			<string>Social.framework</string>
+			<key>path</key>
+			<string>System/Library/Frameworks/Social.framework</string>
+			<key>sourceTree</key>
+			<string>SDKROOT</string>
+		</dict>
+		<key>4E0CC96519AA2CFE009392DE</key>
+		<dict>
+			<key>fileRef</key>
+			<string>4E0CC96419AA2CFE009392DE</string>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
+		</dict>
+		<key>4E0CC96619AA2D16009392DE</key>
+		<dict>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>wrapper.framework</string>
+			<key>name</key>
+			<string>MessageUI.framework</string>
+			<key>path</key>
+			<string>System/Library/Frameworks/MessageUI.framework</string>
+			<key>sourceTree</key>
+			<string>SDKROOT</string>
+		</dict>
+		<key>4E0CC96719AA2D16009392DE</key>
+		<dict>
+			<key>fileRef</key>
+			<string>4E0CC96619AA2D16009392DE</string>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
+		</dict>
+		<key>4E76493A19BD2C6F00B105E8</key>
+		<dict>
+			<key>fileEncoding</key>
+			<string>4</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>sourcecode.c.h</string>
+			<key>path</key>
+			<string>TTTTimeIntervalFormatter.h</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>4E76493B19BD2C6F00B105E8</key>
+		<dict>
+			<key>fileEncoding</key>
+			<string>4</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>sourcecode.c.objc</string>
+			<key>path</key>
+			<string>TTTTimeIntervalFormatter.m</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>4E76493C19BD2C6F00B105E8</key>
+		<dict>
+			<key>fileRef</key>
+			<string>4E76493B19BD2C6F00B105E8</string>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
+		</dict>
+		<key>4E76495F19BDB26E00B105E8</key>
+		<dict>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>image.png</string>
+			<key>path</key>
+			<string>Icon-40.png</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>4E76496019BDB26E00B105E8</key>
+		<dict>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>image.png</string>
+			<key>path</key>
+			<string>Icon-40@2x.png</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>4E76496119BDB26E00B105E8</key>
+		<dict>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>image.png</string>
+			<key>path</key>
+			<string>Icon-60.png</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>4E76496219BDB26E00B105E8</key>
+		<dict>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>image.png</string>
+			<key>path</key>
+			<string>Icon-60@2x.png</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>4E76496319BDB26E00B105E8</key>
+		<dict>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>image.png</string>
+			<key>path</key>
+			<string>Icon-76.png</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>4E76496419BDB26E00B105E8</key>
+		<dict>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>image.png</string>
+			<key>path</key>
+			<string>Icon-76@2x.png</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>4E76496519BDB26E00B105E8</key>
+		<dict>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>image.png</string>
+			<key>path</key>
+			<string>Icon-Small.png</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>4E76496619BDB26E00B105E8</key>
+		<dict>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>image.png</string>
+			<key>path</key>
+			<string>Icon-Small@2x.png</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>4E76496719BDB26E00B105E8</key>
+		<dict>
+			<key>fileRef</key>
+			<string>4E76495F19BDB26E00B105E8</string>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
+		</dict>
+		<key>4E76496819BDB26E00B105E8</key>
+		<dict>
+			<key>fileRef</key>
+			<string>4E76496019BDB26E00B105E8</string>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
+		</dict>
+		<key>4E76496919BDB26E00B105E8</key>
+		<dict>
+			<key>fileRef</key>
+			<string>4E76496119BDB26E00B105E8</string>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
+		</dict>
+		<key>4E76496A19BDB26E00B105E8</key>
+		<dict>
+			<key>fileRef</key>
+			<string>4E76496219BDB26E00B105E8</string>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
+		</dict>
+		<key>4E76496B19BDB26E00B105E8</key>
+		<dict>
+			<key>fileRef</key>
+			<string>4E76496319BDB26E00B105E8</string>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
+		</dict>
+		<key>4E76496C19BDB26E00B105E8</key>
+		<dict>
+			<key>fileRef</key>
+			<string>4E76496419BDB26E00B105E8</string>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
+		</dict>
+		<key>4E76496D19BDB26E00B105E8</key>
+		<dict>
+			<key>fileRef</key>
+			<string>4E76496519BDB26E00B105E8</string>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
+		</dict>
+		<key>4E76496E19BDB26E00B105E8</key>
+		<dict>
+			<key>fileRef</key>
+			<string>4E76496619BDB26E00B105E8</string>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
+		</dict>
+		<key>4E76496F19BDB7B100B105E8</key>
+		<dict>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>image.jpeg</string>
+			<key>path</key>
+			<string>cameraImage.jpg</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>4E76497019BDB7B100B105E8</key>
+		<dict>
+			<key>fileRef</key>
+			<string>4E76496F19BDB7B100B105E8</string>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
+		</dict>
+		<key>4E76497119BDB7BB00B105E8</key>
+		<dict>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>image.jpeg</string>
+			<key>path</key>
+			<string>cameraPicture.jpg</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>4E76497219BDB7BB00B105E8</key>
+		<dict>
+			<key>fileRef</key>
+			<string>4E76497119BDB7BB00B105E8</string>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
+		</dict>
+		<key>4E76497319BDB89000B105E8</key>
+		<dict>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>image.png</string>
+			<key>path</key>
+			<string>iphone.png</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>4E76497419BDB89000B105E8</key>
+		<dict>
+			<key>fileRef</key>
+			<string>4E76497319BDB89000B105E8</string>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
+		</dict>
+		<key>4E76497519BDC0D200B105E8</key>
+		<dict>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>image.png</string>
+			<key>path</key>
+			<string>like_icon.png</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>4E76497619BDC0D200B105E8</key>
+		<dict>
+			<key>fileRef</key>
+			<string>4E76497519BDC0D200B105E8</string>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
+		</dict>
+		<key>4E7C069319B3B2A800321FB0</key>
+		<dict>
+			<key>fileEncoding</key>
+			<string>4</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>sourcecode.c.h</string>
+			<key>name</key>
+			<string>BIDAddFriendsTableViewController.h</string>
+			<key>path</key>
+			<string>../BIDAddFriendsTableViewController.h</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>4E7C069419B3B2A800321FB0</key>
+		<dict>
+			<key>fileEncoding</key>
+			<string>4</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>sourcecode.c.objc</string>
+			<key>name</key>
+			<string>BIDAddFriendsTableViewController.m</string>
+			<key>path</key>
+			<string>../BIDAddFriendsTableViewController.m</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>4E7C069519B3B2A800321FB0</key>
+		<dict>
+			<key>fileRef</key>
+			<string>4E7C069419B3B2A800321FB0</string>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
+		</dict>
+		<key>4E7C069619B3B36C00321FB0</key>
+		<dict>
+			<key>fileEncoding</key>
+			<string>4</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>sourcecode.c.h</string>
+			<key>path</key>
+			<string>BIDAddFriendsTableViewCell.h</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>4E7C069719B3B36C00321FB0</key>
+		<dict>
+			<key>fileEncoding</key>
+			<string>4</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>sourcecode.c.objc</string>
+			<key>path</key>
+			<string>BIDAddFriendsTableViewCell.m</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>4E7C069819B3B36C00321FB0</key>
+		<dict>
+			<key>fileRef</key>
+			<string>4E7C069719B3B36C00321FB0</string>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
+		</dict>
+		<key>4E8F8E68199EAE23009ED73D</key>
+		<dict>
+			<key>fileEncoding</key>
+			<string>4</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>sourcecode.c.h</string>
+			<key>path</key>
+			<string>BIDImageViewController.h</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>4E8F8E69199EAE23009ED73D</key>
+		<dict>
+			<key>fileEncoding</key>
+			<string>4</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>sourcecode.c.objc</string>
+			<key>path</key>
+			<string>BIDImageViewController.m</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>4E8F8E6A199EAE23009ED73D</key>
+		<dict>
+			<key>fileRef</key>
+			<string>4E8F8E69199EAE23009ED73D</string>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
+		</dict>
+		<key>4E9365F9199E540600107C7E</key>
+		<dict>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>wrapper.framework</string>
+			<key>name</key>
+			<string>ImageIO.framework</string>
+			<key>path</key>
+			<string>System/Library/Frameworks/ImageIO.framework</string>
+			<key>sourceTree</key>
+			<string>SDKROOT</string>
+		</dict>
+		<key>4E9365FA199E540600107C7E</key>
+		<dict>
+			<key>fileRef</key>
+			<string>4E9365F9199E540600107C7E</string>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
+		</dict>
+		<key>4E9365FB199E540E00107C7E</key>
+		<dict>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>wrapper.framework</string>
+			<key>name</key>
+			<string>QuartzCore.framework</string>
+			<key>path</key>
+			<string>System/Library/Frameworks/QuartzCore.framework</string>
+			<key>sourceTree</key>
+			<string>SDKROOT</string>
+		</dict>
+		<key>4E9365FC199E540E00107C7E</key>
+		<dict>
+			<key>fileRef</key>
+			<string>4E9365FB199E540E00107C7E</string>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
+		</dict>
+		<key>4E9365FD199E541900107C7E</key>
+		<dict>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>wrapper.framework</string>
+			<key>name</key>
+			<string>CoreMedia.framework</string>
+			<key>path</key>
+			<string>System/Library/Frameworks/CoreMedia.framework</string>
+			<key>sourceTree</key>
+			<string>SDKROOT</string>
+		</dict>
+		<key>4E9365FE199E541900107C7E</key>
+		<dict>
+			<key>fileRef</key>
+			<string>4E9365FD199E541900107C7E</string>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
+		</dict>
+		<key>4E9365FF199E542200107C7E</key>
+		<dict>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>wrapper.framework</string>
+			<key>name</key>
+			<string>AssetsLibrary.framework</string>
+			<key>path</key>
+			<string>System/Library/Frameworks/AssetsLibrary.framework</string>
+			<key>sourceTree</key>
+			<string>SDKROOT</string>
+		</dict>
+		<key>4E936600199E542200107C7E</key>
+		<dict>
+			<key>fileRef</key>
+			<string>4E9365FF199E542200107C7E</string>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
+		</dict>
+		<key>4E936601199E542B00107C7E</key>
+		<dict>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>wrapper.framework</string>
+			<key>name</key>
+			<string>CoreImage.framework</string>
+			<key>path</key>
+			<string>System/Library/Frameworks/CoreImage.framework</string>
+			<key>sourceTree</key>
+			<string>SDKROOT</string>
+		</dict>
+		<key>4E936602199E542B00107C7E</key>
+		<dict>
+			<key>fileRef</key>
+			<string>4E936601199E542B00107C7E</string>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
+		</dict>
+		<key>4E936603199E543200107C7E</key>
+		<dict>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>wrapper.framework</string>
+			<key>name</key>
+			<string>AVFoundation.framework</string>
+			<key>path</key>
+			<string>System/Library/Frameworks/AVFoundation.framework</string>
+			<key>sourceTree</key>
+			<string>SDKROOT</string>
+		</dict>
+		<key>4E936604199E543200107C7E</key>
+		<dict>
+			<key>fileRef</key>
+			<string>4E936603199E543200107C7E</string>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
+		</dict>
+		<key>4E936605199E543700107C7E</key>
+		<dict>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>wrapper.framework</string>
+			<key>name</key>
+			<string>CoreVideo.framework</string>
+			<key>path</key>
+			<string>System/Library/Frameworks/CoreVideo.framework</string>
+			<key>sourceTree</key>
+			<string>SDKROOT</string>
+		</dict>
+		<key>4E936606199E543700107C7E</key>
+		<dict>
+			<key>fileRef</key>
+			<string>4E936605199E543700107C7E</string>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
+		</dict>
+		<key>4E96789C19B21682001EF6A7</key>
+		<dict>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>wrapper.framework</string>
+			<key>path</key>
+			<string>FacebookSDK.framework</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>4E96789D19B21682001EF6A7</key>
+		<dict>
+			<key>fileRef</key>
+			<string>4E96789C19B21682001EF6A7</string>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
+		</dict>
+		<key>4E96789E19B22D62001EF6A7</key>
+		<dict>
+			<key>fileEncoding</key>
+			<string>4</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>sourcecode.c.h</string>
+			<key>path</key>
+			<string>BIDLoginViewController.h</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>4E96789F19B22D62001EF6A7</key>
+		<dict>
+			<key>fileEncoding</key>
+			<string>4</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>sourcecode.c.objc</string>
+			<key>path</key>
+			<string>BIDLoginViewController.m</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>4E9678A019B22D62001EF6A7</key>
+		<dict>
+			<key>fileRef</key>
+			<string>4E96789F19B22D62001EF6A7</string>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
+		</dict>
+		<key>4E9678A119B2486C001EF6A7</key>
+		<dict>
+			<key>fileEncoding</key>
+			<string>4</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>sourcecode.c.h</string>
+			<key>path</key>
+			<string>BIDTabBarController.h</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>4E9678A219B2486C001EF6A7</key>
+		<dict>
+			<key>fileEncoding</key>
+			<string>4</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>sourcecode.c.objc</string>
+			<key>path</key>
+			<string>BIDTabBarController.m</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>4E9678A319B2486C001EF6A7</key>
+		<dict>
+			<key>fileRef</key>
+			<string>4E9678A219B2486C001EF6A7</string>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
+		</dict>
+		<key>4E9678A419B24AC6001EF6A7</key>
+		<dict>
+			<key>fileEncoding</key>
+			<string>4</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>sourcecode.c.h</string>
+			<key>path</key>
+			<string>BIDUserAccountViewController.h</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>4E9678A519B24AC6001EF6A7</key>
+		<dict>
+			<key>fileEncoding</key>
+			<string>4</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>sourcecode.c.objc</string>
+			<key>path</key>
+			<string>BIDUserAccountViewController.m</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>4E9678A619B24AC6001EF6A7</key>
+		<dict>
+			<key>fileRef</key>
+			<string>4E9678A519B24AC6001EF6A7</string>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
+		</dict>
+		<key>4E9678A919B26CF9001EF6A7</key>
+		<dict>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>image.jpeg</string>
+			<key>path</key>
+			<string>background.jpg</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>4E9678AA19B26CF9001EF6A7</key>
+		<dict>
+			<key>fileRef</key>
+			<string>4E9678A919B26CF9001EF6A7</string>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
+		</dict>
+		<key>4E9678AB19B26DEA001EF6A7</key>
+		<dict>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>image.jpeg</string>
+			<key>path</key>
+			<string>background_user_account.jpg</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>4E9678AC19B26DEA001EF6A7</key>
+		<dict>
+			<key>fileRef</key>
+			<string>4E9678AB19B26DEA001EF6A7</string>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
+		</dict>
+		<key>4E9678AD19B32F34001EF6A7</key>
+		<dict>
+			<key>fileEncoding</key>
+			<string>4</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>sourcecode.c.h</string>
+			<key>path</key>
+			<string>AsyncImageView.h</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>4E9678AE19B32F34001EF6A7</key>
+		<dict>
+			<key>fileEncoding</key>
+			<string>4</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>sourcecode.c.objc</string>
+			<key>path</key>
+			<string>AsyncImageView.m</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>4E9678AF19B32F34001EF6A7</key>
+		<dict>
+			<key>fileRef</key>
+			<string>4E9678AE19B32F34001EF6A7</string>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
+		</dict>
+		<key>4E9678B019B33AC2001EF6A7</key>
+		<dict>
+			<key>fileEncoding</key>
+			<string>4</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>sourcecode.c.h</string>
+			<key>path</key>
+			<string>BIDFriendsTableViewController.h</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>4E9678B119B33AC2001EF6A7</key>
+		<dict>
+			<key>fileEncoding</key>
+			<string>4</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>sourcecode.c.objc</string>
+			<key>path</key>
+			<string>BIDFriendsTableViewController.m</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>4E9678B219B33AC2001EF6A7</key>
+		<dict>
+			<key>fileRef</key>
+			<string>4E9678B119B33AC2001EF6A7</string>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
+		</dict>
+		<key>4E9678B319B354FF001EF6A7</key>
+		<dict>
+			<key>fileEncoding</key>
+			<string>4</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>sourcecode.c.h</string>
+			<key>path</key>
+			<string>BIDFriendsTableViewCell.h</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>4E9678B419B354FF001EF6A7</key>
+		<dict>
+			<key>fileEncoding</key>
+			<string>4</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>sourcecode.c.objc</string>
+			<key>path</key>
+			<string>BIDFriendsTableViewCell.m</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>4E9678B519B354FF001EF6A7</key>
+		<dict>
+			<key>fileRef</key>
+			<string>4E9678B419B354FF001EF6A7</string>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
+		</dict>
+		<key>4E9678B619B3588B001EF6A7</key>
+		<dict>
+			<key>fileEncoding</key>
+			<string>4</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>sourcecode.c.h</string>
+			<key>path</key>
+			<string>RequestQueue.h</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>4E9678B719B3588B001EF6A7</key>
+		<dict>
+			<key>fileEncoding</key>
+			<string>4</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>sourcecode.c.objc</string>
+			<key>path</key>
+			<string>RequestQueue.m</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>4E9678B819B3588B001EF6A7</key>
+		<dict>
+			<key>fileRef</key>
+			<string>4E9678B719B3588B001EF6A7</string>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
+		</dict>
+		<key>4EA02AF4199CE46B00937E34</key>
+		<dict>
+			<key>children</key>
+			<array>
+				<string>4EA02B06199CE46B00937E34</string>
+				<string>4EA02B25199CE46B00937E34</string>
+				<string>4EA02AFF199CE46B00937E34</string>
+				<string>4EA02AFE199CE46B00937E34</string>
+				<string>7B5B410D7E064D2E9205D598</string>
+			</array>
+			<key>isa</key>
+			<string>PBXGroup</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>4EA02AF5199CE46B00937E34</key>
+		<dict>
+			<key>attributes</key>
+			<dict>
+				<key>CLASSPREFIX</key>
+				<string>BID</string>
+				<key>LastUpgradeCheck</key>
+				<string>0510</string>
+				<key>TargetAttributes</key>
+				<dict>
+					<key>4EA02B1D199CE46B00937E34</key>
+					<dict>
+						<key>TestTargetID</key>
+						<string>4EA02AFC199CE46B00937E34</string>
+					</dict>
+				</dict>
+			</dict>
+			<key>buildConfigurationList</key>
+			<string>4EA02AF8199CE46B00937E34</string>
+			<key>compatibilityVersion</key>
+			<string>Xcode 3.2</string>
+			<key>developmentRegion</key>
+			<string>English</string>
+			<key>hasScannedForEncodings</key>
+			<string>0</string>
+			<key>isa</key>
+			<string>PBXProject</string>
+			<key>knownRegions</key>
+			<array>
+				<string>en</string>
+				<string>Base</string>
+			</array>
+			<key>mainGroup</key>
+			<string>4EA02AF4199CE46B00937E34</string>
+			<key>productRefGroup</key>
+			<string>4EA02AFE199CE46B00937E34</string>
+			<key>projectDirPath</key>
+			<string></string>
+			<key>projectReferences</key>
+			<array/>
+			<key>projectRoot</key>
+			<string></string>
+			<key>targets</key>
+			<array>
+				<string>4EA02AFC199CE46B00937E34</string>
+				<string>4EA02B1D199CE46B00937E34</string>
+			</array>
+		</dict>
+		<key>4EA02AF8199CE46B00937E34</key>
+		<dict>
+			<key>buildConfigurations</key>
+			<array>
+				<string>4EA02B2D199CE46B00937E34</string>
+				<string>4EA02B2E199CE46B00937E34</string>
+			</array>
+			<key>defaultConfigurationIsVisible</key>
+			<string>0</string>
+			<key>defaultConfigurationName</key>
+			<string>Release</string>
+			<key>isa</key>
+			<string>XCConfigurationList</string>
+		</dict>
+		<key>4EA02AF9199CE46B00937E34</key>
+		<dict>
+			<key>buildActionMask</key>
+			<string>2147483647</string>
+			<key>files</key>
+			<array>
+				<string>4E9678A319B2486C001EF6A7</string>
+				<string>4E9678AF19B32F34001EF6A7</string>
+				<string>4E0CC95919A8F205009392DE</string>
+				<string>4EFF0B3619B3724100680273</string>
+				<string>4EF7E18019BCF14B00B63613</string>
+				<string>4E9678B219B33AC2001EF6A7</string>
+				<string>4E7C069819B3B36C00321FB0</string>
+				<string>4E7C069519B3B2A800321FB0</string>
+				<string>4E8F8E6A199EAE23009ED73D</string>
+				<string>4EF7E18319BCF16000B63613</string>
+				<string>4E9678A619B24AC6001EF6A7</string>
+				<string>4EA02B11199CE46B00937E34</string>
+				<string>4EA02B17199CE46B00937E34</string>
+				<string>4EF7846619B92C7A00142930</string>
+				<string>4E9678A019B22D62001EF6A7</string>
+				<string>4E9678B519B354FF001EF6A7</string>
+				<string>4EF7846919B92CA000142930</string>
+				<string>4E76493C19BD2C6F00B105E8</string>
+				<string>4EA02B0D199CE46B00937E34</string>
+				<string>4E9678B819B3588B001EF6A7</string>
+			</array>
+			<key>isa</key>
+			<string>PBXSourcesBuildPhase</string>
+			<key>runOnlyForDeploymentPostprocessing</key>
+			<string>0</string>
+		</dict>
+		<key>4EA02AFA199CE46B00937E34</key>
+		<dict>
+			<key>buildActionMask</key>
+			<string>2147483647</string>
+			<key>files</key>
+			<array>
+				<string>4E0CC96719AA2D16009392DE</string>
+				<string>4E0CC96519AA2CFE009392DE</string>
+				<string>4EA02B05199CE46B00937E34</string>
+				<string>4E936606199E543700107C7E</string>
+				<string>4E936604199E543200107C7E</string>
+				<string>4E936602199E542B00107C7E</string>
+				<string>4E936600199E542200107C7E</string>
+				<string>4E9365FE199E541900107C7E</string>
+				<string>4E96789D19B21682001EF6A7</string>
+				<string>4E9365FC199E540E00107C7E</string>
+				<string>4E9365FA199E540600107C7E</string>
+				<string>4EA02B03199CE46B00937E34</string>
+				<string>4EA02B01199CE46B00937E34</string>
+				<string>1F1E4472D1B8449CB373A4B4</string>
+			</array>
+			<key>isa</key>
+			<string>PBXFrameworksBuildPhase</string>
+			<key>runOnlyForDeploymentPostprocessing</key>
+			<string>0</string>
+		</dict>
+		<key>4EA02AFB199CE46B00937E34</key>
+		<dict>
+			<key>buildActionMask</key>
+			<string>2147483647</string>
+			<key>files</key>
+			<array>
+				<string>4EFA068519BBCA4C0029FCBF</string>
+				<string>4EF948FF19BC721C00FFF374</string>
+				<string>4EA02B19199CE46B00937E34</string>
+				<string>4E76496E19BDB26E00B105E8</string>
+				<string>4EF9B11919BC464600C20DB9</string>
+				<string>4EA02B0B199CE46B00937E34</string>
+				<string>4EFA067F19BBC6FB0029FCBF</string>
+				<string>4EF76CF519BC515500592D61</string>
+				<string>4E76497419BDB89000B105E8</string>
+				<string>4E76497619BDC0D200B105E8</string>
+				<string>4EF7846219B8FB2F00142930</string>
+				<string>4E76496D19BDB26E00B105E8</string>
+				<string>4E76497019BDB7B100B105E8</string>
+				<string>4E76496719BDB26E00B105E8</string>
+				<string>4EFA067819BBC5C90029FCBF</string>
+				<string>4E76496C19BDB26E00B105E8</string>
+				<string>4E76497219BDB7BB00B105E8</string>
+				<string>4EF9490919BC7B4B00FFF374</string>
+				<string>4EF948F419BC627E00FFF374</string>
+				<string>4EFC406119BE1FF100DB32A5</string>
+				<string>4EFC405F19BE0F9900DB32A5</string>
+				<string>4EFA068119BBC7350029FCBF</string>
+				<string>4EF9490119BC72C200FFF374</string>
+				<string>4E76496A19BDB26E00B105E8</string>
+				<string>4EF9490319BC777700FFF374</string>
+				<string>4E9678AC19B26DEA001EF6A7</string>
+				<string>4E76496B19BDB26E00B105E8</string>
+				<string>4E9678AA19B26CF9001EF6A7</string>
+				<string>4EA02B14199CE46B00937E34</string>
+				<string>4EF76CF219BC4EF600592D61</string>
+				<string>4EFA068319BBC8100029FCBF</string>
+				<string>4E76496919BDB26E00B105E8</string>
+				<string>4E0C6C39199E791A003E51F1</string>
+				<string>4EF76CF619BC515500592D61</string>
+				<string>4EF7846319B8FB2F00142930</string>
+				<string>4EF948F719BC668600FFF374</string>
+				<string>4E76496819BDB26E00B105E8</string>
+			</array>
+			<key>isa</key>
+			<string>PBXResourcesBuildPhase</string>
+			<key>runOnlyForDeploymentPostprocessing</key>
+			<string>0</string>
+		</dict>
+		<key>4EA02AFC199CE46B00937E34</key>
+		<dict>
+			<key>buildConfigurationList</key>
+			<string>4EA02B2F199CE46B00937E34</string>
+			<key>buildPhases</key>
+			<array>
+				<string>68A07A6E385045B3A38B4243</string>
+				<string>4EA02AF9199CE46B00937E34</string>
+				<string>4EA02AFA199CE46B00937E34</string>
+				<string>4EA02AFB199CE46B00937E34</string>
+				<string>A1EFEBE2F3C74283A792CAB2</string>
+			</array>
+			<key>buildRules</key>
+			<array/>
+			<key>dependencies</key>
+			<array/>
+			<key>isa</key>
+			<string>PBXNativeTarget</string>
+			<key>name</key>
+			<string>SayCheese</string>
+			<key>productName</key>
+			<string>SayCheese</string>
+			<key>productReference</key>
+			<string>4EA02AFD199CE46B00937E34</string>
+			<key>productType</key>
+			<string>com.apple.product-type.application</string>
+		</dict>
+		<key>4EA02AFD199CE46B00937E34</key>
+		<dict>
+			<key>explicitFileType</key>
+			<string>wrapper.application</string>
+			<key>includeInIndex</key>
+			<string>0</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>path</key>
+			<string>SayCheese.app</string>
+			<key>sourceTree</key>
+			<string>BUILT_PRODUCTS_DIR</string>
+		</dict>
+		<key>4EA02AFE199CE46B00937E34</key>
+		<dict>
+			<key>children</key>
+			<array>
+				<string>4EA02AFD199CE46B00937E34</string>
+				<string>4EA02B1E199CE46B00937E34</string>
+			</array>
+			<key>isa</key>
+			<string>PBXGroup</string>
+			<key>name</key>
+			<string>Products</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>4EA02AFF199CE46B00937E34</key>
+		<dict>
+			<key>children</key>
+			<array>
+				<string>4E96789C19B21682001EF6A7</string>
+				<string>4E0CC96619AA2D16009392DE</string>
+				<string>4E0CC96419AA2CFE009392DE</string>
+				<string>4E936605199E543700107C7E</string>
+				<string>4E936603199E543200107C7E</string>
+				<string>4E936601199E542B00107C7E</string>
+				<string>4E9365FF199E542200107C7E</string>
+				<string>4E9365FD199E541900107C7E</string>
+				<string>4E9365FB199E540E00107C7E</string>
+				<string>4E9365F9199E540600107C7E</string>
+				<string>4EA02B00199CE46B00937E34</string>
+				<string>4EA02B02199CE46B00937E34</string>
+				<string>4EA02B04199CE46B00937E34</string>
+				<string>4EA02B1F199CE46B00937E34</string>
+				<string>8224C5619B4847169C278534</string>
+			</array>
+			<key>isa</key>
+			<string>PBXGroup</string>
+			<key>name</key>
+			<string>Frameworks</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>4EA02B00199CE46B00937E34</key>
+		<dict>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>wrapper.framework</string>
+			<key>name</key>
+			<string>Foundation.framework</string>
+			<key>path</key>
+			<string>System/Library/Frameworks/Foundation.framework</string>
+			<key>sourceTree</key>
+			<string>SDKROOT</string>
+		</dict>
+		<key>4EA02B01199CE46B00937E34</key>
+		<dict>
+			<key>fileRef</key>
+			<string>4EA02B00199CE46B00937E34</string>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
+		</dict>
+		<key>4EA02B02199CE46B00937E34</key>
+		<dict>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>wrapper.framework</string>
+			<key>name</key>
+			<string>CoreGraphics.framework</string>
+			<key>path</key>
+			<string>System/Library/Frameworks/CoreGraphics.framework</string>
+			<key>sourceTree</key>
+			<string>SDKROOT</string>
+		</dict>
+		<key>4EA02B03199CE46B00937E34</key>
+		<dict>
+			<key>fileRef</key>
+			<string>4EA02B02199CE46B00937E34</string>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
+		</dict>
+		<key>4EA02B04199CE46B00937E34</key>
+		<dict>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>wrapper.framework</string>
+			<key>name</key>
+			<string>UIKit.framework</string>
+			<key>path</key>
+			<string>System/Library/Frameworks/UIKit.framework</string>
+			<key>sourceTree</key>
+			<string>SDKROOT</string>
+		</dict>
+		<key>4EA02B05199CE46B00937E34</key>
+		<dict>
+			<key>fileRef</key>
+			<string>4EA02B04199CE46B00937E34</string>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
+		</dict>
+		<key>4EA02B06199CE46B00937E34</key>
+		<dict>
+			<key>children</key>
+			<array>
+				<string>4E9678B619B3588B001EF6A7</string>
+				<string>4E9678B719B3588B001EF6A7</string>
+				<string>4E9678AD19B32F34001EF6A7</string>
+				<string>4E9678AE19B32F34001EF6A7</string>
+				<string>4EA02B0F199CE46B00937E34</string>
+				<string>4EA02B10199CE46B00937E34</string>
+				<string>4EA02B12199CE46B00937E34</string>
+				<string>4EA02B15199CE46B00937E34</string>
+				<string>4EA02B16199CE46B00937E34</string>
+				<string>4E8F8E68199EAE23009ED73D</string>
+				<string>4E8F8E69199EAE23009ED73D</string>
+				<string>4EA02B18199CE46B00937E34</string>
+				<string>4EA02B07199CE46B00937E34</string>
+				<string>4E0CC95719A8F205009392DE</string>
+				<string>4E0CC95819A8F205009392DE</string>
+				<string>4E96789E19B22D62001EF6A7</string>
+				<string>4E96789F19B22D62001EF6A7</string>
+				<string>4E9678A119B2486C001EF6A7</string>
+				<string>4E9678A219B2486C001EF6A7</string>
+				<string>4E9678A419B24AC6001EF6A7</string>
+				<string>4E9678A519B24AC6001EF6A7</string>
+				<string>4E9678B319B354FF001EF6A7</string>
+				<string>4E9678B419B354FF001EF6A7</string>
+				<string>4E9678B019B33AC2001EF6A7</string>
+				<string>4E9678B119B33AC2001EF6A7</string>
+				<string>4E7C069619B3B36C00321FB0</string>
+				<string>4E7C069719B3B36C00321FB0</string>
+				<string>4E7C069319B3B2A800321FB0</string>
+				<string>4E7C069419B3B2A800321FB0</string>
+				<string>4EF7846719B92CA000142930</string>
+				<string>4EF7846819B92CA000142930</string>
+				<string>4EF7846419B92C7A00142930</string>
+				<string>4EF7846519B92C7A00142930</string>
+				<string>4EF7E17E19BCF14B00B63613</string>
+				<string>4EF7E17F19BCF14B00B63613</string>
+				<string>4EF7E18119BCF16000B63613</string>
+				<string>4EF7E18219BCF16000B63613</string>
+				<string>4E76493A19BD2C6F00B105E8</string>
+				<string>4E76493B19BD2C6F00B105E8</string>
+				<string>4EFF0B3419B3724100680273</string>
+				<string>4EFF0B3519B3724100680273</string>
+			</array>
+			<key>isa</key>
+			<string>PBXGroup</string>
+			<key>path</key>
+			<string>SayCheese</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>4EA02B07199CE46B00937E34</key>
+		<dict>
+			<key>children</key>
+			<array>
+				<string>4E76497519BDC0D200B105E8</string>
+				<string>4EFC405E19BE0F9900DB32A5</string>
+				<string>4E76497319BDB89000B105E8</string>
+				<string>4E76496F19BDB7B100B105E8</string>
+				<string>4E76495F19BDB26E00B105E8</string>
+				<string>4E76496019BDB26E00B105E8</string>
+				<string>4E76497119BDB7BB00B105E8</string>
+				<string>4E76496119BDB26E00B105E8</string>
+				<string>4E76496219BDB26E00B105E8</string>
+				<string>4E76496319BDB26E00B105E8</string>
+				<string>4E76496419BDB26E00B105E8</string>
+				<string>4E76496519BDB26E00B105E8</string>
+				<string>4E76496619BDB26E00B105E8</string>
+				<string>4EF9490219BC777700FFF374</string>
+				<string>4EF948FE19BC721C00FFF374</string>
+				<string>4EF948F219BC627E00FFF374</string>
+				<string>4EF76CF119BC4EF600592D61</string>
+				<string>4EF9490819BC7B4B00FFF374</string>
+				<string>4EF948F619BC668600FFF374</string>
+				<string>4EF9B11719BC464600C20DB9</string>
+				<string>4EF9490019BC72C200FFF374</string>
+				<string>4EFA068419BBCA4C0029FCBF</string>
+				<string>4EF76CF319BC515500592D61</string>
+				<string>4EF76CF419BC515500592D61</string>
+				<string>4EFA068219BBC8100029FCBF</string>
+				<string>4EFA067E19BBC6FB0029FCBF</string>
+				<string>4EFA067619BBC5C90029FCBF</string>
+				<string>4E9678AB19B26DEA001EF6A7</string>
+				<string>4EFC406019BE1FF100DB32A5</string>
+				<string>4EFA068019BBC7350029FCBF</string>
+				<string>4E9678A919B26CF9001EF6A7</string>
+				<string>4EF7846019B8FB2F00142930</string>
+				<string>4EF7846119B8FB2F00142930</string>
+				<string>4E0C6C38199E791A003E51F1</string>
+				<string>4EA02B08199CE46B00937E34</string>
+				<string>4EA02B09199CE46B00937E34</string>
+				<string>4EA02B0C199CE46B00937E34</string>
+				<string>4EA02B0E199CE46B00937E34</string>
+			</array>
+			<key>isa</key>
+			<string>PBXGroup</string>
+			<key>name</key>
+			<string>Supporting Files</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>4EA02B08199CE46B00937E34</key>
+		<dict>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>text.plist.xml</string>
+			<key>path</key>
+			<string>SayCheese-Info.plist</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>4EA02B09199CE46B00937E34</key>
+		<dict>
+			<key>children</key>
+			<array>
+				<string>4EA02B0A199CE46B00937E34</string>
+			</array>
+			<key>isa</key>
+			<string>PBXVariantGroup</string>
+			<key>name</key>
+			<string>InfoPlist.strings</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>4EA02B0A199CE46B00937E34</key>
+		<dict>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>text.plist.strings</string>
+			<key>name</key>
+			<string>en</string>
+			<key>path</key>
+			<string>en.lproj/InfoPlist.strings</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>4EA02B0B199CE46B00937E34</key>
+		<dict>
+			<key>fileRef</key>
+			<string>4EA02B09199CE46B00937E34</string>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
+		</dict>
+		<key>4EA02B0C199CE46B00937E34</key>
+		<dict>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>sourcecode.c.objc</string>
+			<key>path</key>
+			<string>main.m</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>4EA02B0D199CE46B00937E34</key>
+		<dict>
+			<key>fileRef</key>
+			<string>4EA02B0C199CE46B00937E34</string>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
+		</dict>
+		<key>4EA02B0E199CE46B00937E34</key>
+		<dict>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>sourcecode.c.h</string>
+			<key>path</key>
+			<string>SayCheese-Prefix.pch</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>4EA02B0F199CE46B00937E34</key>
+		<dict>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>sourcecode.c.h</string>
+			<key>path</key>
+			<string>BIDAppDelegate.h</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>4EA02B10199CE46B00937E34</key>
+		<dict>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>sourcecode.c.objc</string>
+			<key>path</key>
+			<string>BIDAppDelegate.m</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>4EA02B11199CE46B00937E34</key>
+		<dict>
+			<key>fileRef</key>
+			<string>4EA02B10199CE46B00937E34</string>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
+		</dict>
+		<key>4EA02B12199CE46B00937E34</key>
+		<dict>
+			<key>children</key>
+			<array>
+				<string>4EA02B13199CE46B00937E34</string>
+			</array>
+			<key>isa</key>
+			<string>PBXVariantGroup</string>
+			<key>name</key>
+			<string>Main.storyboard</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>4EA02B13199CE46B00937E34</key>
+		<dict>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>file.storyboard</string>
+			<key>name</key>
+			<string>Base</string>
+			<key>path</key>
+			<string>Base.lproj/Main.storyboard</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>4EA02B14199CE46B00937E34</key>
+		<dict>
+			<key>fileRef</key>
+			<string>4EA02B12199CE46B00937E34</string>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
+		</dict>
+		<key>4EA02B15199CE46B00937E34</key>
+		<dict>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>sourcecode.c.h</string>
+			<key>path</key>
+			<string>BIDViewController.h</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>4EA02B16199CE46B00937E34</key>
+		<dict>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>sourcecode.c.objc</string>
+			<key>path</key>
+			<string>BIDViewController.m</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>4EA02B17199CE46B00937E34</key>
+		<dict>
+			<key>fileRef</key>
+			<string>4EA02B16199CE46B00937E34</string>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
+		</dict>
+		<key>4EA02B18199CE46B00937E34</key>
+		<dict>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>folder.assetcatalog</string>
+			<key>path</key>
+			<string>Images.xcassets</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>4EA02B19199CE46B00937E34</key>
+		<dict>
+			<key>fileRef</key>
+			<string>4EA02B18199CE46B00937E34</string>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
+		</dict>
+		<key>4EA02B1A199CE46B00937E34</key>
+		<dict>
+			<key>buildActionMask</key>
+			<string>2147483647</string>
+			<key>files</key>
+			<array>
+				<string>4EA02B2C199CE46B00937E34</string>
+			</array>
+			<key>isa</key>
+			<string>PBXSourcesBuildPhase</string>
+			<key>runOnlyForDeploymentPostprocessing</key>
+			<string>0</string>
+		</dict>
+		<key>4EA02B1B199CE46B00937E34</key>
+		<dict>
+			<key>buildActionMask</key>
+			<string>2147483647</string>
+			<key>files</key>
+			<array>
+				<string>4EA02B20199CE46B00937E34</string>
+				<string>4EA02B22199CE46B00937E34</string>
+				<string>4EA02B21199CE46B00937E34</string>
+			</array>
+			<key>isa</key>
+			<string>PBXFrameworksBuildPhase</string>
+			<key>runOnlyForDeploymentPostprocessing</key>
+			<string>0</string>
+		</dict>
+		<key>4EA02B1C199CE46B00937E34</key>
+		<dict>
+			<key>buildActionMask</key>
+			<string>2147483647</string>
+			<key>files</key>
+			<array>
+				<string>4EA02B2A199CE46B00937E34</string>
+			</array>
+			<key>isa</key>
+			<string>PBXResourcesBuildPhase</string>
+			<key>runOnlyForDeploymentPostprocessing</key>
+			<string>0</string>
+		</dict>
+		<key>4EA02B1D199CE46B00937E34</key>
+		<dict>
+			<key>buildConfigurationList</key>
+			<string>4EA02B32199CE46B00937E34</string>
+			<key>buildPhases</key>
+			<array>
+				<string>4EA02B1A199CE46B00937E34</string>
+				<string>4EA02B1B199CE46B00937E34</string>
+				<string>4EA02B1C199CE46B00937E34</string>
+			</array>
+			<key>buildRules</key>
+			<array/>
+			<key>dependencies</key>
+			<array>
+				<string>4EA02B24199CE46B00937E34</string>
+			</array>
+			<key>isa</key>
+			<string>PBXNativeTarget</string>
+			<key>name</key>
+			<string>SayCheeseTests</string>
+			<key>productName</key>
+			<string>SayCheeseTests</string>
+			<key>productReference</key>
+			<string>4EA02B1E199CE46B00937E34</string>
+			<key>productType</key>
+			<string>com.apple.product-type.bundle.unit-test</string>
+		</dict>
+		<key>4EA02B1E199CE46B00937E34</key>
+		<dict>
+			<key>explicitFileType</key>
+			<string>wrapper.cfbundle</string>
+			<key>includeInIndex</key>
+			<string>0</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>path</key>
+			<string>SayCheeseTests.xctest</string>
+			<key>sourceTree</key>
+			<string>BUILT_PRODUCTS_DIR</string>
+		</dict>
+		<key>4EA02B1F199CE46B00937E34</key>
+		<dict>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>wrapper.framework</string>
+			<key>name</key>
+			<string>XCTest.framework</string>
+			<key>path</key>
+			<string>Library/Frameworks/XCTest.framework</string>
+			<key>sourceTree</key>
+			<string>DEVELOPER_DIR</string>
+		</dict>
+		<key>4EA02B20199CE46B00937E34</key>
+		<dict>
+			<key>fileRef</key>
+			<string>4EA02B1F199CE46B00937E34</string>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
+		</dict>
+		<key>4EA02B21199CE46B00937E34</key>
+		<dict>
+			<key>fileRef</key>
+			<string>4EA02B00199CE46B00937E34</string>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
+		</dict>
+		<key>4EA02B22199CE46B00937E34</key>
+		<dict>
+			<key>fileRef</key>
+			<string>4EA02B04199CE46B00937E34</string>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
+		</dict>
+		<key>4EA02B23199CE46B00937E34</key>
+		<dict>
+			<key>containerPortal</key>
+			<string>4EA02AF5199CE46B00937E34</string>
+			<key>isa</key>
+			<string>PBXContainerItemProxy</string>
+			<key>proxyType</key>
+			<string>1</string>
+			<key>remoteGlobalIDString</key>
+			<string>4EA02AFC199CE46B00937E34</string>
+			<key>remoteInfo</key>
+			<string>SayCheese</string>
+		</dict>
+		<key>4EA02B24199CE46B00937E34</key>
+		<dict>
+			<key>isa</key>
+			<string>PBXTargetDependency</string>
+			<key>target</key>
+			<string>4EA02AFC199CE46B00937E34</string>
+			<key>targetProxy</key>
+			<string>4EA02B23199CE46B00937E34</string>
+		</dict>
+		<key>4EA02B25199CE46B00937E34</key>
+		<dict>
+			<key>children</key>
+			<array>
+				<string>4EA02B2B199CE46B00937E34</string>
+				<string>4EA02B26199CE46B00937E34</string>
+			</array>
+			<key>isa</key>
+			<string>PBXGroup</string>
+			<key>path</key>
+			<string>SayCheeseTests</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>4EA02B26199CE46B00937E34</key>
+		<dict>
+			<key>children</key>
+			<array>
+				<string>4EA02B27199CE46B00937E34</string>
+				<string>4EA02B28199CE46B00937E34</string>
+			</array>
+			<key>isa</key>
+			<string>PBXGroup</string>
+			<key>name</key>
+			<string>Supporting Files</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>4EA02B27199CE46B00937E34</key>
+		<dict>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>text.plist.xml</string>
+			<key>path</key>
+			<string>SayCheeseTests-Info.plist</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>4EA02B28199CE46B00937E34</key>
+		<dict>
+			<key>children</key>
+			<array>
+				<string>4EA02B29199CE46B00937E34</string>
+			</array>
+			<key>isa</key>
+			<string>PBXVariantGroup</string>
+			<key>name</key>
+			<string>InfoPlist.strings</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>4EA02B29199CE46B00937E34</key>
+		<dict>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>text.plist.strings</string>
+			<key>name</key>
+			<string>en</string>
+			<key>path</key>
+			<string>en.lproj/InfoPlist.strings</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>4EA02B2A199CE46B00937E34</key>
+		<dict>
+			<key>fileRef</key>
+			<string>4EA02B28199CE46B00937E34</string>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
+		</dict>
+		<key>4EA02B2B199CE46B00937E34</key>
+		<dict>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>sourcecode.c.objc</string>
+			<key>path</key>
+			<string>SayCheeseTests.m</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>4EA02B2C199CE46B00937E34</key>
+		<dict>
+			<key>fileRef</key>
+			<string>4EA02B2B199CE46B00937E34</string>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
+		</dict>
+		<key>4EA02B2D199CE46B00937E34</key>
+		<dict>
+			<key>buildSettings</key>
+			<dict>
+				<key>ALWAYS_SEARCH_USER_PATHS</key>
+				<string>NO</string>
+				<key>CLANG_CXX_LANGUAGE_STANDARD</key>
+				<string>gnu++0x</string>
+				<key>CLANG_CXX_LIBRARY</key>
+				<string>libc++</string>
+				<key>CLANG_ENABLE_MODULES</key>
+				<string>YES</string>
+				<key>CLANG_ENABLE_OBJC_ARC</key>
+				<string>YES</string>
+				<key>CLANG_WARN_BOOL_CONVERSION</key>
+				<string>YES</string>
+				<key>CLANG_WARN_CONSTANT_CONVERSION</key>
+				<string>YES</string>
+				<key>CLANG_WARN_DIRECT_OBJC_ISA_USAGE</key>
+				<string>YES_ERROR</string>
+				<key>CLANG_WARN_EMPTY_BODY</key>
+				<string>YES</string>
+				<key>CLANG_WARN_ENUM_CONVERSION</key>
+				<string>YES</string>
+				<key>CLANG_WARN_INT_CONVERSION</key>
+				<string>YES</string>
+				<key>CLANG_WARN_OBJC_ROOT_CLASS</key>
+				<string>YES_ERROR</string>
+				<key>CLANG_WARN__DUPLICATE_METHOD_MATCH</key>
+				<string>YES</string>
+				<key>CODE_SIGN_IDENTITY[sdk=iphoneos*]</key>
+				<string>iPhone Developer</string>
+				<key>COPY_PHASE_STRIP</key>
+				<string>NO</string>
+				<key>GCC_C_LANGUAGE_STANDARD</key>
+				<string>gnu99</string>
+				<key>GCC_DYNAMIC_NO_PIC</key>
+				<string>NO</string>
+				<key>GCC_OPTIMIZATION_LEVEL</key>
+				<string>0</string>
+				<key>GCC_PREPROCESSOR_DEFINITIONS</key>
+				<array>
+					<string>DEBUG=1</string>
+					<string>$(inherited)</string>
+				</array>
+				<key>GCC_SYMBOLS_PRIVATE_EXTERN</key>
+				<string>NO</string>
+				<key>GCC_WARN_64_TO_32_BIT_CONVERSION</key>
+				<string>YES</string>
+				<key>GCC_WARN_ABOUT_RETURN_TYPE</key>
+				<string>YES_ERROR</string>
+				<key>GCC_WARN_UNDECLARED_SELECTOR</key>
+				<string>YES</string>
+				<key>GCC_WARN_UNINITIALIZED_AUTOS</key>
+				<string>YES_AGGRESSIVE</string>
+				<key>GCC_WARN_UNUSED_FUNCTION</key>
+				<string>YES</string>
+				<key>GCC_WARN_UNUSED_VARIABLE</key>
+				<string>YES</string>
+				<key>IPHONEOS_DEPLOYMENT_TARGET</key>
+				<string>7.1</string>
+				<key>ONLY_ACTIVE_ARCH</key>
+				<string>YES</string>
+				<key>SDKROOT</key>
+				<string>iphoneos</string>
+				<key>VALID_ARCHS</key>
+				<string>arm64 armv7s armv7</string>
+			</dict>
+			<key>isa</key>
+			<string>XCBuildConfiguration</string>
+			<key>name</key>
+			<string>Debug</string>
+		</dict>
+		<key>4EA02B2E199CE46B00937E34</key>
+		<dict>
+			<key>buildSettings</key>
+			<dict>
+				<key>ALWAYS_SEARCH_USER_PATHS</key>
+				<string>NO</string>
+				<key>CLANG_CXX_LANGUAGE_STANDARD</key>
+				<string>gnu++0x</string>
+				<key>CLANG_CXX_LIBRARY</key>
+				<string>libc++</string>
+				<key>CLANG_ENABLE_MODULES</key>
+				<string>YES</string>
+				<key>CLANG_ENABLE_OBJC_ARC</key>
+				<string>YES</string>
+				<key>CLANG_WARN_BOOL_CONVERSION</key>
+				<string>YES</string>
+				<key>CLANG_WARN_CONSTANT_CONVERSION</key>
+				<string>YES</string>
+				<key>CLANG_WARN_DIRECT_OBJC_ISA_USAGE</key>
+				<string>YES_ERROR</string>
+				<key>CLANG_WARN_EMPTY_BODY</key>
+				<string>YES</string>
+				<key>CLANG_WARN_ENUM_CONVERSION</key>
+				<string>YES</string>
+				<key>CLANG_WARN_INT_CONVERSION</key>
+				<string>YES</string>
+				<key>CLANG_WARN_OBJC_ROOT_CLASS</key>
+				<string>YES_ERROR</string>
+				<key>CLANG_WARN__DUPLICATE_METHOD_MATCH</key>
+				<string>YES</string>
+				<key>CODE_SIGN_IDENTITY[sdk=iphoneos*]</key>
+				<string>iPhone Developer</string>
+				<key>COPY_PHASE_STRIP</key>
+				<string>YES</string>
+				<key>ENABLE_NS_ASSERTIONS</key>
+				<string>NO</string>
+				<key>GCC_C_LANGUAGE_STANDARD</key>
+				<string>gnu99</string>
+				<key>GCC_WARN_64_TO_32_BIT_CONVERSION</key>
+				<string>YES</string>
+				<key>GCC_WARN_ABOUT_RETURN_TYPE</key>
+				<string>YES_ERROR</string>
+				<key>GCC_WARN_UNDECLARED_SELECTOR</key>
+				<string>YES</string>
+				<key>GCC_WARN_UNINITIALIZED_AUTOS</key>
+				<string>YES_AGGRESSIVE</string>
+				<key>GCC_WARN_UNUSED_FUNCTION</key>
+				<string>YES</string>
+				<key>GCC_WARN_UNUSED_VARIABLE</key>
+				<string>YES</string>
+				<key>IPHONEOS_DEPLOYMENT_TARGET</key>
+				<string>7.1</string>
+				<key>SDKROOT</key>
+				<string>iphoneos</string>
+				<key>VALIDATE_PRODUCT</key>
+				<string>YES</string>
+				<key>VALID_ARCHS</key>
+				<string>arm64 armv7s armv7</string>
+			</dict>
+			<key>isa</key>
+			<string>XCBuildConfiguration</string>
+			<key>name</key>
+			<string>Release</string>
+		</dict>
+		<key>4EA02B2F199CE46B00937E34</key>
+		<dict>
+			<key>buildConfigurations</key>
+			<array>
+				<string>4EA02B30199CE46B00937E34</string>
+				<string>4EA02B31199CE46B00937E34</string>
+			</array>
+			<key>defaultConfigurationIsVisible</key>
+			<string>0</string>
+			<key>defaultConfigurationName</key>
+			<string>Release</string>
+			<key>isa</key>
+			<string>XCConfigurationList</string>
+		</dict>
+		<key>4EA02B30199CE46B00937E34</key>
+		<dict>
+			<key>baseConfigurationReference</key>
+			<string>7B5B410D7E064D2E9205D598</string>
+			<key>buildSettings</key>
+			<dict>
+				<key>ASSETCATALOG_COMPILER_APPICON_NAME</key>
+				<string>AppIcon</string>
+				<key>ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME</key>
+				<string>LaunchImage</string>
+				<key>CLANG_ENABLE_OBJC_ARC</key>
+				<string>YES</string>
+				<key>CODE_SIGN_IDENTITY</key>
+				<string>iPhone Developer</string>
+				<key>FRAMEWORK_SEARCH_PATHS</key>
+				<array>
+					<string>$(inherited)</string>
+					<string>$(PROJECT_DIR)</string>
+				</array>
+				<key>GCC_PRECOMPILE_PREFIX_HEADER</key>
+				<string>YES</string>
+				<key>GCC_PREFIX_HEADER</key>
+				<string>SayCheese/SayCheese-Prefix.pch</string>
+				<key>INFOPLIST_FILE</key>
+				<string>SayCheese/SayCheese-Info.plist</string>
+				<key>IPHONEOS_DEPLOYMENT_TARGET</key>
+				<string>7.1</string>
+				<key>PRODUCT_NAME</key>
+				<string>$(TARGET_NAME)</string>
+				<key>TARGETED_DEVICE_FAMILY</key>
+				<string>1</string>
+				<key>WRAPPER_EXTENSION</key>
+				<string>app</string>
+			</dict>
+			<key>isa</key>
+			<string>XCBuildConfiguration</string>
+			<key>name</key>
+			<string>Debug</string>
+		</dict>
+		<key>4EA02B31199CE46B00937E34</key>
+		<dict>
+			<key>baseConfigurationReference</key>
+			<string>7B5B410D7E064D2E9205D598</string>
+			<key>buildSettings</key>
+			<dict>
+				<key>ASSETCATALOG_COMPILER_APPICON_NAME</key>
+				<string>AppIcon</string>
+				<key>ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME</key>
+				<string>LaunchImage</string>
+				<key>CLANG_ENABLE_OBJC_ARC</key>
+				<string>YES</string>
+				<key>CODE_SIGN_IDENTITY</key>
+				<string>iPhone Developer</string>
+				<key>FRAMEWORK_SEARCH_PATHS</key>
+				<array>
+					<string>$(inherited)</string>
+					<string>$(PROJECT_DIR)</string>
+				</array>
+				<key>GCC_PRECOMPILE_PREFIX_HEADER</key>
+				<string>YES</string>
+				<key>GCC_PREFIX_HEADER</key>
+				<string>SayCheese/SayCheese-Prefix.pch</string>
+				<key>INFOPLIST_FILE</key>
+				<string>SayCheese/SayCheese-Info.plist</string>
+				<key>IPHONEOS_DEPLOYMENT_TARGET</key>
+				<string>7.1</string>
+				<key>PRODUCT_NAME</key>
+				<string>$(TARGET_NAME)</string>
+				<key>TARGETED_DEVICE_FAMILY</key>
+				<string>1</string>
+				<key>WRAPPER_EXTENSION</key>
+				<string>app</string>
+			</dict>
+			<key>isa</key>
+			<string>XCBuildConfiguration</string>
+			<key>name</key>
+			<string>Release</string>
+		</dict>
+		<key>4EA02B32199CE46B00937E34</key>
+		<dict>
+			<key>buildConfigurations</key>
+			<array>
+				<string>4EA02B33199CE46B00937E34</string>
+				<string>4EA02B34199CE46B00937E34</string>
+			</array>
+			<key>defaultConfigurationIsVisible</key>
+			<string>0</string>
+			<key>defaultConfigurationName</key>
+			<string>Release</string>
+			<key>isa</key>
+			<string>XCConfigurationList</string>
+		</dict>
+		<key>4EA02B33199CE46B00937E34</key>
+		<dict>
+			<key>buildSettings</key>
+			<dict>
+				<key>BUNDLE_LOADER</key>
+				<string>$(BUILT_PRODUCTS_DIR)/SayCheese.app/SayCheese</string>
+				<key>FRAMEWORK_SEARCH_PATHS</key>
+				<array>
+					<string>$(SDKROOT)/Developer/Library/Frameworks</string>
+					<string>$(inherited)</string>
+					<string>$(DEVELOPER_FRAMEWORKS_DIR)</string>
+				</array>
+				<key>GCC_PRECOMPILE_PREFIX_HEADER</key>
+				<string>YES</string>
+				<key>GCC_PREFIX_HEADER</key>
+				<string>SayCheese/SayCheese-Prefix.pch</string>
+				<key>GCC_PREPROCESSOR_DEFINITIONS</key>
+				<array>
+					<string>DEBUG=1</string>
+					<string>$(inherited)</string>
+				</array>
+				<key>INFOPLIST_FILE</key>
+				<string>SayCheeseTests/SayCheeseTests-Info.plist</string>
+				<key>PRODUCT_NAME</key>
+				<string>$(TARGET_NAME)</string>
+				<key>TEST_HOST</key>
+				<string>$(BUNDLE_LOADER)</string>
+				<key>WRAPPER_EXTENSION</key>
+				<string>xctest</string>
+			</dict>
+			<key>isa</key>
+			<string>XCBuildConfiguration</string>
+			<key>name</key>
+			<string>Debug</string>
+		</dict>
+		<key>4EA02B34199CE46B00937E34</key>
+		<dict>
+			<key>buildSettings</key>
+			<dict>
+				<key>BUNDLE_LOADER</key>
+				<string>$(BUILT_PRODUCTS_DIR)/SayCheese.app/SayCheese</string>
+				<key>FRAMEWORK_SEARCH_PATHS</key>
+				<array>
+					<string>$(SDKROOT)/Developer/Library/Frameworks</string>
+					<string>$(inherited)</string>
+					<string>$(DEVELOPER_FRAMEWORKS_DIR)</string>
+				</array>
+				<key>GCC_PRECOMPILE_PREFIX_HEADER</key>
+				<string>YES</string>
+				<key>GCC_PREFIX_HEADER</key>
+				<string>SayCheese/SayCheese-Prefix.pch</string>
+				<key>INFOPLIST_FILE</key>
+				<string>SayCheeseTests/SayCheeseTests-Info.plist</string>
+				<key>PRODUCT_NAME</key>
+				<string>$(TARGET_NAME)</string>
+				<key>TEST_HOST</key>
+				<string>$(BUNDLE_LOADER)</string>
+				<key>WRAPPER_EXTENSION</key>
+				<string>xctest</string>
+			</dict>
+			<key>isa</key>
+			<string>XCBuildConfiguration</string>
+			<key>name</key>
+			<string>Release</string>
+		</dict>
+		<key>4EF76CF119BC4EF600592D61</key>
+		<dict>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>image.jpeg</string>
+			<key>path</key>
+			<string>default_user1.jpg</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>4EF76CF219BC4EF600592D61</key>
+		<dict>
+			<key>fileRef</key>
+			<string>4EF76CF119BC4EF600592D61</string>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
+		</dict>
+		<key>4EF76CF319BC515500592D61</key>
+		<dict>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>image.png</string>
+			<key>path</key>
+			<string>icon_add_friends.png</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>4EF76CF419BC515500592D61</key>
+		<dict>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>image.png</string>
+			<key>path</key>
+			<string>icon_friend_requests.png</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>4EF76CF519BC515500592D61</key>
+		<dict>
+			<key>fileRef</key>
+			<string>4EF76CF319BC515500592D61</string>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
+		</dict>
+		<key>4EF76CF619BC515500592D61</key>
+		<dict>
+			<key>fileRef</key>
+			<string>4EF76CF419BC515500592D61</string>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
+		</dict>
+		<key>4EF7846019B8FB2F00142930</key>
+		<dict>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>image.png</string>
+			<key>path</key>
+			<string>plus_gray.png</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>4EF7846119B8FB2F00142930</key>
+		<dict>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>image.png</string>
+			<key>path</key>
+			<string>plus_green.png</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>4EF7846219B8FB2F00142930</key>
+		<dict>
+			<key>fileRef</key>
+			<string>4EF7846019B8FB2F00142930</string>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
+		</dict>
+		<key>4EF7846319B8FB2F00142930</key>
+		<dict>
+			<key>fileRef</key>
+			<string>4EF7846119B8FB2F00142930</string>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
+		</dict>
+		<key>4EF7846419B92C7A00142930</key>
+		<dict>
+			<key>fileEncoding</key>
+			<string>4</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>sourcecode.c.h</string>
+			<key>path</key>
+			<string>BIDFriendRequestsTableViewController.h</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>4EF7846519B92C7A00142930</key>
+		<dict>
+			<key>fileEncoding</key>
+			<string>4</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>sourcecode.c.objc</string>
+			<key>path</key>
+			<string>BIDFriendRequestsTableViewController.m</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>4EF7846619B92C7A00142930</key>
+		<dict>
+			<key>fileRef</key>
+			<string>4EF7846519B92C7A00142930</string>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
+		</dict>
+		<key>4EF7846719B92CA000142930</key>
+		<dict>
+			<key>fileEncoding</key>
+			<string>4</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>sourcecode.c.h</string>
+			<key>path</key>
+			<string>BIDFriendRequestsTableViewCell.h</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>4EF7846819B92CA000142930</key>
+		<dict>
+			<key>fileEncoding</key>
+			<string>4</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>sourcecode.c.objc</string>
+			<key>path</key>
+			<string>BIDFriendRequestsTableViewCell.m</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>4EF7846919B92CA000142930</key>
+		<dict>
+			<key>fileRef</key>
+			<string>4EF7846819B92CA000142930</string>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
+		</dict>
+		<key>4EF7E17E19BCF14B00B63613</key>
+		<dict>
+			<key>fileEncoding</key>
+			<string>4</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>sourcecode.c.h</string>
+			<key>path</key>
+			<string>BIDNewsFeedTableViewCell.h</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>4EF7E17F19BCF14B00B63613</key>
+		<dict>
+			<key>fileEncoding</key>
+			<string>4</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>sourcecode.c.objc</string>
+			<key>path</key>
+			<string>BIDNewsFeedTableViewCell.m</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>4EF7E18019BCF14B00B63613</key>
+		<dict>
+			<key>fileRef</key>
+			<string>4EF7E17F19BCF14B00B63613</string>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
+		</dict>
+		<key>4EF7E18119BCF16000B63613</key>
+		<dict>
+			<key>fileEncoding</key>
+			<string>4</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>sourcecode.c.h</string>
+			<key>path</key>
+			<string>BIDNewsFeedTableViewController.h</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>4EF7E18219BCF16000B63613</key>
+		<dict>
+			<key>fileEncoding</key>
+			<string>4</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>sourcecode.c.objc</string>
+			<key>path</key>
+			<string>BIDNewsFeedTableViewController.m</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>4EF7E18319BCF16000B63613</key>
+		<dict>
+			<key>fileRef</key>
+			<string>4EF7E18219BCF16000B63613</string>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
+		</dict>
+		<key>4EF948F219BC627E00FFF374</key>
+		<dict>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>image.png</string>
+			<key>path</key>
+			<string>icon_add_friends@2x.png</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>4EF948F419BC627E00FFF374</key>
+		<dict>
+			<key>fileRef</key>
+			<string>4EF948F219BC627E00FFF374</string>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
+		</dict>
+		<key>4EF948F619BC668600FFF374</key>
+		<dict>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>image.png</string>
+			<key>path</key>
+			<string>icon_friend_requests@2x.png</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>4EF948F719BC668600FFF374</key>
+		<dict>
+			<key>fileRef</key>
+			<string>4EF948F619BC668600FFF374</string>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
+		</dict>
+		<key>4EF948FE19BC721C00FFF374</key>
+		<dict>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>image.png</string>
+			<key>path</key>
+			<string>list@2x.png</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>4EF948FF19BC721C00FFF374</key>
+		<dict>
+			<key>fileRef</key>
+			<string>4EF948FE19BC721C00FFF374</string>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
+		</dict>
+		<key>4EF9490019BC72C200FFF374</key>
+		<dict>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>image.png</string>
+			<key>path</key>
+			<string>account_icon@2x.png</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>4EF9490119BC72C200FFF374</key>
+		<dict>
+			<key>fileRef</key>
+			<string>4EF9490019BC72C200FFF374</string>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
+		</dict>
+		<key>4EF9490219BC777700FFF374</key>
+		<dict>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>image.png</string>
+			<key>path</key>
+			<string>saycheese_logo_white@2x.png</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>4EF9490319BC777700FFF374</key>
+		<dict>
+			<key>fileRef</key>
+			<string>4EF9490219BC777700FFF374</string>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
+		</dict>
+		<key>4EF9490819BC7B4B00FFF374</key>
+		<dict>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>image.png</string>
+			<key>path</key>
+			<string>squarePNG.png</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>4EF9490919BC7B4B00FFF374</key>
+		<dict>
+			<key>fileRef</key>
+			<string>4EF9490819BC7B4B00FFF374</string>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
+		</dict>
+		<key>4EF9B11719BC464600C20DB9</key>
+		<dict>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>image.jpeg</string>
+			<key>path</key>
+			<string>default_user.jpg</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>4EF9B11919BC464600C20DB9</key>
+		<dict>
+			<key>fileRef</key>
+			<string>4EF9B11719BC464600C20DB9</string>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
+		</dict>
+		<key>4EFA067619BBC5C90029FCBF</key>
+		<dict>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>image.png</string>
+			<key>path</key>
+			<string>friend_requests_icon.png</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>4EFA067819BBC5C90029FCBF</key>
+		<dict>
+			<key>fileRef</key>
+			<string>4EFA067619BBC5C90029FCBF</string>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
+		</dict>
+		<key>4EFA067E19BBC6FB0029FCBF</key>
+		<dict>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>image.png</string>
+			<key>path</key>
+			<string>add_friends_icon.png</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>4EFA067F19BBC6FB0029FCBF</key>
+		<dict>
+			<key>fileRef</key>
+			<string>4EFA067E19BBC6FB0029FCBF</string>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
+		</dict>
+		<key>4EFA068019BBC7350029FCBF</key>
+		<dict>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>image.png</string>
+			<key>path</key>
+			<string>friend_requests_icon.png</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>4EFA068119BBC7350029FCBF</key>
+		<dict>
+			<key>fileRef</key>
+			<string>4EFA068019BBC7350029FCBF</string>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
+		</dict>
+		<key>4EFA068219BBC8100029FCBF</key>
+		<dict>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>image.jpeg</string>
+			<key>path</key>
+			<string>plus_icon.jpg</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>4EFA068319BBC8100029FCBF</key>
+		<dict>
+			<key>fileRef</key>
+			<string>4EFA068219BBC8100029FCBF</string>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
+		</dict>
+		<key>4EFA068419BBCA4C0029FCBF</key>
+		<dict>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>image.png</string>
+			<key>path</key>
+			<string>add_icon_green.png</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>4EFA068519BBCA4C0029FCBF</key>
+		<dict>
+			<key>fileRef</key>
+			<string>4EFA068419BBCA4C0029FCBF</string>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
+		</dict>
+		<key>4EFC405E19BE0F9900DB32A5</key>
+		<dict>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>image.png</string>
+			<key>path</key>
+			<string>like_icon_green.png</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>4EFC405F19BE0F9900DB32A5</key>
+		<dict>
+			<key>fileRef</key>
+			<string>4EFC405E19BE0F9900DB32A5</string>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
+		</dict>
+		<key>4EFC406019BE1FF100DB32A5</key>
+		<dict>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>image.png</string>
+			<key>path</key>
+			<string>accept_icon.png</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>4EFC406119BE1FF100DB32A5</key>
+		<dict>
+			<key>fileRef</key>
+			<string>4EFC406019BE1FF100DB32A5</string>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
+		</dict>
+		<key>4EFF0B3419B3724100680273</key>
+		<dict>
+			<key>fileEncoding</key>
+			<string>4</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>sourcecode.c.h</string>
+			<key>path</key>
+			<string>Utils.h</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>4EFF0B3519B3724100680273</key>
+		<dict>
+			<key>fileEncoding</key>
+			<string>4</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>sourcecode.c.objc</string>
+			<key>path</key>
+			<string>Utils.m</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>4EFF0B3619B3724100680273</key>
+		<dict>
+			<key>fileRef</key>
+			<string>4EFF0B3519B3724100680273</string>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
+		</dict>
+		<key>68A07A6E385045B3A38B4243</key>
+		<dict>
+			<key>buildActionMask</key>
+			<string>2147483647</string>
+			<key>files</key>
+			<array/>
+			<key>inputPaths</key>
+			<array/>
+			<key>isa</key>
+			<string>PBXShellScriptBuildPhase</string>
+			<key>name</key>
+			<string>Check Pods Manifest.lock</string>
+			<key>outputPaths</key>
+			<array/>
+			<key>runOnlyForDeploymentPostprocessing</key>
+			<string>0</string>
+			<key>shellPath</key>
+			<string>/bin/sh</string>
+			<key>shellScript</key>
+			<string>diff "${PODS_ROOT}/../Podfile.lock" "${PODS_ROOT}/Manifest.lock" &gt; /dev/null
+if [[ $? != 0 ]] ; then
+    cat &lt;&lt; EOM
+error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.
+EOM
+    exit 1
+fi
+</string>
+			<key>showEnvVarsInLog</key>
+			<string>0</string>
+		</dict>
+		<key>7B5B410D7E064D2E9205D598</key>
+		<dict>
+			<key>includeInIndex</key>
+			<string>1</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>text.xcconfig</string>
+			<key>name</key>
+			<string>Pods.xcconfig</string>
+			<key>path</key>
+			<string>Pods/Pods.xcconfig</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>8224C5619B4847169C278534</key>
+		<dict>
+			<key>explicitFileType</key>
+			<string>archive.ar</string>
+			<key>includeInIndex</key>
+			<string>0</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>path</key>
+			<string>libPods.a</string>
+			<key>sourceTree</key>
+			<string>BUILT_PRODUCTS_DIR</string>
+		</dict>
+		<key>A1EFEBE2F3C74283A792CAB2</key>
+		<dict>
+			<key>buildActionMask</key>
+			<string>2147483647</string>
+			<key>files</key>
+			<array/>
+			<key>inputPaths</key>
+			<array/>
+			<key>isa</key>
+			<string>PBXShellScriptBuildPhase</string>
+			<key>name</key>
+			<string>Copy Pods Resources</string>
+			<key>outputPaths</key>
+			<array/>
+			<key>runOnlyForDeploymentPostprocessing</key>
+			<string>0</string>
+			<key>shellPath</key>
+			<string>/bin/sh</string>
+			<key>shellScript</key>
+			<string>"${SRCROOT}/Pods/Pods-resources.sh"
+</string>
+			<key>showEnvVarsInLog</key>
+			<string>0</string>
+		</dict>
+	</dict>
+	<key>rootObject</key>
+	<string>4EA02AF5199CE46B00937E34</string>
+</dict>
+</plist>

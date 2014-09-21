@@ -9,8 +9,9 @@
 #import "BIDNewsFeedTableViewController.h"
 #import "BIDNewsFeedTableViewCell.h"
 #import "Utils.h"
-#import "RequestQueue.h"
 #import "TTTTimeIntervalFormatter.h"
+#import "AFHTTPRequestOperationManager.h"
+#import "FacebookSDK/FacebookSDK.h"
 
 @interface BIDNewsFeedTableViewController ()
 
@@ -44,6 +45,9 @@ bool isLikeRequestSending;
     userId = [[Utils getInstance]getLoggedInUserId];
     userDictionary = [[Utils getInstance]getUserDictionary];
     
+    if(nil == userId || [userId isEqualToString:@""] || nil == userDictionary)
+        [self logout];
+    
     [self setNeedsStatusBarAppearanceUpdate];
     
     [self.navigationController.navigationBar setBackgroundImage:[UIImage new]
@@ -63,6 +67,19 @@ bool isLikeRequestSending;
     self.navigationController.navigationBar.tintColor = [UIColor whiteColor];
     
     [[UIApplication sharedApplication] setStatusBarStyle: UIStatusBarStyleLightContent];
+    
+    
+}
+-(void) logout{
+    [FBSession.activeSession closeAndClearTokenInformation];
+    NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
+    [prefs setObject:nil forKey:@"userInfo"];
+    [prefs setObject:nil forKey:@"userFriends"];
+    
+    UIViewController *loginViewController =
+    [[UIStoryboard storyboardWithName:@"Main" bundle:nil]instantiateViewControllerWithIdentifier:@"loginViewController"];
+    [[self navigationController] pushViewController:loginViewController
+                                     animated:YES];
     
     
 }
@@ -206,7 +223,7 @@ bool isLikeRequestSending;
     NSDictionary* result = [newsFeedArray objectAtIndex:[indexPath row]];
     CGFloat width = 245.0;
     CGFloat height = 480.0 * 245.0/320.0;
-    if(result[@"photoWidth"]!=nil && result[@"photoHeight"]!=nil){
+    if(nil!= result[@"photoWidth"] && nil!= result[@"photoHeight"]){
         width =  [result[@"photoWidth"] floatValue];
         height= [result[@"photoHeight"] floatValue];
     }
@@ -238,49 +255,37 @@ bool isLikeRequestSending;
         NSString* lastName =userDictionary[@"user"][@"last_name"];
         //post request for adding friend...
         
+        NSString * url = [[Utils getInstance] addRemoveLikeUrl];
         
-        NSURL *URL = [[Utils getInstance] addRemoveLikeUrl];
-        NSString *post = [NSString stringWithFormat:@"&userId=%@&photoId=%@&firstName=%@&lastName=%@", userId, photoId, firstName, lastName];
+        AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+        NSDictionary *parameters = @{@"userId": userId,
+                                     @"photoId": photoId,
+                                     @"firstName": firstName,
+                                     @"lastName": lastName
+                                     };
+
+        manager.responseSerializer = [AFHTTPResponseSerializer serializer];
+        [manager POST:url parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
+            NSLog(@"Response: %@", responseObject);
         
-        NSData *postData =   [post dataUsingEncoding:NSUTF8StringEncoding];
-        NSString *postLength = [NSString stringWithFormat:@"%d",[postData length]];
-        
-        NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:URL];
-        [request setHTTPMethod:@"POST"];
-        [request setValue:postLength forHTTPHeaderField:@"Content-Length"];
-        [request setValue:@"application/x-www-form-urlencoded" forHTTPHeaderField:@"Content-Type"];
-        [request setHTTPBody:postData];
-        
-        RQOperation *operation = [RQOperation operationWithRequest:request];
-        //add response handler
-        operation.completionHandler = ^(__unused NSURLResponse *response, NSData *data, NSError *error)
-        {
-            if (error)
-            {
-                //   [[Utils getInstance] showErrorMessage:@"Something went wrong" message:@"Could not send friend request"];
-                isLikeRequestSending = NO;
-                [sender setEnabled:YES];
+            NSInteger code = [[operation response] statusCode];
+            
+            if(code == 200){
+                [self addOrRemoveLikeInArray:rowIndex userId:userId firstName:firstName lastName: lastName];
+                [self.tableView reloadData];
             }
             else
             {
-                NSHTTPURLResponse* httpResponse = (NSHTTPURLResponse*)response;
-                NSInteger code = [httpResponse statusCode];
-                
-                if(code == 200){
-                    [self addOrRemoveLikeInArray:rowIndex userId:userId firstName:firstName lastName: lastName];
-                    [self.tableView reloadData];
-                }
-                else
-                {
-                    
-                }
-                [sender setEnabled:YES];
-                isLikeRequestSending = NO;
                 
             }
-        };
-        //make request
-        [[RequestQueue mainQueue] addOperation:operation];
+            [sender setEnabled:YES];
+            isLikeRequestSending = NO;
+        } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+            NSLog(@"Error adding/removing like: %@", error);
+            //   [[Utils getInstance] showErrorMessage:@"Something went wrong" message:@"Could not send friend request"];
+            isLikeRequestSending = NO;
+            [sender setEnabled:YES];
+        }];
     }
 }
 
@@ -405,48 +410,34 @@ bool isLikeRequestSending;
  }
  */
 
+
 -(void) getNewsFeed{
     NSLog(@"loading news feed");
     
-    NSURL *URL = [[Utils getInstance] getNewsFeedUrl:userId];
     NSLog(@"userId: %@", userId);
-    NSURLRequest *request = [NSURLRequest requestWithURL:URL];
     
-    RQOperation *operation = [RQOperation operationWithRequest:request];
-    //add response handler
-    operation.completionHandler = ^(__unused NSURLResponse *response, NSData *data, NSError *error)
-    {
-        if (error)
-        {
-            [[Utils getInstance] showErrorMessage:@"Something went wrong" message:@"Could not load news feed"];
-            // areFriendsLoaded = NO;
-        }
-        else
-        {
-            NSError *myError = nil;
-            NSMutableData* responseData = [NSMutableData data];
-            [responseData appendData:data];
-            
-            newsFeedArray = [NSJSONSerialization JSONObjectWithData:responseData options:NSJSONReadingMutableLeaves error:&myError];
-            
-            if(myError){
-                // areFriendsLoaded = NO;
-                return;
-            }
-            
-            //  areFriendsLoaded = YES;
-            
-            NSLog(@"loading news feed finished");
-            
-            // [prefs setObject:friendsArray forKey:@"userFriends"];
-            
-            // [self fillFriendsImageViews:friendsArray];
-            [self.tableView reloadData];
-        }
-    };
+    NSString *url = [[Utils getInstance] getNewsFeedUrl: userId];
     
-    //make request
-    [[RequestQueue mainQueue] addOperation:operation];
+    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+    [manager GET: url parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
+       
+        newsFeedArray = responseObject;
+
+        //  areFriendsLoaded = YES;
+        
+        NSLog(@"loading news feed finished");
+        
+        // [prefs setObject:friendsArray forKey:@"userFriends"];
+        
+        [self.tableView reloadData];
+
+        NSLog(@"JSON: %@", responseObject);
+        
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        NSLog(@"Error loading news feed: %@", error);
+        [[Utils getInstance] showErrorMessage:@"Something went wrong" message:@"Could not load news feed"];
+    }];
+    
 }
 
 @end

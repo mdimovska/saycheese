@@ -9,7 +9,7 @@
 #import "BIDAppDelegate.h"
 #import "FacebookSDK/FacebookSDK.h"
 #import "Utils.h"
-#import "RequestQueue.h"
+#import "AFHTTPRequestOperationManager.h"
 
 @implementation BIDAppDelegate
 
@@ -22,8 +22,10 @@
     
     // FIX THIS:
     //REMOVE THIS LINE
+    /*
     UINavigationController *navigationController = (UINavigationController*) self.window.rootViewController;
     [[[navigationController viewControllers] objectAtIndex:0] performSegueWithIdentifier:@"TabBarControllerSequeIdentifier" sender:self];
+    */
     
     
     
@@ -251,11 +253,11 @@
             [prefs setObject:dictionary forKey:@"userInfo"];
             
             [self register:dictionary];
-    /*
+    
             UINavigationController *navigationController = (UINavigationController*) self.window.rootViewController;
             [[[navigationController viewControllers] objectAtIndex:0] performSegueWithIdentifier:@"TabBarControllerSequeIdentifier" sender:self];
      
-     */
+    
         } else {
             // An error occurred, we need to handle the error
             // Check out our error handling guide: https://developers.facebook.com/docs/ios/errors/
@@ -278,51 +280,42 @@
 -(void) register: (NSMutableDictionary *) dictionary{
     NSLog(@"registering..");
     //POST request
-    
-    NSURL *URL = [[Utils getInstance] getRegisterUrl];
-    NSString *post = [NSString stringWithFormat:@"&_id=%@&firstName=%@&lastName=%@&pictureUrl=%@",dictionary[@"user"][@"id"], dictionary[@"user"][@"first_name"], dictionary[@"user"][@"last_name"], dictionary[@"user"][@"picture"]];
 
-    NSData *postData =   [post dataUsingEncoding:NSUTF8StringEncoding];
-    NSString *postLength = [NSString stringWithFormat:@"%d",[postData length]];
+    NSString * url = [[Utils getInstance] getRegisterUrl];
     
-    NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:URL];
-    [request setHTTPMethod:@"POST"];
-    [request setValue:postLength forHTTPHeaderField:@"Content-Length"];
-    [request setValue:@"application/x-www-form-urlencoded" forHTTPHeaderField:@"Content-Type"];
-    [request setHTTPBody:postData];
+    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+    NSDictionary *parameters = @{@"_id": dictionary[@"user"][@"id"],
+                                 @"firstName":dictionary[@"user"][@"first_name"],
+                                 @"lastName": dictionary[@"user"][@"last_name"],
+                                 @"pictureUrl": dictionary[@"user"][@"picture"]
+                                 };
     
-    RQOperation *operation = [RQOperation operationWithRequest:request];
-    //add response handler
-    operation.completionHandler = ^(__unused NSURLResponse *response, NSData *data, NSError *error)
-    {
-        if (error)
-        {
-            
-            NSString *alertText;
-            NSString *alertTitle;
-            alertTitle = @"Something went wrong";
-            alertText = [FBErrorUtility userMessageForError:error];
-            [[Utils getInstance] showErrorMessage:alertTitle message: alertText];
-
-            [FBSession.activeSession closeAndClearTokenInformation];
-            [self userLoggedOut];
-            
-            
-            //DELETE THIS!!!
-            UINavigationController *navigationController = (UINavigationController*) self.window.rootViewController;
-            [[[navigationController viewControllers] objectAtIndex:0] performSegueWithIdentifier:@"TabBarControllerSequeIdentifier" sender:self];
+    manager.responseSerializer = [AFHTTPResponseSerializer serializer];
+    [manager POST:url parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        NSLog(@"Response: %@", responseObject);
         
-        }
-        else
-        {
-            //registering (or login) successful
-            UINavigationController *navigationController = (UINavigationController*) self.window.rootViewController;
-            [[[navigationController viewControllers] objectAtIndex:0] performSegueWithIdentifier:@"TabBarControllerSequeIdentifier" sender:self];
-        }
-    };
-    
-    //make request
-    [[RequestQueue mainQueue] addOperation:operation];
+        //registering (or login) successful
+        UINavigationController *navigationController = (UINavigationController*) self.window.rootViewController;
+        [[[navigationController viewControllers] objectAtIndex:0] performSegueWithIdentifier:@"TabBarControllerSequeIdentifier" sender:self];
+        
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        NSLog(@"Error registering: %@", error);
+        NSString *alertText;
+        NSString *alertTitle;
+        alertTitle = @"Something went wrong";
+        alertText = [FBErrorUtility userMessageForError:error];
+        [[Utils getInstance] showErrorMessage:alertTitle message: alertText];
+        
+        [FBSession.activeSession closeAndClearTokenInformation];
+        [self userLoggedOut];
+        
+        
+        //DELETE THIS!!!
+        /*
+        UINavigationController *navigationController = (UINavigationController*) self.window.rootViewController;
+        [[[navigationController viewControllers] objectAtIndex:0] performSegueWithIdentifier:@"TabBarControllerSequeIdentifier" sender:self];
+         */
+    }];
 }
 
 @end

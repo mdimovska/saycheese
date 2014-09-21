@@ -9,7 +9,7 @@
 #import "BIDUserAccountViewController.h"
 #import "FacebookSDK/FacebookSDK.h"
 #import "BIDAppDelegate.h"
-#import "RequestQueue.h"
+#import "AFHTTPRequestOperationManager.h"
 #import "Utils.h"
 
 
@@ -107,94 +107,57 @@ NSString* userId;
 }
 
 -(void) getFriends{
-    NSLog(@"get friends called");
-    
-    NSURL *URL = [[Utils getInstance] getFriendsUrl:userId];
+    NSLog(@"getting friends");
     NSLog(@"userId: %@", userId);
-    NSURLRequest *request = [NSURLRequest requestWithURL:URL];
     
-    RQOperation *operation = [RQOperation operationWithRequest:request];
-    //add response handler
-    operation.completionHandler = ^(__unused NSURLResponse *response, NSData *data, NSError *error)
-    {
-        if (error)
-        {
-            [[Utils getInstance] showErrorMessage:@"Something went wrong" message:@"Could not get user info"]; //?
-            areFriendsLoaded = NO;
-        }
-        else
-        {
-            // convert to JSON
-            NSError *myError = nil;
-            NSMutableData* responseData = [NSMutableData data];
-            [responseData appendData:data];
-            
-            friendsArray = [NSJSONSerialization JSONObjectWithData:responseData options:NSJSONReadingMutableLeaves error:&myError];
-            
-            if(myError){
-                areFriendsLoaded = NO;
-                return;
-            }
-            
-            areFriendsLoaded = YES;
-            
-            NSLog(@"getting friends finished");
-            
-            [prefs setObject:friendsArray forKey:@"userFriends"];
-            
-            [self fillFriendsImageViews];
-            
-        }
-    };
+    NSString *url = [[Utils getInstance] getFriendsUrl: userId];
     
-    //make request
-    [[RequestQueue mainQueue] addOperation:operation];
+    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+    [manager GET: url parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        
+        NSLog(@"getting friends finished");
+        NSLog(@"JSON (friends): %@", responseObject);
+        
+        friendsArray = responseObject;
+        
+        areFriendsLoaded = YES;
+        
+        [prefs setObject:friendsArray forKey:@"userFriends"];
+        
+        [self fillFriendsImageViews];
+        
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        NSLog(@"Error getting friends: %@", error);
+        [[Utils getInstance] showErrorMessage:@"Something went wrong" message:@"Could not get user info"]; //?
+        areFriendsLoaded = NO;
+    }];
 }
 
 
 -(void) getPhotos{
     NSLog(@"getting photos");
     
-    NSURL *URL = [[Utils getInstance] getUserPhotos:userId];
-    NSLog(@"userId: %@", userId);
-    NSURLRequest *request = [NSURLRequest requestWithURL:URL];
+    NSString *url = [[Utils getInstance] getUserPhotos: userId];
     
-    RQOperation *operation = [RQOperation operationWithRequest:request];
-    //add response handler
-    operation.completionHandler = ^(__unused NSURLResponse *response, NSData *data, NSError *error)
-    {
-        if (error)
-        {
-            [[Utils getInstance] showErrorMessage:@"Something went wrong" message:@"Could not get user photos"]; //?
-            arePhotosLoaded = NO;
-        }
-        else
-        {
-            // convert to JSON
-            NSError *myError = nil;
-            NSMutableData* responseData = [NSMutableData data];
-            [responseData appendData:data];
-            
-            photosArray = [NSJSONSerialization JSONObjectWithData:responseData options:NSJSONReadingMutableLeaves error:&myError];
-            
-            if(myError){
-                arePhotosLoaded = NO;
-                return;
-            }
-            
-            arePhotosLoaded = YES;
-            
-            NSLog(@"getting photos finished");
-            
-            [prefs setObject:photosArray forKey:@"userPhotos"];
-            
-            [self fillPhotosImageViews];
-            
-        }
-    };
-    
-    //make request
-    [[RequestQueue mainQueue] addOperation:operation];
+    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+    [manager GET: url parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        
+        NSLog(@"getting photos finished");
+        NSLog(@"JSON (photos): %@", responseObject);
+        
+        photosArray = responseObject;
+        
+        arePhotosLoaded = YES;
+        
+        [prefs setObject:photosArray forKey:@"userPhotos"];
+        
+        [self fillPhotosImageViews];
+        
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        NSLog(@"Error getting user photos: %@", error);
+        [[Utils getInstance] showErrorMessage:@"Something went wrong" message:@"Could not get user photos"]; //?
+        arePhotosLoaded = NO;
+    }];
 }
 
 

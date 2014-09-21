@@ -9,7 +9,7 @@
 #import "BIDFriendsTableViewController.h"
 #import "BIDFriendsTableViewCell.h"
 #import "Utils.h"
-#import "RequestQueue.h"
+#import "AFHTTPRequestOperationManager.h"
 
 @interface BIDFriendsTableViewController ()
 
@@ -183,56 +183,43 @@ NSString* userIdInFriendsController = @"";
         
        // [sender setEnabled:NO];
         
-        
         //post request for adding friend...
         NSLog(@"sending request for removing friend");
         
-        NSURL *URL = [[Utils getInstance] removeContactOrPendingRequestUrl];
-        NSString *post = [NSString stringWithFormat:@"&userId=%@&contactId=%@", userIdInFriendsController, contactId];
+        NSString * url = [[Utils getInstance] removeContactOrPendingRequestUrl];
         
-        NSData *postData =   [post dataUsingEncoding:NSUTF8StringEncoding];
-        NSString *postLength = [NSString stringWithFormat:@"%d",[postData length]];
+        AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+        NSDictionary *parameters = @{@"userId": userIdInFriendsController,
+                                     @"contactId": contactId
+                                     };
         
-        NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:URL];
-        [request setHTTPMethod:@"POST"];
-        [request setValue:postLength forHTTPHeaderField:@"Content-Length"];
-        [request setValue:@"application/x-www-form-urlencoded" forHTTPHeaderField:@"Content-Type"];
-        [request setHTTPBody:postData];
-        
-        RQOperation *operation = [RQOperation operationWithRequest:request];
-        //add response handler
-        operation.completionHandler = ^(__unused NSURLResponse *response, NSData *data, NSError *error)
-        {
-            if (error)
+        manager.responseSerializer = [AFHTTPResponseSerializer serializer];
+        [manager POST:url parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
+            NSLog(@"Response: %@", responseObject);
+            
+            NSInteger code = [[operation response] statusCode];
+            
+            if(200 == code)
             {
-                [[Utils getInstance] showErrorMessage:@"Something went wrong" message:@"Could not remove friend"];
-
-                isRemoveFromFriendsRequestSent = NO;
-                //[sender setEnabled:YES];
+                NSLog(@"user %@ successfully removed", contactId);
+                [friendsArray removeObjectAtIndex:indexPath.row];
+                
+                [self.tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
+                [[Utils getInstance]setUserFriendsToPrefs:friendsArray];
             }
             else
             {
-                NSHTTPURLResponse* httpResponse = (NSHTTPURLResponse*)response;
-                NSInteger code = [httpResponse statusCode];
-                
-                if(200 == code)
-                {
-                    NSLog(@"user %@ successfully removed", contactId);
-                    [friendsArray removeObjectAtIndex:indexPath.row];
-                    
-                    [self.tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
-                    [[Utils getInstance]setUserFriendsToPrefs:friendsArray];
-                }
-                else
-                {
-                    
-                }
-                //[sender setEnabled:YES];
-                isRemoveFromFriendsRequestSent = NO;
             }
-        };
-        //make request
-        [[RequestQueue mainQueue] addOperation:operation];
+            
+            //[sender setEnabled:YES];
+            isRemoveFromFriendsRequestSent = NO;
+            
+        } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+            NSLog(@"Error removing friend: %@", error);
+            [[Utils getInstance] showErrorMessage:@"Something went wrong" message:@"Could not remove friend"];
+            isRemoveFromFriendsRequestSent = NO;
+        }];
+
     }
 }
 

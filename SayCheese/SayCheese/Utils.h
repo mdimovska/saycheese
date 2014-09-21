@@ -14,18 +14,18 @@
 - (NSString *) getDefaultUrl;
 - (NSString *) getFacebookPictureUrl:(NSString*) userId;
 
-- (NSURL *) getFriendsUrl:(NSString*) userId;
-- (NSURL *) getRegisterUrl;
-- (NSURL*) findFriendsUrl:(NSString*) userId;
-- (NSURL*) addContactUrl;
-- (NSURL*) removeContactOrPendingRequestUrl;
-- (NSURL*) getFriendRequestsUrl:(NSString*) userId;
-- (NSURL*) acceptFriendUrl:(NSString*) userId;
+- (NSString *) getFriendsUrl:(NSString*) userId;
+- (NSString *) getRegisterUrl;
+- (NSString*) findFriendsUrl:(NSString*) userId;
+- (NSString*) addContactUrl;
+- (NSString*) removeContactOrPendingRequestUrl;
+- (NSString*) getFriendRequestsUrl:(NSString*) userId;
+- (NSString*) acceptFriendUrl:(NSString*) userId;
 - (NSURL*) sendPhotoUrl;
-- (NSURL*) addRemoveLikeUrl;
-- (NSURL*) getNewsFeedUrl:(NSString*) userId;
+- (NSString*) addRemoveLikeUrl;
+- (NSString*) getNewsFeedUrl:(NSString*) userId;
 - (NSURL *) getSaycheesePictureUrl:(NSString*) photoName userId:(NSString*) userId;
-- (NSURL*) getUserPhotos:(NSString*) userId;
+- (NSString*) getUserPhotos:(NSString*) userId;
 
 - (UIColor* ) greenColor;
 
@@ -38,4 +38,6 @@
 -(void) showErrorMessage: (NSString*) errorTitle message:(NSString*) message;
 - (UIColor* ) greenColorWithAlpha: (CGFloat) alpha;
 - (NSURL *) makePictureUrl:(NSString*) userId;
+
+- (void) logout: (UINavigationController*) navigationController;
 @end

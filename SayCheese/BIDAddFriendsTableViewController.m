@@ -10,7 +10,7 @@
 #import "FacebookSDK/FacebookSDK.h"
 #import "BIDAddFriendsTableViewCell.h"
 #import "Utils.h"
-#import "RequestQueue.h"
+#import "AFHTTPRequestOperationManager.h"
 
 @interface BIDAddFriendsTableViewController ()
 
@@ -304,7 +304,6 @@ bool isCancelRequestSent;
 {
     NSLog(@"finding friends to add..");
     //POST request
-    NSURL *URL = [[Utils getInstance] findFriendsUrl:userId];
     
     if([facebookFriendsArray count]<=0) return;
     
@@ -312,53 +311,27 @@ bool isCancelRequestSent;
     for (NSDictionary *facebookFriendsArrayElement in facebookFriendsArray) {
         friendsIdList = [[friendsIdList stringByAppendingString:@" "] stringByAppendingString:facebookFriendsArrayElement[@"id"]];
     }
+    NSLog(@"Friends id list: %@", friendsIdList);
+    NSString * url = [[Utils getInstance] findFriendsUrl: userId];
     
+    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+    NSDictionary *parameters = @{ @"fbContacts": friendsIdList };
     
-    NSString *post = [NSString stringWithFormat:@"&fbContacts=%@", friendsIdList];
-    NSData *postData = [post dataUsingEncoding:NSASCIIStringEncoding allowLossyConversion:YES];
-    NSString *postLength = [NSString stringWithFormat:@"%d",[postData length]];
-    
-    NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:URL];
-    [request setHTTPMethod:@"POST"];
-    [request setValue:postLength forHTTPHeaderField:@"Content-Length"];
-    [request setValue:@"application/x-www-form-urlencoded" forHTTPHeaderField:@"Content-Type"];
-    [request setHTTPBody:postData];
-    
-    RQOperation *operation = [RQOperation operationWithRequest:request];
-    //add response handler
-    operation.completionHandler = ^(__unused NSURLResponse *response, NSData *data, NSError *error)
-    {
-        if (error)
-        {
-            /*
-             NSString *alertText;
-             NSString *alertTitle;
-             alertTitle = @"Something went wrong";
-             alertText = [FBErrorUtility userMessageForError:error];
-             [self showMessage:alertText withTitle:alertTitle];
-             */
-            [[Utils getInstance] showErrorMessage:@"Something went wrong" message:@"Could not get saycheese users"];
-        }
-        else
-        {
-            // convert to JSON
-            NSError *myError = nil;
-            NSMutableData* responseData = [NSMutableData data];
-            [responseData appendData:data];
-            
-            NSDictionary* resObject = [NSJSONSerialization JSONObjectWithData:responseData options:NSJSONReadingMutableLeaves error:&myError];
-            
-            friendsToAddArray = resObject[@"add"];
-            pendingFriendsArray = resObject[@"pending"];
-            NSLog(@"resObject: %@", resObject);
-            
-            
-            [self.tableView reloadData];
-        }
-    };
-    
-    //make request
-    [[RequestQueue mainQueue] addOperation:operation];
+    manager.responseSerializer = [AFJSONResponseSerializer serializer];
+    [manager POST:url parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        
+        NSLog(@"JSON (find friends): %@", responseObject);
+        
+        NSDictionary* responseDictionary = (NSDictionary*)responseObject;
+        friendsToAddArray = responseDictionary[@"add"];
+        pendingFriendsArray = responseDictionary[@"pending"];
+        [self.tableView reloadData];
+        
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        NSLog(@"Error finding friends: %@", error);
+        [[Utils getInstance] showErrorMessage:@"Something went wrong" message:@"Could not get saycheese users"];
+        
+    }];
     
 }
 
@@ -376,50 +349,37 @@ bool isCancelRequestSent;
         
         //post request for adding friend...
         
+        NSString * url = [[Utils getInstance] addContactUrl];
         
-        NSURL *URL = [[Utils getInstance] addContactUrl];
-        NSString *post = [NSString stringWithFormat:@"&userId=%@&contactId=%@", userId, contactId];
+        AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+        NSDictionary *parameters = @{ @"userId": userId,
+                                      @"contactId": contactId
+                                    };
         
-        NSData *postData =   [post dataUsingEncoding:NSUTF8StringEncoding];
-        NSString *postLength = [NSString stringWithFormat:@"%d",[postData length]];
-        
-        NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:URL];
-        [request setHTTPMethod:@"POST"];
-        [request setValue:postLength forHTTPHeaderField:@"Content-Length"];
-        [request setValue:@"application/x-www-form-urlencoded" forHTTPHeaderField:@"Content-Type"];
-        [request setHTTPBody:postData];
-        
-        RQOperation *operation = [RQOperation operationWithRequest:request];
-        //add response handler
-        operation.completionHandler = ^(__unused NSURLResponse *response, NSData *data, NSError *error)
-        {
-            if (error)
-            {
-                //error.localizedDescription -> message
-                [[Utils getInstance] showErrorMessage:@"Something went wrong" message:@"Could not send friend request"];
-                isFriendRequestSending = NO;
-                [sender setEnabled:YES];
+        manager.responseSerializer = [AFHTTPResponseSerializer serializer];
+        [manager POST:url parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
+            
+            NSInteger code = [[operation response] statusCode];
+            
+            if(code == 200){
+                NSLog(@"friend request from user %@ to user %@ successfully sent", userId, contactId);
+                [self removeFriendAndReloadData:rowIndex];
             }
             else
             {
-                NSHTTPURLResponse* httpResponse = (NSHTTPURLResponse*)response;
-                NSInteger code = [httpResponse statusCode];
-                
-                if(code == 200){
-                    NSLog(@"friend request from user %@ to user %@ successfully sent", userId, contactId);
-                    [self removeFriendAndReloadData:rowIndex];
-                }
-                else
-                {
-                    
-                }
-                [sender setEnabled:YES];
-                isFriendRequestSending = NO;
                 
             }
-        };
-        //make request
-        [[RequestQueue mainQueue] addOperation:operation];
+            [sender setEnabled:YES];
+            isFriendRequestSending = NO;
+
+            
+        } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+            NSLog(@"Error adding friend: %@", error);
+            [[Utils getInstance] showErrorMessage:@"Something went wrong" message:@"Could not send friend request"];
+            isFriendRequestSending = NO;
+            [sender setEnabled:YES];
+        }];
+        
     }
 }
 
@@ -437,54 +397,40 @@ bool isCancelRequestSent;
         NSLog(@"canceling request");
         NSLog(@"Contact id: %@", contactId);
         NSLog(@"User id: %@", userId);
+       
+        //post request for canceling friend request...
+   
+        NSString * url = [[Utils getInstance] removeContactOrPendingRequestUrl];
         
+        AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+        NSDictionary *parameters = @{@"userId": userId,
+                                     @"contactId": contactId
+                                     };
         
-        
-        
-        //post request for adding friend...
-        
-        NSURL *URL = [[Utils getInstance] removeContactOrPendingRequestUrl];
-        NSString *post = [NSString stringWithFormat:@"&userId=%@&contactId=%@", userId, contactId];
-        
-        NSData *postData =   [post dataUsingEncoding:NSUTF8StringEncoding];
-        NSString *postLength = [NSString stringWithFormat:@"%d",[postData length]];
-        
-        NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:URL];
-        [request setHTTPMethod:@"POST"];
-        [request setValue:postLength forHTTPHeaderField:@"Content-Length"];
-        [request setValue:@"application/x-www-form-urlencoded" forHTTPHeaderField:@"Content-Type"];
-        [request setHTTPBody:postData];
-        
-        RQOperation *operation = [RQOperation operationWithRequest:request];
-        //add response handler
-        operation.completionHandler = ^(__unused NSURLResponse *response, NSData *data, NSError *error)
-        {
-            if (error)
+        manager.responseSerializer = [AFHTTPResponseSerializer serializer];
+        [manager POST:url parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
+            NSLog(@"Response: %@", responseObject);
+            
+            NSInteger code = [[operation response] statusCode];
+            
+            if(200 == code)
             {
-                [[Utils getInstance] showErrorMessage:@"Something went wrong" message:@"Could not cancel request"];
-                isCancelRequestSent = NO;
-                //[sender setEnabled:YES];
+                NSLog(@"request from user %@ to user %@ successfully canceled", userId, contactId);
+                [self removePendingRequestAndReloadData:rowIndex];
             }
             else
             {
-                NSHTTPURLResponse* httpResponse = (NSHTTPURLResponse*)response;
-                NSInteger code = [httpResponse statusCode];
                 
-                if(200 == code)
-                {
-                    NSLog(@"request from user %@ to user %@ successfully canceled", userId, contactId);
-                    [self removePendingRequestAndReloadData:rowIndex];
-                }
-                else
-                {
-                    
-                }
-                //   [sender setEnabled:YES];
-                isCancelRequestSent = NO;
             }
-        };
-        //make request
-        [[RequestQueue mainQueue] addOperation:operation];
+            //   [sender setEnabled:YES];
+            isCancelRequestSent = NO;
+            
+        } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+            NSLog(@"Error canceling friend request: %@", error);
+            [[Utils getInstance] showErrorMessage:@"Something went wrong" message:@"Could not cancel request"];
+            isCancelRequestSent = NO;
+        }];
+        
     }
 }
 
@@ -525,7 +471,7 @@ bool isCancelRequestSent;
     [requestsArrayNew removeObjectAtIndex: rowIndex];
     friendsToAddArray = [[NSMutableArray alloc] init];
     friendsToAddArray = [NSMutableArray arrayWithArray:requestsArrayNew];
-    //  [self.tableView reloadData];
+
     int num= [pendingFriendsArray count];
     int s=num-1;
     

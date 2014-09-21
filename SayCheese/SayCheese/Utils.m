@@ -7,6 +7,7 @@
 //
 
 #import "Utils.h"
+#import "FacebookSDK/FacebookSDK.h"
 
 @implementation Utils
 
@@ -37,7 +38,7 @@
 
 - (NSString*) getDefaultUrl
 {
-    return @"http://192.168.1.15:9000";
+    return @"http://192.168.1.15:8080";
 }
 
 - (NSDictionary*) getUserDictionary
@@ -66,10 +67,9 @@
     [prefs setObject:friendsArray forKey:@"userFriends"];
 }
 
-- (NSURL*) getFriendsUrl:(NSString*) userId
+- (NSString*) getFriendsUrl:(NSString*) userId
 {
-    NSString* urlString = [NSString stringWithFormat:@"%@/users/%@/contacts", [self getDefaultUrl], userId];
-    return [NSURL URLWithString: [urlString stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
+    return[[NSString stringWithFormat:@"%@/users/%@/contacts", [self getDefaultUrl], userId] stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding ];
 }
 
 - (NSString *) getFacebookPictureUrl:(NSString*) userId
@@ -81,50 +81,43 @@
 return [NSURL URLWithString: [NSString stringWithFormat:@"http://graph.facebook.com/%@/picture?type=normal", userId]];
 }
 
-- (NSURL *) getRegisterUrl
+- (NSString *) getRegisterUrl
 {
     //params: _id, firstName, lastName, pictureUrl
-    NSString* urlString = [NSString stringWithFormat:@"%@/register", [self getDefaultUrl]];
-    return [NSURL URLWithString: [urlString stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
+    return [[NSString stringWithFormat:@"%@/register", [self getDefaultUrl]] stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
 }
 
-- (NSURL*) findFriendsUrl:(NSString*) userId
+- (NSString*) findFriendsUrl:(NSString*) userId
 {
     //params: fbContacts  (in form: id1 id2 id3 ...)
-    NSString* urlString = [NSString stringWithFormat:@"%@/users/%@/findFriends", [self getDefaultUrl], userId];
-    return [NSURL URLWithString: [urlString stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
+    return[[NSString stringWithFormat:@"%@/users/%@/findFriends", [self getDefaultUrl], userId] stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
 }
 
-- (NSURL*) addContactUrl
+- (NSString*) addContactUrl
 {
     //params: userId, contactId
-    NSString* urlString = [NSString stringWithFormat:@"%@/users/addContact", [self getDefaultUrl]];
-    return [NSURL URLWithString: [urlString stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
+    return[[NSString stringWithFormat:@"%@/users/addContact", [self getDefaultUrl]] stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
 }
 
-- (NSURL*) removeContactOrPendingRequestUrl
+- (NSString*) removeContactOrPendingRequestUrl
 {
     //params: userId, contactId
-    NSString* urlString = [NSString stringWithFormat:@"%@/users/removeContact", [self getDefaultUrl]];
-    return [NSURL URLWithString: [urlString stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
+    return [[NSString stringWithFormat:@"%@/users/removeContact", [self getDefaultUrl]] stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
 }
 
-- (NSURL*) getFriendRequestsUrl:(NSString*) userId
+- (NSString*) getFriendRequestsUrl:(NSString*) userId
 {
-    NSString* urlString = [NSString stringWithFormat:@"%@/users/%@/friendRequests", [self getDefaultUrl], userId];
-    return [NSURL URLWithString: [urlString stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
+    return [[NSString stringWithFormat:@"%@/users/%@/friendRequests", [self getDefaultUrl], userId] stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
 }
 
-- (NSURL*) acceptFriendUrl:(NSString*) userId
+- (NSString*) acceptFriendUrl:(NSString*) userId
 {
-    NSString* urlString = [NSString stringWithFormat:@"%@/users/%@/acceptFriend", [self getDefaultUrl], userId];
-    return [NSURL URLWithString: [urlString stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
+   return [[NSString stringWithFormat:@"%@/users/%@/acceptFriend", [self getDefaultUrl], userId] stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
 }
 
-- (NSURL*) getNewsFeedUrl:(NSString*) userId
+- (NSString*) getNewsFeedUrl:(NSString*) userId
 {
-    NSString* urlString = [NSString stringWithFormat:@"%@/photos/%@/latest", [self getDefaultUrl], userId];
-    return [NSURL URLWithString: [urlString stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
+    return[[NSString stringWithFormat:@"%@/photos/%@/latest", [self getDefaultUrl], userId] stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
 }
 
 - (NSURL*) sendPhotoUrl
@@ -132,10 +125,10 @@ return [NSURL URLWithString: [NSString stringWithFormat:@"http://graph.facebook.
     NSString* urlString = [NSString stringWithFormat:@"%@/upload", [self getDefaultUrl]];
     return [NSURL URLWithString: [urlString stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
 }
-- (NSURL*) addRemoveLikeUrl
+- (NSString*) addRemoveLikeUrl
 {
-    NSString* urlString = [NSString stringWithFormat:@"%@/photos/like", [self getDefaultUrl]];
-    return [NSURL URLWithString: [urlString stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
+    return [[NSString stringWithFormat:@"%@/photos/like", [self getDefaultUrl]] stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding ];
+  //  return [NSURL URLWithString: [urlString stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
 }
 
 - (NSURL *) getSaycheesePictureUrl:(NSString*) photoName userId:(NSString*) userId
@@ -144,11 +137,9 @@ return [NSURL URLWithString: [NSString stringWithFormat:@"http://graph.facebook.
     return [NSURL URLWithString: [urlString stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
 }
 
-- (NSURL*) getUserPhotos:(NSString*) userId
+- (NSString*) getUserPhotos:(NSString*) userId
 {
-    NSString* urlString = [NSString stringWithFormat:@"%@/photos/%@", [self getDefaultUrl], userId];
-    return [NSURL URLWithString: [urlString stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
-
+   return [[NSString stringWithFormat:@"%@/photos/%@", [self getDefaultUrl], userId] stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
 }
 
 - (UIColor* ) greenColor
@@ -174,6 +165,20 @@ return [NSURL URLWithString: [NSString stringWithFormat:@"http://graph.facebook.
 -(void) showErrorMessage: (NSString*) errorTitle message:(NSString*) message
 {
     [[[UIAlertView alloc] initWithTitle:errorTitle message:message delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil] show];
+}
+
+- (void) logout: (UINavigationController*) navigationController  {
+    [FBSession.activeSession closeAndClearTokenInformation];
+    NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
+    [prefs setObject:nil forKey:@"userInfo"];
+    [prefs setObject:nil forKey:@"userFriends"];
+    
+    UIViewController *loginViewController =
+    [[UIStoryboard storyboardWithName:@"Main" bundle:nil]instantiateViewControllerWithIdentifier:@"loginViewController"];
+    [ navigationController pushViewController:loginViewController
+                                           animated:YES];
+    
+    
 }
 
 @end
