@@ -55,16 +55,18 @@ bool isLikeRequestSending;
     self.navigationController.navigationBar.shadowImage = [UIImage new];
     self.navigationController.navigationBar.translucent = NO;
     
-    self.navigationController.view.backgroundColor = [[Utils getInstance]greenColor];
+   // self.navigationController.view.backgroundColor = [[Utils getInstance]greenColor];
     
     self.navigationController.navigationBar.topItem.title = @"";
-    
+  
+    /*
     //set white title of view
     self.navigationController.navigationBar.titleTextAttributes = [NSDictionary dictionaryWithObject:[UIColor  whiteColor] forKey:NSForegroundColorAttributeName];
     
-    
+  
     self.navigationController.navigationBar.barTintColor = [[Utils getInstance]greenColor];
     self.navigationController.navigationBar.tintColor = [UIColor whiteColor];
+    */
     
     [[UIApplication sharedApplication] setStatusBarStyle: UIStatusBarStyleLightContent];
     
@@ -99,6 +101,19 @@ bool isLikeRequestSending;
     self.navigationController.navigationBar.topItem.title = @"Say cheese";
     newsFeedArray = [[Utils getInstance]getUserFriendsFromPrefs];
     [self.navigationItem setHidesBackButton:YES];
+    
+    
+    [self.navigationController.navigationBar setBackgroundImage:[UIImage new]
+                                                  forBarMetrics:UIBarMetricsDefault];
+    self.navigationController.navigationBar.shadowImage = [UIImage new];
+    self.navigationController.navigationBar.translucent = NO;
+    
+    //set white title of view
+    self.navigationController.navigationBar.titleTextAttributes = [NSDictionary dictionaryWithObject:[UIColor  whiteColor] forKey:NSForegroundColorAttributeName];
+    
+    
+    self.navigationController.navigationBar.barTintColor = [[Utils getInstance]greenColor];
+    self.navigationController.navigationBar.tintColor = [UIColor whiteColor];
     // [self.tableView reloadData];
 }
 

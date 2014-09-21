@@ -10,8 +10,8 @@
 
 #import <AssetsLibrary/AssetsLibrary.h>
 #import <AVFoundation/AVFoundation.h>
-#import "RequestQueue.h"
 #import "Utils.h"
+#import "AFHTTPRequestOperationManager.h"
 
 @interface BIDImageViewController ()
 
@@ -179,82 +179,38 @@ BOOL isActionSheetDeleteShown = NO;
 
 -(void) sendPhotoToServer
 {
-    // create request
-    NSMutableURLRequest *request = [[NSMutableURLRequest alloc] init];
-    [request setCachePolicy:NSURLRequestReloadIgnoringLocalCacheData];
-    [request setHTTPShouldHandleCookies:NO];
-    [request setTimeoutInterval:30];
-    [request setHTTPMethod:@"POST"];
-    NSString* boundary = @"boundarySayCheese0907";
-    
-    // set Content-Type in HTTP header
-    NSString *contentType = [NSString stringWithFormat:@"multipart/form-data; boundary=%@", boundary];
-    [request setValue:contentType forHTTPHeaderField: @"Content-Type"];
-    
-    // post body
-    NSMutableData *body = [NSMutableData data];
-    
     NSDictionary* userDictionary = [[Utils getInstance]getUserDictionary];
     NSString* filename = [self formNameOfPhoto:userDictionary[@"user"][@"id"]];
     NSLog(@"Name of photo: %@)", filename);
     
+     NSData *imageData = UIImageJPEGRepresentation(image, 1.0);
+    NSString *url = [[Utils getInstance] uploadPhotoUrl];
+    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
     NSMutableDictionary* _params = [[NSMutableDictionary alloc] init];
     [_params setObject:[NSString stringWithFormat:@"%@",userDictionary[@"user"][@"id"]] forKey:@"_id"];
     [_params setObject:[NSString stringWithFormat:@"%@",userDictionary[@"user"][@"first_name"]] forKey:@"firstName"];
-     [_params setObject:[NSString stringWithFormat:@"%@",userDictionary[@"user"][@"last_name"]] forKey:@"lastName"];
+    [_params setObject:[NSString stringWithFormat:@"%@",userDictionary[@"user"][@"last_name"]] forKey:@"lastName"];
     [_params setObject:[NSString stringWithFormat:@"%f", image.size.width] forKey:@"photoWidth"];
     [_params setObject:[NSString stringWithFormat:@"%f", image.size.height] forKey:@"photoHeight"];
-     [_params setObject:[NSString stringWithFormat:@"%@", filename] forKey:@"photoUrl"];
-     [_params setObject:[NSString stringWithFormat:@"%@", @""] forKey:@"caption"]; //FIX THIS: add caption
+    [_params setObject:[NSString stringWithFormat:@"%@", filename] forKey:@"photoUrl"];
+    [_params setObject:[NSString stringWithFormat:@"%@", @""] forKey:@"caption"]; //FIX THIS: add caption
     
-     // add params (all params are strings)
-     for (NSString *param in _params) {
-     [body appendData:[[NSString stringWithFormat:@"--%@\r\n", boundary] dataUsingEncoding:NSUTF8StringEncoding]];
-     [body appendData:[[NSString stringWithFormat:@"Content-Disposition: form-data; name=\"%@\"\r\n\r\n", param] dataUsingEncoding:NSUTF8StringEncoding]];
-     [body appendData:[[NSString stringWithFormat:@"%@\r\n", [_params objectForKey:param]] dataUsingEncoding:NSUTF8StringEncoding]];
-     }
+       manager.responseSerializer = [AFHTTPResponseSerializer serializer];
     
-    // add image data
-    NSData *imageData = UIImageJPEGRepresentation(image, 1.0);
-    if (imageData) {
-        [body appendData:[[NSString stringWithFormat:@"--%@\r\n", boundary] dataUsingEncoding:NSUTF8StringEncoding]];
-        [body appendData:[[NSString stringWithFormat:@"Content-Disposition: form-data; name=\"%@\"; filename=\"%@\"\r\n", @"path", filename] dataUsingEncoding:NSUTF8StringEncoding]];
-        
-        [body appendData:[[NSString stringWithFormat:@"Content-Type: image/jpeg\r\n\r\n"] dataUsingEncoding:NSUTF8StringEncoding]];
-        [body appendData:imageData];
-        [body appendData:[[NSString stringWithFormat:@"\r\n"] dataUsingEncoding:NSUTF8StringEncoding]];
-    }
-    
-    [body appendData:[[NSString stringWithFormat:@"--%@--\r\n", boundary] dataUsingEncoding:NSUTF8StringEncoding]];
-    
-    // setting the body of the post to the reqeust
-    [request setHTTPBody:body];
-    
-    // set the content-length
-    NSString *postLength = [NSString stringWithFormat:@"%lu", (unsigned long)[body length]];
-    [request setValue:postLength forHTTPHeaderField:@"Content-Length"];
-    
-    // set URL
-    [request setURL:[[Utils getInstance] sendPhotoUrl]];
-    
-    RQOperation *operation = [RQOperation operationWithRequest:request];
-    
-    operation.completionHandler = ^(__unused NSURLResponse *response, NSData *data, NSError *error)
-    {
-        if (error)
-        {
-            [[Utils getInstance] showErrorMessage:@"Something went wrong" message:@"Could not save photo"];
-            // isCancelRequestSent = NO;
-        }
-        else
-        {
-            [view removeFromSuperview];
-            //image is wriiten to photo album if it's not deleted
-            [self.navigationController popViewControllerAnimated:YES];
-        }
-    };
-    //make request
-    [[RequestQueue mainQueue] addOperation:operation];
+    [manager POST:url parameters:_params constructingBodyWithBlock:^(id<AFMultipartFormData> formData) {
+          [formData appendPartWithFileData:imageData name:@"path" fileName:filename mimeType:@"image/jpeg"];
+      
+    } success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        NSLog(@"Successful upload of photo: %@", responseObject);
+        [view removeFromSuperview];
+        //image is wriiten to photo album if it's not deleted
+        [self.navigationController popViewControllerAnimated:YES];
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        NSLog(@"Error in uploading photo: %@", error);
+        [[Utils getInstance] showErrorMessage:@"Something went wrong" message:@"Could not save photo"];
+        // isCancelRequestSent = NO;
+
+    }];
     
 }
 

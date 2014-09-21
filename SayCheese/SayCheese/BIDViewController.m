@@ -804,7 +804,7 @@ bail:
                                                                       CFRelease(srcImage);
                                                                   
                                                               });
-                                                              
+                                                                 [self.tabBarController performSegueWithIdentifier:@"ImageSegueIdentifier" sender:self];
                                                           }
                                                           else {
                                                               // trivial simple JPEG case
@@ -816,13 +816,15 @@ bail:
                                                               
                                                               if (attachments)
                                                                   CFRelease(attachments);
+                                                                 [self.tabBarController performSegueWithIdentifier:@"ImageSegueIdentifier" sender:self];
                                                               
                                                           }
                                                          
                                                           
-                                                          [self.tabBarController performSegueWithIdentifier:@"ImageSegueIdentifier" sender:self];
+                                                   //       [self.tabBarController performSegueWithIdentifier:@"ImageSegueIdentifier" sender:self];
 
-                                                      }                                                  }
+                                                      }
+                                                  }
 	 ];
 }
 

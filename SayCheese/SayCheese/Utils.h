@@ -26,6 +26,7 @@
 - (NSString*) getNewsFeedUrl:(NSString*) userId;
 - (NSURL *) getSaycheesePictureUrl:(NSString*) photoName userId:(NSString*) userId;
 - (NSString*) getUserPhotos:(NSString*) userId;
+- (NSString*) uploadPhotoUrl;
 
 - (UIColor* ) greenColor;
 

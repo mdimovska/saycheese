@@ -38,7 +38,7 @@
 
 - (NSString*) getDefaultUrl
 {
-    return @"http://192.168.1.15:8080";
+    return @"http://192.168.1.101:9000";
 }
 
 - (NSDictionary*) getUserDictionary
@@ -125,6 +125,11 @@ return [NSURL URLWithString: [NSString stringWithFormat:@"http://graph.facebook.
     NSString* urlString = [NSString stringWithFormat:@"%@/upload", [self getDefaultUrl]];
     return [NSURL URLWithString: [urlString stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
 }
+- (NSString*) uploadPhotoUrl
+{
+   return [[NSString stringWithFormat:@"%@/upload", [self getDefaultUrl]]stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding ];
+}
+
 - (NSString*) addRemoveLikeUrl
 {
     return [[NSString stringWithFormat:@"%@/photos/like", [self getDefaultUrl]] stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding ];
