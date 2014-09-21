@@ -57,7 +57,6 @@ bool isLikeRequestSending;
     
    // self.navigationController.view.backgroundColor = [[Utils getInstance]greenColor];
     
-    self.navigationController.navigationBar.topItem.title = @"";
   
     /*
     //set white title of view

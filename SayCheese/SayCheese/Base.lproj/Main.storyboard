@@ -12,8 +12,19 @@
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="login_background1.jpg" id="weg-rH-rss">
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                            </imageView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Say Cheese" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="sLo-i0-7vc">
+                                <rect key="frame" x="190" y="8" width="145" height="36"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" name="HelveticaNeue-LightItalic" family="Helvetica Neue" pointSize="20"/>
+                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                             <view contentMode="scaleToFill" id="gZl-yl-sjL" customClass="FBLoginView">
-                                <rect key="frame" x="20" y="459" width="280" height="46"/>
+                                <rect key="frame" x="20" y="490" width="280" height="46"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMinY="YES"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                             </view>
@@ -486,7 +497,7 @@
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" id="2c0-vY-qM8" customClass="AsyncImageView">
-                                            <rect key="frame" x="10" y="10" width="55" height="55.5"/>
+                                            <rect key="frame" x="10" y="10" width="55" height="56"/>
                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxX="YES" heightSizable="YES"/>
                                         </imageView>
                                         <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="Mn6-Qu-MOW">
@@ -548,7 +559,7 @@
                                             <nil key="highlightedColor"/>
                                         </label>
                                         <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" id="DfF-dj-i9r" customClass="AsyncImageView">
-                                            <rect key="frame" x="12" y="8" width="55" height="55.5"/>
+                                            <rect key="frame" x="12" y="8" width="55" height="56"/>
                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxX="YES" heightSizable="YES"/>
                                         </imageView>
                                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="Fbm-E7-Qix">
@@ -606,6 +617,7 @@
         <image name="camera_switch.png" width="44" height="44"/>
         <image name="iphone.png" width="369" height="795"/>
         <image name="list.png" width="22" height="22"/>
+        <image name="login_background1.jpg" width="320" height="568"/>
         <image name="plus_gray.png" width="40" height="40"/>
         <image name="saycheese_logo_white.png" width="22" height="22"/>
     </resources>
@@ -615,7 +627,7 @@
         <simulatedScreenMetrics key="destination" type="retina4"/>
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
-        <segue reference="rmf-Ds-k5j"/>
+        <segue reference="xLW-04-dNp"/>
     </inferredMetricsTieBreakers>
     <color key="tintColor" red="0.08235294118" green="0.62745098040000002" blue="0.51764705879999995" alpha="1" colorSpace="deviceRGB"/>
 </document>
