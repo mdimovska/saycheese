@@ -40,8 +40,8 @@
                                                                    POPLISTVIEW_SCREENINSET + POPLISTVIEW_HEADER_HEIGHT ,
                                                                    rect.size.width - 2 * POPLISTVIEW_SCREENINSET,
                                                                    rect.size.height + 10 - 2 * POPLISTVIEW_SCREENINSET - POPLISTVIEW_HEADER_HEIGHT - RADIUS)];
-        _tableView.separatorColor = [UIColor colorWithWhite:0 alpha:.2];
-        _tableView.backgroundColor = [[UIColor whiteColor] colorWithAlphaComponent:0.3];
+        _tableView.separatorColor = [UIColor colorWithWhite:0.8 alpha:.2];
+        _tableView.backgroundColor = [[UIColor blackColor] colorWithAlphaComponent:0];
         _tableView.dataSource = self;
         _tableView.delegate = self;
         [self addSubview:_tableView];
@@ -120,12 +120,13 @@
          [[Utils getInstance] setImageViewRound:cell.imageView];
         NSString *ImageURL = _options[indexPath.row][@"img"];
         NSData *imageData = [NSData dataWithContentsOfURL:[NSURL URLWithString:ImageURL]];
+        cell.imageView.contentMode = UIViewContentModeScaleAspectFit;
         cell.imageView.image = [UIImage imageWithData:imageData];
        // cell.imageView.image = _options[indexPath.row][@"img"];
         cell.textLabel.text = _options[indexPath.row][@"text"];
     } else
         cell.textLabel.text = _options[indexPath.row];
-    cell.textLabel.textColor = [UIColor darkGrayColor ];
+    cell.textLabel.textColor = [UIColor whiteColor ];
     return cell;
 }
 
@@ -164,8 +165,8 @@
     CGContextRef ctx = UIGraphicsGetCurrentContext();
     
     // Draw the background with shadow
-    CGContextSetShadowWithColor(ctx, CGSizeZero, 6., [UIColor colorWithWhite:0 alpha:.75].CGColor);
-    [[UIColor colorWithWhite:1 alpha:.75] setFill];
+    CGContextSetShadowWithColor(ctx, CGSizeZero, 6., [UIColor colorWithWhite:0.3 alpha:.75].CGColor);
+    [[UIColor colorWithWhite:0 alpha:.75] setFill];
     
     
     float x = POPLISTVIEW_SCREENINSET;
@@ -188,7 +189,7 @@
     //colorWithRed:0.020 green:0.549 blue:0.961 alpha:0.3
     
     //title and line below title color
-    [[[UIColor blackColor] colorWithAlphaComponent:0.5] setFill];
+    [[[UIColor whiteColor] colorWithAlphaComponent:0.5] setFill];
     [_title drawInRect:titleRect withFont:[UIFont systemFontOfSize:16.]];
     CGContextFillRect(ctx, separatorRect);
 }

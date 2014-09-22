@@ -8,6 +8,7 @@
 
 #import "BIDPhotosCollectionViewController.h"
 #import "BIDPhotosCollectionViewCell.h"
+#import "BIDPhotoViewController.h"
 #import "Utils.h"
 
 
@@ -21,6 +22,7 @@
 
 @synthesize photosArray;
 NSString* userIdInPhotosController = @"";
+NSIndexPath * indexPath1=0;
 
 static NSString * const reuseIdentifier = @"photosTableCell";
 
@@ -40,7 +42,12 @@ static NSString * const reuseIdentifier = @"photosTableCell";
     // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
     // self.navigationItem.rightBarButtonItem = self.editButtonItem;
     
-    //navigation bar style (transparent navigation bar)
+
+    
+    // Do any additional setup after loading the view.
+}
+
+-(void) setupNavigationAndStatusBar{
     [self setNeedsStatusBarAppearanceUpdate];
     
     [self.navigationController.navigationBar setBackgroundImage:[UIImage new]
@@ -60,10 +67,6 @@ static NSString * const reuseIdentifier = @"photosTableCell";
     self.navigationController.navigationBar.tintColor = [UIColor whiteColor];
     
     [[UIApplication sharedApplication] setStatusBarStyle: UIStatusBarStyleLightContent];
-    
- //   [self setNavigationBarItems];
-    
-    // Do any additional setup after loading the view.
 }
 
 - (void)didReceiveMemoryWarning {
@@ -74,6 +77,7 @@ static NSString * const reuseIdentifier = @"photosTableCell";
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
+    [self setupNavigationAndStatusBar];
     [self.navigationController setNavigationBarHidden:NO animated:animated];
     [[UIApplication sharedApplication] setStatusBarHidden:NO];
     self.navigationController.navigationBar.topItem.title = @"Photos";
@@ -174,6 +178,31 @@ static NSString * const reuseIdentifier = @"photosTableCell";
 
 -(UIInterfaceOrientation)preferredInterfaceOrientationForPresentation {
     return (UIInterfaceOrientationPortrait);
+}
+
+#pragma mark - Navigation
+
+// In a storyboard-based application, you will often want to do a little preparation before navigation
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
+{
+    if ([[segue identifier] isEqualToString:@"photoDetailsSequeIdentifier"])
+    {
+        BIDPhotoViewController *photoViewController =
+        [segue destinationViewController];
+        
+     //   NSIndexPath *myIndexPath = [self.collectionView  inde];
+        
+        NSDictionary *result =[photosArray objectAtIndex: [indexPath1 row]];
+        
+        
+        photoViewController.photoModel = [[NSDictionary alloc]
+                                          initWithDictionary:result];
+    }
+}
+- (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath{
+    indexPath1 = indexPath;
+    [[[self.navigationController viewControllers] lastObject] performSegueWithIdentifier:@"photoDetailsSequeIdentifier" sender:self];
+
 }
 
 @end

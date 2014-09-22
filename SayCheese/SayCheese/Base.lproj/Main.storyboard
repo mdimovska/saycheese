@@ -222,7 +222,7 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <inset key="separatorInset" minX="10" minY="0.0" maxX="10" maxY="0.0"/>
                         <prototypes>
-                            <tableViewCell contentMode="scaleToFill" restorationIdentifier="newsFeedTableCell" selectionStyle="default" indentationWidth="10" reuseIdentifier="newsFeedTableCell" id="h9P-Gw-5Bv" customClass="BIDNewsFeedTableViewCell">
+                            <tableViewCell contentMode="scaleToFill" restorationIdentifier="newsFeedTableCell" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="newsFeedTableCell" id="h9P-Gw-5Bv" customClass="BIDNewsFeedTableViewCell">
                                 <rect key="frame" x="0.0" y="86" width="320" height="215"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="h9P-Gw-5Bv" id="axs-He-pT7">
@@ -298,6 +298,7 @@
                                     <outlet property="imageViewFriendUploadedPhoto" destination="rbt-pz-kyE" id="jAY-U8-K3r"/>
                                     <outlet property="nameLabel" destination="Fkf-4k-244" id="wZL-Nc-5tc"/>
                                     <outlet property="numOfLikesLabel" destination="ISq-uz-tws" id="aBZ-nN-O32"/>
+                                    <segue destination="VbH-pA-yqc" kind="push" identifier="photoDetailsSequeIdentifier" id="T93-Fi-cDt"/>
                                 </connections>
                             </tableViewCell>
                         </prototypes>
@@ -307,6 +308,96 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="MqB-8o-nSh" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="2246" y="295"/>
+        </scene>
+        <!--Photo View Controller-->
+        <scene sceneID="5CM-ej-tMj">
+            <objects>
+                <viewController id="VbH-pA-yqc" customClass="BIDPhotoViewController" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="xvf-xG-E7E"/>
+                        <viewControllerLayoutGuide type="bottom" id="2Jb-cd-bOA"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="yFI-JW-WuE">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="PLy-G4-0qX" customClass="AsyncImageView">
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                            </imageView>
+                            <imageView hidden="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="jeW-VT-PEf" customClass="AsyncImageView">
+                                <rect key="frame" x="8" y="8" width="50" height="50"/>
+                            </imageView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Milena Dimovska" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mcW-bg-tdL">
+                                <rect key="frame" x="11" y="8" width="271" height="21"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="271" id="hdu-8t-2e2"/>
+                                    <constraint firstAttribute="height" constant="21" id="uzN-S9-AqZ"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="18"/>
+                                <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                                <color key="shadowColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                            </label>
+                            <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="xcP-wL-5nd">
+                                <rect key="frame" x="9" y="539" width="300" height="30"/>
+                                <state key="normal" title="0 likes">
+                                    <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                    <color key="titleShadowColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="rTW-pa-SBE">
+                                <rect key="frame" x="290" y="9" width="22" height="22"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="22" id="5bA-Cj-gNs"/>
+                                    <constraint firstAttribute="height" constant="22" id="9Zg-cj-Cof"/>
+                                </constraints>
+                                <state key="normal" image="close.png">
+                                    <color key="titleShadowColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="popupController:" destination="VbH-pA-yqc" eventType="touchUpInside" id="2R9-vw-b1P"/>
+                                </connections>
+                            </button>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" misplaced="YES" text="date..." lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Tes-rC-oPx">
+                                <rect key="frame" x="11" y="28" width="271" height="21"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="21" id="ZIs-9R-bkf"/>
+                                    <constraint firstAttribute="width" constant="271" id="gbs-xh-rVO"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                <color key="textColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
+                                <nil key="highlightedColor"/>
+                                <color key="shadowColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                            </label>
+                        </subviews>
+                        <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="PLy-G4-0qX" firstAttribute="leading" secondItem="yFI-JW-WuE" secondAttribute="leadingMargin" constant="-16" id="CkN-mz-fy0"/>
+                            <constraint firstItem="PLy-G4-0qX" firstAttribute="top" secondItem="yFI-JW-WuE" secondAttribute="topMargin" id="Cza-14-9Hg"/>
+                            <constraint firstItem="xcP-wL-5nd" firstAttribute="leading" secondItem="yFI-JW-WuE" secondAttribute="leadingMargin" constant="-7" id="EtB-ek-t8J"/>
+                            <constraint firstItem="mcW-bg-tdL" firstAttribute="leading" secondItem="yFI-JW-WuE" secondAttribute="leadingMargin" constant="-5" id="Ifq-qx-N3X"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="PLy-G4-0qX" secondAttribute="trailing" constant="-16" id="JzW-d2-CcN"/>
+                            <constraint firstItem="mcW-bg-tdL" firstAttribute="top" secondItem="yFI-JW-WuE" secondAttribute="topMargin" constant="8" id="K8b-rC-Cc0"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="xcP-wL-5nd" secondAttribute="trailing" constant="-5" id="cEw-oM-sZT"/>
+                            <constraint firstItem="rTW-pa-SBE" firstAttribute="top" secondItem="yFI-JW-WuE" secondAttribute="topMargin" constant="9" id="hJS-b7-UuV"/>
+                            <constraint firstItem="2Jb-cd-bOA" firstAttribute="top" secondItem="PLy-G4-0qX" secondAttribute="bottom" id="rRP-2L-F11"/>
+                            <constraint firstItem="Tes-rC-oPx" firstAttribute="leading" secondItem="yFI-JW-WuE" secondAttribute="leadingMargin" constant="-5" id="sF2-bm-bs2"/>
+                            <constraint firstItem="2Jb-cd-bOA" firstAttribute="top" secondItem="xcP-wL-5nd" secondAttribute="bottom" constant="1" id="upc-at-foY"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="rTW-pa-SBE" secondAttribute="trailing" constant="-8" id="zVB-Cv-gBv"/>
+                        </constraints>
+                    </view>
+                    <navigationItem key="navigationItem" id="zRC-pz-6Wi"/>
+                    <connections>
+                        <outlet property="dateLabel" destination="Tes-rC-oPx" id="2VE-Rj-R5X"/>
+                        <outlet property="imageViewFriendPicture" destination="jeW-VT-PEf" id="av1-st-nK1"/>
+                        <outlet property="imageViewFriendUploadedPhoto" destination="PLy-G4-0qX" id="P9f-9h-twm"/>
+                        <outlet property="nameLabel" destination="mcW-bg-tdL" id="CJk-ww-d0d"/>
+                        <outlet property="numOfLikesLabel" destination="xcP-wL-5nd" id="d1G-cC-btp"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="n1b-NK-dkg" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2624" y="295"/>
         </scene>
         <!--Tab Bar Controller-->
         <scene sceneID="igQ-Gq-Svl">
@@ -612,6 +703,9 @@
                         </connections>
                     </collectionView>
                     <navigationItem key="navigationItem" id="AwY-y7-3wU"/>
+                    <connections>
+                        <segue destination="VbH-pA-yqc" kind="push" identifier="photoDetailsSequeIdentifier" id="Jd2-B0-uge"/>
+                    </connections>
                 </collectionViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Ycj-ZD-b5n" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <collectionReusableView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="FooterView" id="Bjl-eG-4I1">
@@ -707,6 +801,7 @@
         <image name="add_icon_green.png" width="40" height="40"/>
         <image name="cameraImage.jpg" width="1500" height="991"/>
         <image name="camera_switch.png" width="44" height="44"/>
+        <image name="close.png" width="256" height="256"/>
         <image name="iphone.png" width="369" height="795"/>
         <image name="list.png" width="22" height="22"/>
         <image name="login_background1.jpg" width="320" height="568"/>
@@ -720,6 +815,7 @@
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
         <segue reference="xLW-04-dNp"/>
+        <segue reference="Jd2-B0-uge"/>
     </inferredMetricsTieBreakers>
     <color key="tintColor" red="0.08235294118" green="0.62745098040000002" blue="0.51764705879999995" alpha="1" colorSpace="deviceRGB"/>
 </document>

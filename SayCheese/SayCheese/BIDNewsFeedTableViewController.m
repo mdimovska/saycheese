@@ -12,6 +12,7 @@
 #import "TTTTimeIntervalFormatter.h"
 #import "AFHTTPRequestOperationManager.h"
 #import "FacebookSDK/FacebookSDK.h"
+#import "BIDPhotoViewController.h"
 
 #import "LeveyPopListView.h"
 
@@ -512,6 +513,29 @@ bool isLikeRequestSending;
 }
 - (void)leveyPopListViewDidCancel {
     //_infoLabel.text = @"You have cancelled";
+}
+
+
+
+#pragma mark - Navigation
+
+// In a storyboard-based application, you will often want to do a little preparation before navigation
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
+{
+    if ([[segue identifier] isEqualToString:@"photoDetailsSequeIdentifier"])
+    {
+        BIDPhotoViewController *photoViewController =
+        [segue destinationViewController];
+        
+        NSIndexPath *myIndexPath = [self.tableView
+                                    indexPathForSelectedRow];
+        
+        NSDictionary *result =[newsFeedArray objectAtIndex: [myIndexPath row]];
+        
+        
+        photoViewController.photoModel = [[NSDictionary alloc]
+                                          initWithDictionary:result];
+    }
 }
 
 
