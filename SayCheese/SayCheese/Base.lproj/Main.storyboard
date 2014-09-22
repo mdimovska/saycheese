@@ -61,7 +61,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
-                            <view contentMode="top" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="H8t-Nl-LE2">
+                            <view contentMode="top" translatesAutoresizingMaskIntoConstraints="NO" id="H8t-Nl-LE2">
                                 <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                                 <connections>
@@ -102,6 +102,12 @@
                             </view>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="H8t-Nl-LE2" firstAttribute="leading" secondItem="kh9-bI-dsS" secondAttribute="leadingMargin" constant="-16" id="4rI-Zo-wK1"/>
+                            <constraint firstItem="DFe-t0-FTE" firstAttribute="top" secondItem="H8t-Nl-LE2" secondAttribute="bottom" id="FFd-s9-CAo"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="H8t-Nl-LE2" secondAttribute="trailing" constant="-16" id="tIc-IN-L6a"/>
+                            <constraint firstItem="H8t-Nl-LE2" firstAttribute="top" secondItem="kh9-bI-dsS" secondAttribute="topMargin" id="xdL-LC-x4A"/>
+                        </constraints>
                     </view>
                     <tabBarItem key="tabBarItem" title="Capture" image="saycheese_logo_white.png" id="jyR-bB-Bk7"/>
                     <navigationItem key="navigationItem" id="F2a-4Y-e7m"/>

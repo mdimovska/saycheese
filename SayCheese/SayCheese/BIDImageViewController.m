@@ -71,7 +71,7 @@ BOOL isActionSheetDeleteShown = NO;
     if(image!=NULL){
         [imageView setImage:image];
         //set constrains to center and scale the image
-        imageView.translatesAutoresizingMaskIntoConstraints = NO;
+       // imageView.translatesAutoresizingMaskIntoConstraints = NO;
     }
     [self.view addSubview:view];
     

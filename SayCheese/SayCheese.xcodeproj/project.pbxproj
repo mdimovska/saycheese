@@ -47,8 +47,8 @@
 		4E9678B219B33AC2001EF6A7 /* BIDFriendsTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E9678B119B33AC2001EF6A7 /* BIDFriendsTableViewController.m */; };
 		4E9678B519B354FF001EF6A7 /* BIDFriendsTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E9678B419B354FF001EF6A7 /* BIDFriendsTableViewCell.m */; };
 		4E9D314E19CF60EC00B99B56 /* BIDLikesTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E9D314D19CF60EC00B99B56 /* BIDLikesTableViewCell.m */; };
-		4E9D315319CF623100B99B56 /* LeveyPopListView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E9D315019CF623100B99B56 /* LeveyPopListView.m */; };
-		4E9D315419CF623100B99B56 /* LeveyPopListViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E9D315219CF623100B99B56 /* LeveyPopListViewCell.m */; };
+		4E9F804A19D0BA27003E43F6 /* LeveyPopListView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E9F804719D0BA27003E43F6 /* LeveyPopListView.m */; };
+		4E9F804B19D0BA27003E43F6 /* LeveyPopListViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E9F804919D0BA27003E43F6 /* LeveyPopListViewCell.m */; };
 		4EA02B01199CE46B00937E34 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4EA02B00199CE46B00937E34 /* Foundation.framework */; };
 		4EA02B03199CE46B00937E34 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4EA02B02199CE46B00937E34 /* CoreGraphics.framework */; };
 		4EA02B05199CE46B00937E34 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4EA02B04199CE46B00937E34 /* UIKit.framework */; };
@@ -155,10 +155,10 @@
 		4E9678B419B354FF001EF6A7 /* BIDFriendsTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BIDFriendsTableViewCell.m; sourceTree = "<group>"; };
 		4E9D314C19CF60EC00B99B56 /* BIDLikesTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BIDLikesTableViewCell.h; sourceTree = "<group>"; };
 		4E9D314D19CF60EC00B99B56 /* BIDLikesTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BIDLikesTableViewCell.m; sourceTree = "<group>"; };
-		4E9D314F19CF623100B99B56 /* LeveyPopListView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LeveyPopListView.h; sourceTree = "<group>"; };
-		4E9D315019CF623100B99B56 /* LeveyPopListView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LeveyPopListView.m; sourceTree = "<group>"; };
-		4E9D315119CF623100B99B56 /* LeveyPopListViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LeveyPopListViewCell.h; sourceTree = "<group>"; };
-		4E9D315219CF623100B99B56 /* LeveyPopListViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LeveyPopListViewCell.m; sourceTree = "<group>"; };
+		4E9F804619D0BA27003E43F6 /* LeveyPopListView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LeveyPopListView.h; sourceTree = "<group>"; };
+		4E9F804719D0BA27003E43F6 /* LeveyPopListView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LeveyPopListView.m; sourceTree = "<group>"; };
+		4E9F804819D0BA27003E43F6 /* LeveyPopListViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LeveyPopListViewCell.h; sourceTree = "<group>"; };
+		4E9F804919D0BA27003E43F6 /* LeveyPopListViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LeveyPopListViewCell.m; sourceTree = "<group>"; };
 		4EA02AFD199CE46B00937E34 /* SayCheese.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SayCheese.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		4EA02B00199CE46B00937E34 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		4EA02B02199CE46B00937E34 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -338,10 +338,10 @@
 				4E0E8F6219CF4B6300B197F9 /* BIDPhotosCollectionViewController.m */,
 				4E9D314C19CF60EC00B99B56 /* BIDLikesTableViewCell.h */,
 				4E9D314D19CF60EC00B99B56 /* BIDLikesTableViewCell.m */,
-				4E9D314F19CF623100B99B56 /* LeveyPopListView.h */,
-				4E9D315019CF623100B99B56 /* LeveyPopListView.m */,
-				4E9D315119CF623100B99B56 /* LeveyPopListViewCell.h */,
-				4E9D315219CF623100B99B56 /* LeveyPopListViewCell.m */,
+				4E9F804619D0BA27003E43F6 /* LeveyPopListView.h */,
+				4E9F804719D0BA27003E43F6 /* LeveyPopListView.m */,
+				4E9F804819D0BA27003E43F6 /* LeveyPopListViewCell.h */,
+				4E9F804919D0BA27003E43F6 /* LeveyPopListViewCell.m */,
 			);
 			path = SayCheese;
 			sourceTree = "<group>";
@@ -591,7 +591,7 @@
 				4EF7E18319BCF16000B63613 /* BIDNewsFeedTableViewController.m in Sources */,
 				4E0E8F6319CF4B6300B197F9 /* BIDPhotosCollectionViewController.m in Sources */,
 				4E9678A619B24AC6001EF6A7 /* BIDUserAccountViewController.m in Sources */,
-				4E9D315419CF623100B99B56 /* LeveyPopListViewCell.m in Sources */,
+				4E9F804B19D0BA27003E43F6 /* LeveyPopListViewCell.m in Sources */,
 				4EA02B11199CE46B00937E34 /* BIDAppDelegate.m in Sources */,
 				4EA02B17199CE46B00937E34 /* BIDViewController.m in Sources */,
 				4E9D314E19CF60EC00B99B56 /* BIDLikesTableViewCell.m in Sources */,
@@ -599,7 +599,7 @@
 				4E9678A019B22D62001EF6A7 /* BIDLoginViewController.m in Sources */,
 				4E0E8F5D19CF4A3000B197F9 /* BIDPhotosCollectionViewCell.m in Sources */,
 				4E9678B519B354FF001EF6A7 /* BIDFriendsTableViewCell.m in Sources */,
-				4E9D315319CF623100B99B56 /* LeveyPopListView.m in Sources */,
+				4E9F804A19D0BA27003E43F6 /* LeveyPopListView.m in Sources */,
 				4EF7846919B92CA000142930 /* BIDFriendRequestsTableViewCell.m in Sources */,
 				4E76493C19BD2C6F00B105E8 /* TTTTimeIntervalFormatter.m in Sources */,
 				4EA02B0D199CE46B00937E34 /* main.m in Sources */,
