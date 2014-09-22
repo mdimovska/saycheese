@@ -28,6 +28,8 @@
 - (NSString*) getUserPhotos:(NSString*) userId;
 - (NSString*) uploadPhotoUrl;
 
+- (NSMutableArray*) getUserPhotosFromPrefs;
+
 - (UIColor* ) greenColor;
 
 - (NSDictionary*) getUserDictionary;

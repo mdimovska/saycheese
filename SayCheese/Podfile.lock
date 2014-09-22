@@ -20,11 +20,14 @@ PODS:
   - AFNetworking/UIKit (2.4.1):
     - AFNetworking/NSURLConnection
     - AFNetworking/NSURLSession
+  - NHBalancedFlowLayout (0.2)
 
 DEPENDENCIES:
   - AFNetworking (~> 2.2)
+  - NHBalancedFlowLayout (~> 0.2)
 
 SPEC CHECKSUMS:
   AFNetworking: 0aabc6fae66d6e5d039eeb21c315843c7aae51ab
+  NHBalancedFlowLayout: be3c297b54f74c27607aaa04563270ecbd2d8e38
 
 COCOAPODS: 0.33.1

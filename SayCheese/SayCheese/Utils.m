@@ -38,7 +38,7 @@
 
 - (NSString*) getDefaultUrl
 {
-    return @"http://192.168.1.101:9000";
+    return @"http://192.168.1.103:9000";
 }
 
 - (NSDictionary*) getUserDictionary
@@ -59,6 +59,13 @@
 {
     NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
     return [prefs mutableArrayValueForKey:@"userFriends"];
+}
+
+
+- (NSMutableArray*) getUserPhotosFromPrefs
+{
+    NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
+    return [prefs mutableArrayValueForKey:@"userPhotos"];
 }
 
 - (void) setUserFriendsToPrefs: (NSMutableArray*) friendsArray

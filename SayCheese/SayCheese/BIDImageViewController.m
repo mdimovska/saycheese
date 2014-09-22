@@ -42,25 +42,6 @@ BOOL isActionSheetDeleteShown = NO;
     [super viewDidLoad];
     [self.navigationItem setHidesBackButton:YES];
     isPhotoDeleted=NO;
-    // CGRect r = self.imageView.frame;
-    
-    CGSize result = [[UIScreen mainScreen] bounds].size;
-    // CGRect screenBounds = [[UIScreen mainScreen] bounds];
-    if(result.height == 480)
-    {
-      //  NSLog(result.height);
-        // iPhone Classic
-        //   r.size.height = 480;
-        // self.view.frame =  CGRectMake(0, 0, 320, 480);
-        //   imageView.frame = CGRectMake(0, 0, 320, image.size.height);
-    }
-    if(result.height == 568)
-    {
-        // iPhone 5
-        //   r.size.height =568;
-        //self.view.frame =  CGRectMake(0, 0, 320, 568);
-        // imageView.frame = CGRectMake(0, 0, 320,  image.size.height);
-    }
     
     // Do any additional setup after loading the view.
     [self setNeedsStatusBarAppearanceUpdate];
@@ -87,58 +68,14 @@ BOOL isActionSheetDeleteShown = NO;
                                             blue:((float) 0.0f)
                                            alpha:0.5];
     
-    [self addImageView];
+    if(image!=NULL){
+        [imageView setImage:image];
+        //set constrains to center and scale the image
+        imageView.translatesAutoresizingMaskIntoConstraints = NO;
+    }
     [self.view addSubview:view];
     
     [[UIApplication sharedApplication] setStatusBarStyle: UIStatusBarStyleLightContent];
-}
-
--(void)addImageView{
-    if(image!=NULL){
-        [imageView setImage:image];
-        
-        //set constrains to center and scale the image
-        imageView.translatesAutoresizingMaskIntoConstraints = NO;
-        
-        [self setConstraints];
-    }
-}
-
-- (void) setConstraints{
-    if(([[UIDevice currentDevice] orientation] == UIDeviceOrientationPortrait)|| ([[UIDevice currentDevice] orientation] == UIDeviceOrientationPortraitUpsideDown)){
-        NSLayoutConstraint *constraint = [NSLayoutConstraint constraintWithItem:imageView attribute:NSLayoutAttributeCenterX relatedBy:NSLayoutRelationEqual toItem:self.view attribute:NSLayoutAttributeCenterX multiplier:1.0f constant:0.0f];
-        
-        [self.view addConstraint:constraint];
-        
-        constraint = [NSLayoutConstraint constraintWithItem:imageView attribute:NSLayoutAttributeCenterY relatedBy:NSLayoutRelationEqual toItem:self.view attribute:NSLayoutAttributeCenterY multiplier:1.0f constant:0.0f];
-        
-        [self.view addConstraint:constraint];
-        
-        constraint = [NSLayoutConstraint constraintWithItem:imageView attribute:NSLayoutAttributeHeight relatedBy:NSLayoutRelationEqual toItem:self.view attribute:NSLayoutAttributeHeight multiplier:1.0f constant:0.0f];
-        
-        [self.view addConstraint:constraint];
-        
-        constraint = [NSLayoutConstraint constraintWithItem:imageView attribute:NSLayoutAttributeHeight relatedBy:NSLayoutRelationEqual toItem:imageView attribute:NSLayoutAttributeWidth multiplier:4.0/3.0 constant:0.0f];
-        
-        [imageView addConstraint:constraint];
-    }
-    else{
-        NSLayoutConstraint *constraint = [NSLayoutConstraint constraintWithItem:imageView attribute:NSLayoutAttributeCenterX relatedBy:NSLayoutRelationEqual toItem:self.view attribute:NSLayoutAttributeCenterX multiplier:1.0f constant:0.0f];
-        
-        [self.view addConstraint:constraint];
-        
-        constraint = [NSLayoutConstraint constraintWithItem:imageView attribute:NSLayoutAttributeCenterY relatedBy:NSLayoutRelationEqual toItem:self.view attribute:NSLayoutAttributeCenterY multiplier:1.0f constant:0.0f];
-        
-        [self.view addConstraint:constraint];
-        
-        constraint = [NSLayoutConstraint constraintWithItem:imageView attribute:NSLayoutAttributeWidth relatedBy:NSLayoutRelationEqual toItem:self.view attribute:NSLayoutAttributeWidth multiplier:1.0f constant:0.0f];
-        
-        [self.view addConstraint:constraint];
-        
-        constraint = [NSLayoutConstraint constraintWithItem:imageView attribute:NSLayoutAttributeWidth relatedBy:NSLayoutRelationEqual toItem:imageView attribute:NSLayoutAttributeHeight multiplier:4.0/3.0 constant:0.0f];
-        
-        [imageView addConstraint:constraint];
-    }
 }
 
 

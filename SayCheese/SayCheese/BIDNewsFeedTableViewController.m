@@ -13,7 +13,9 @@
 #import "AFHTTPRequestOperationManager.h"
 #import "FacebookSDK/FacebookSDK.h"
 
-@interface BIDNewsFeedTableViewController ()
+#import "LeveyPopListView.h"
+
+@interface BIDNewsFeedTableViewController () <LeveyPopListViewDelegate>
 
 @end
 
@@ -160,6 +162,11 @@ bool isLikeRequestSending;
     [cell.buttonLike setEnabled:YES];
     cell.buttonLike.tag = [indexPath row];
     
+    //
+    [cell.numOfLikesLabel setEnabled:YES];
+    cell.numOfLikesLabel.tag = [indexPath row];
+    [cell.numOfLikesLabel addTarget:self action:@selector(showLikesPopup:) forControlEvents:UIControlEventTouchUpInside];
+    
     bool likeFromUserExists = NO;
     
     [cell.buttonLike addTarget:self action:@selector(addOrRemoveLikeClicked:) forControlEvents:UIControlEventTouchUpInside];
@@ -168,7 +175,7 @@ bool isLikeRequestSending;
     NSMutableDictionary *result =[newsFeedArray objectAtIndex: [indexPath row]];
     if(result[@"likes"] != nil){
         NSArray * likesArray = result[@"likes"];
-        cell.numOfLikesLabel.text = [NSString stringWithFormat:@"%lu", (unsigned long)[likesArray count]] ;
+        [cell.numOfLikesLabel setTitle:[NSString stringWithFormat:@"%lu", (unsigned long)[likesArray count]] forState:UIControlStateNormal] ;
         for(NSDictionary* likeDictionary in likesArray){
             if([likeDictionary[@"userId"] isEqualToString:userId])
             {
@@ -176,7 +183,7 @@ bool isLikeRequestSending;
             }
         }
     }else{
-        cell.numOfLikesLabel.text = @"0";
+        [cell.numOfLikesLabel setTitle: @"0" forState:UIControlStateNormal] ;
     }
     
     [cell.buttonLike setNeedsLayout];
@@ -219,9 +226,7 @@ bool isLikeRequestSending;
     }
     CGFloat percent = 245.0 / width;
 
-    cell.imageViewFriendUploadedPhoto.frame = CGRectMake(cell.imageViewFriendUploadedPhoto.frame.origin.x, cell.imageViewFriendUploadedPhoto.frame.origin.y, width* percent , height*percent);
-    
-    
+ //   cell.imageViewFriendUploadedPhoto.frame = CGRectMake(cell.imageViewFriendUploadedPhoto.frame.origin.x, cell.imageViewFriendUploadedPhoto.frame.origin.y, width* percent , height*percent);
    
   
     return cell;
@@ -233,6 +238,10 @@ bool isLikeRequestSending;
         return [self heightForImageCellAtIndexPath:indexPath];
 }
 
+- (CGFloat)tableView:(UITableView *)tableView estimatedHeightForRowAtIndexPath:(NSIndexPath *)indexPath {
+    
+    return [self heightForImageCellAtIndexPath:indexPath];
+}
 - (CGFloat)heightForImageCellAtIndexPath:(NSIndexPath *)indexPath {
     NSDictionary* result = [newsFeedArray objectAtIndex:[indexPath row]];
     CGFloat width = 245.0;
@@ -252,6 +261,7 @@ bool isLikeRequestSending;
     CGSize size = [sizingCell.contentView systemLayoutSizeFittingSize:UILayoutFittingCompressedSize];
     return size.height;
 }
+
 
 - (void)addOrRemoveLikeClicked:(id)sender {
     if(!isLikeRequestSending){
@@ -453,5 +463,56 @@ bool isLikeRequestSending;
     }];
     
 }
+
+-(void) showLikesPopup: (id) sender{
+    NSInteger rowIndex = [sender tag];
+   
+    NSArray* _options = [NSArray arrayWithObjects:
+                [NSDictionary dictionaryWithObjectsAndKeys:[UIImage imageNamed:@"facebook.png"],@"img",@"Facebook",@"text", nil],
+                [NSDictionary dictionaryWithObjectsAndKeys:[UIImage imageNamed:@"twitter.png"],@"img",@"Twitter",@"text", nil],
+                [NSDictionary dictionaryWithObjectsAndKeys:[UIImage imageNamed:@"tumblr.png"],@"img",@"Tumblr",@"text", nil],
+                [NSDictionary dictionaryWithObjectsAndKeys:[UIImage imageNamed:@"google-plus.png"],@"img",@"Google+",@"text", nil],
+                [NSDictionary dictionaryWithObjectsAndKeys:[UIImage imageNamed:@"linkedin.png"],@"img",@"LinkedIn",@"text", nil],
+                [NSDictionary dictionaryWithObjectsAndKeys:[UIImage imageNamed:@"pinterest.png"],@"img",@"Pinterest",@"text", nil],
+                [NSDictionary dictionaryWithObjectsAndKeys:[UIImage imageNamed:@"dribbble.png"],@"img",@"Dribbble",@"text", nil],
+                [NSDictionary dictionaryWithObjectsAndKeys:[UIImage imageNamed:@"deviant-art.png"],@"img",@"deviantArt",@"text", nil],
+                nil];
+    NSMutableArray* options = [[NSMutableArray alloc]init];
+    
+    NSMutableDictionary *result =[newsFeedArray objectAtIndex: rowIndex];
+    if(result[@"likes"] != nil){
+        NSMutableArray * likesArray = result[@"likes"];
+     
+        
+        for(NSMutableDictionary* likeDictionary in likesArray){
+            NSString* imgUrl =[[Utils getInstance] getFacebookPictureUrl:likeDictionary[@"userId"]];
+            //NSString* imgUrl = [UIImage imageNamed:@"Icon-76.png"];
+            [options addObject: [NSDictionary dictionaryWithObjectsAndKeys:imgUrl,@"img", likeDictionary[@"firstName"],@"text", nil]];
+            
+        }
+    }
+    
+    LeveyPopListView *lplv = [[LeveyPopListView alloc] initWithTitle:@"Likes" options:options handler:^(NSInteger anIndex) {
+        //  _infoLabel.text = [NSString stringWithFormat:@"You have selected %@", _options[anIndex]];
+    }];
+    //    lplv.delegate = self;
+    [lplv showInView:self.view animated:YES];
+
+}
+
+
+
+
+
+
+
+#pragma mark - LeveyPopListView delegates
+- (void)leveyPopListView:(LeveyPopListView *)popListView didSelectedIndex:(NSInteger)anIndex {
+    //_infoLabel.text = [NSString stringWithFormat:@"You have selected %@",_options[anIndex]];
+}
+- (void)leveyPopListViewDidCancel {
+    //_infoLabel.text = @"You have cancelled";
+}
+
 
 @end

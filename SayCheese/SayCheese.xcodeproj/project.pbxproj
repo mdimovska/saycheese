@@ -12,6 +12,8 @@
 		4E0CC95919A8F205009392DE /* BIDNavigationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E0CC95819A8F205009392DE /* BIDNavigationViewController.m */; };
 		4E0CC96519AA2CFE009392DE /* Social.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4E0CC96419AA2CFE009392DE /* Social.framework */; };
 		4E0CC96719AA2D16009392DE /* MessageUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4E0CC96619AA2D16009392DE /* MessageUI.framework */; };
+		4E0E8F5D19CF4A3000B197F9 /* BIDPhotosCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E0E8F5C19CF4A3000B197F9 /* BIDPhotosCollectionViewCell.m */; };
+		4E0E8F6319CF4B6300B197F9 /* BIDPhotosCollectionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E0E8F6219CF4B6300B197F9 /* BIDPhotosCollectionViewController.m */; };
 		4E76493C19BD2C6F00B105E8 /* TTTTimeIntervalFormatter.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E76493B19BD2C6F00B105E8 /* TTTTimeIntervalFormatter.m */; };
 		4E76496719BDB26E00B105E8 /* Icon-40.png in Resources */ = {isa = PBXBuildFile; fileRef = 4E76495F19BDB26E00B105E8 /* Icon-40.png */; };
 		4E76496819BDB26E00B105E8 /* Icon-40@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4E76496019BDB26E00B105E8 /* Icon-40@2x.png */; };
@@ -44,6 +46,9 @@
 		4E9678AF19B32F34001EF6A7 /* AsyncImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E9678AE19B32F34001EF6A7 /* AsyncImageView.m */; };
 		4E9678B219B33AC2001EF6A7 /* BIDFriendsTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E9678B119B33AC2001EF6A7 /* BIDFriendsTableViewController.m */; };
 		4E9678B519B354FF001EF6A7 /* BIDFriendsTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E9678B419B354FF001EF6A7 /* BIDFriendsTableViewCell.m */; };
+		4E9D314E19CF60EC00B99B56 /* BIDLikesTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E9D314D19CF60EC00B99B56 /* BIDLikesTableViewCell.m */; };
+		4E9D315319CF623100B99B56 /* LeveyPopListView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E9D315019CF623100B99B56 /* LeveyPopListView.m */; };
+		4E9D315419CF623100B99B56 /* LeveyPopListViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E9D315219CF623100B99B56 /* LeveyPopListViewCell.m */; };
 		4EA02B01199CE46B00937E34 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4EA02B00199CE46B00937E34 /* Foundation.framework */; };
 		4EA02B03199CE46B00937E34 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4EA02B02199CE46B00937E34 /* CoreGraphics.framework */; };
 		4EA02B05199CE46B00937E34 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4EA02B04199CE46B00937E34 /* UIKit.framework */; };
@@ -102,6 +107,10 @@
 		4E0CC95819A8F205009392DE /* BIDNavigationViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BIDNavigationViewController.m; sourceTree = "<group>"; };
 		4E0CC96419AA2CFE009392DE /* Social.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Social.framework; path = System/Library/Frameworks/Social.framework; sourceTree = SDKROOT; };
 		4E0CC96619AA2D16009392DE /* MessageUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MessageUI.framework; path = System/Library/Frameworks/MessageUI.framework; sourceTree = SDKROOT; };
+		4E0E8F5B19CF4A3000B197F9 /* BIDPhotosCollectionViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BIDPhotosCollectionViewCell.h; sourceTree = "<group>"; };
+		4E0E8F5C19CF4A3000B197F9 /* BIDPhotosCollectionViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BIDPhotosCollectionViewCell.m; sourceTree = "<group>"; };
+		4E0E8F6119CF4B6300B197F9 /* BIDPhotosCollectionViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BIDPhotosCollectionViewController.h; sourceTree = "<group>"; };
+		4E0E8F6219CF4B6300B197F9 /* BIDPhotosCollectionViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BIDPhotosCollectionViewController.m; sourceTree = "<group>"; };
 		4E76493A19BD2C6F00B105E8 /* TTTTimeIntervalFormatter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TTTTimeIntervalFormatter.h; sourceTree = "<group>"; };
 		4E76493B19BD2C6F00B105E8 /* TTTTimeIntervalFormatter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TTTTimeIntervalFormatter.m; sourceTree = "<group>"; };
 		4E76495F19BDB26E00B105E8 /* Icon-40.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon-40.png"; sourceTree = "<group>"; };
@@ -144,6 +153,12 @@
 		4E9678B119B33AC2001EF6A7 /* BIDFriendsTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BIDFriendsTableViewController.m; sourceTree = "<group>"; };
 		4E9678B319B354FF001EF6A7 /* BIDFriendsTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BIDFriendsTableViewCell.h; sourceTree = "<group>"; };
 		4E9678B419B354FF001EF6A7 /* BIDFriendsTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BIDFriendsTableViewCell.m; sourceTree = "<group>"; };
+		4E9D314C19CF60EC00B99B56 /* BIDLikesTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BIDLikesTableViewCell.h; sourceTree = "<group>"; };
+		4E9D314D19CF60EC00B99B56 /* BIDLikesTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BIDLikesTableViewCell.m; sourceTree = "<group>"; };
+		4E9D314F19CF623100B99B56 /* LeveyPopListView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LeveyPopListView.h; sourceTree = "<group>"; };
+		4E9D315019CF623100B99B56 /* LeveyPopListView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LeveyPopListView.m; sourceTree = "<group>"; };
+		4E9D315119CF623100B99B56 /* LeveyPopListViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LeveyPopListViewCell.h; sourceTree = "<group>"; };
+		4E9D315219CF623100B99B56 /* LeveyPopListViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LeveyPopListViewCell.m; sourceTree = "<group>"; };
 		4EA02AFD199CE46B00937E34 /* SayCheese.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SayCheese.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		4EA02B00199CE46B00937E34 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		4EA02B02199CE46B00937E34 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -317,6 +332,16 @@
 				4E76493B19BD2C6F00B105E8 /* TTTTimeIntervalFormatter.m */,
 				4EFF0B3419B3724100680273 /* Utils.h */,
 				4EFF0B3519B3724100680273 /* Utils.m */,
+				4E0E8F5B19CF4A3000B197F9 /* BIDPhotosCollectionViewCell.h */,
+				4E0E8F5C19CF4A3000B197F9 /* BIDPhotosCollectionViewCell.m */,
+				4E0E8F6119CF4B6300B197F9 /* BIDPhotosCollectionViewController.h */,
+				4E0E8F6219CF4B6300B197F9 /* BIDPhotosCollectionViewController.m */,
+				4E9D314C19CF60EC00B99B56 /* BIDLikesTableViewCell.h */,
+				4E9D314D19CF60EC00B99B56 /* BIDLikesTableViewCell.m */,
+				4E9D314F19CF623100B99B56 /* LeveyPopListView.h */,
+				4E9D315019CF623100B99B56 /* LeveyPopListView.m */,
+				4E9D315119CF623100B99B56 /* LeveyPopListViewCell.h */,
+				4E9D315219CF623100B99B56 /* LeveyPopListViewCell.m */,
 			);
 			path = SayCheese;
 			sourceTree = "<group>";
@@ -564,12 +589,17 @@
 				4E7C069519B3B2A800321FB0 /* BIDAddFriendsTableViewController.m in Sources */,
 				4E8F8E6A199EAE23009ED73D /* BIDImageViewController.m in Sources */,
 				4EF7E18319BCF16000B63613 /* BIDNewsFeedTableViewController.m in Sources */,
+				4E0E8F6319CF4B6300B197F9 /* BIDPhotosCollectionViewController.m in Sources */,
 				4E9678A619B24AC6001EF6A7 /* BIDUserAccountViewController.m in Sources */,
+				4E9D315419CF623100B99B56 /* LeveyPopListViewCell.m in Sources */,
 				4EA02B11199CE46B00937E34 /* BIDAppDelegate.m in Sources */,
 				4EA02B17199CE46B00937E34 /* BIDViewController.m in Sources */,
+				4E9D314E19CF60EC00B99B56 /* BIDLikesTableViewCell.m in Sources */,
 				4EF7846619B92C7A00142930 /* BIDFriendRequestsTableViewController.m in Sources */,
 				4E9678A019B22D62001EF6A7 /* BIDLoginViewController.m in Sources */,
+				4E0E8F5D19CF4A3000B197F9 /* BIDPhotosCollectionViewCell.m in Sources */,
 				4E9678B519B354FF001EF6A7 /* BIDFriendsTableViewCell.m in Sources */,
+				4E9D315319CF623100B99B56 /* LeveyPopListView.m in Sources */,
 				4EF7846919B92CA000142930 /* BIDFriendRequestsTableViewCell.m in Sources */,
 				4E76493C19BD2C6F00B105E8 /* TTTTimeIntervalFormatter.m in Sources */,
 				4EA02B0D199CE46B00937E34 /* main.m in Sources */,
