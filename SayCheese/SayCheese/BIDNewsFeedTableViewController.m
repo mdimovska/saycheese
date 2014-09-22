@@ -57,6 +57,8 @@ bool isLikeRequestSending;
                                                   forBarMetrics:UIBarMetricsDefault];
     self.navigationController.navigationBar.shadowImage = [UIImage new];
     self.navigationController.navigationBar.translucent = NO;
+    self.navigationController.navigationBar.topItem.title = @"Say cheese";
+    
     
    // self.navigationController.view.backgroundColor = [[Utils getInstance]greenColor];
     
@@ -122,6 +124,8 @@ bool isLikeRequestSending;
 -(void) viewDidAppear:(BOOL)animated
 {
     [super viewDidAppear:animated];
+    
+    self.navigationController.navigationBar.topItem.title = @"Say cheese";
     //   if(!areFriendsLoaded)
     [self getNewsFeed];
     //  else{

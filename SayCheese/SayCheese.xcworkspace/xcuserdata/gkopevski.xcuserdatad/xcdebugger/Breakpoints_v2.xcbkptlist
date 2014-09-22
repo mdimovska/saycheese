@@ -10,11 +10,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "SayCheese/BIDNewsFeedTableViewController.m"
-            timestampString = "433111256.603888"
+            timestampString = "433119260.97501"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "449"
-            endingLineNumber = "449"
+            startingLineNumber = "453"
+            endingLineNumber = "453"
             landmarkName = "-getNewsFeed"
             landmarkType = "5">
          </BreakpointContent>
@@ -26,11 +26,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "SayCheese/BIDNewsFeedTableViewController.m"
-            timestampString = "433111256.603888"
+            timestampString = "433119260.97501"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "454"
-            endingLineNumber = "454"
+            startingLineNumber = "458"
+            endingLineNumber = "458"
             landmarkName = "-getNewsFeed"
             landmarkType = "5">
          </BreakpointContent>
@@ -330,11 +330,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "SayCheese/BIDNewsFeedTableViewController.m"
-            timestampString = "433111256.603888"
+            timestampString = "433119260.97501"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "491"
-            endingLineNumber = "491"
+            startingLineNumber = "495"
+            endingLineNumber = "495"
             landmarkName = "-showLikesPopup:"
             landmarkType = "5">
          </BreakpointContent>
