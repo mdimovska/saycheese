@@ -166,7 +166,7 @@ bool isLikeRequestSending;
     //
     [cell.numOfLikesLabel setEnabled:YES];
     cell.numOfLikesLabel.tag = [indexPath row];
-    [cell.numOfLikesLabel addTarget:self action:@selector(showLikesPopup:) forControlEvents:UIControlEventTouchUpInside];
+  //  [cell.numOfLikesLabel addTarget:self action:@selector(showLikesPopup:) forControlEvents:UIControlEventTouchUpInside];
     
     bool likeFromUserExists = NO;
     
@@ -227,7 +227,7 @@ bool isLikeRequestSending;
     }
     CGFloat percent = 245.0 / width;
 
- //   cell.imageViewFriendUploadedPhoto.frame = CGRectMake(cell.imageViewFriendUploadedPhoto.frame.origin.x, cell.imageViewFriendUploadedPhoto.frame.origin.y, width* percent , height*percent);
+   cell.imageViewFriendUploadedPhoto.frame = CGRectMake(cell.imageViewFriendUploadedPhoto.frame.origin.x, cell.imageViewFriendUploadedPhoto.frame.origin.y, width* percent , height*percent);
    
   
     return cell;
