@@ -526,7 +526,7 @@
                                     </view>
                                 </subviews>
                                 <constraints>
-                                    <constraint firstAttribute="bottom" secondItem="9tB-gN-zcV" secondAttribute="bottom" constant="44" id="QAr-GG-rZN"/>
+                                    <constraint firstAttribute="bottom" secondItem="9tB-gN-zcV" secondAttribute="bottom" constant="90" id="QAr-GG-rZN"/>
                                 </constraints>
                             </scrollView>
                             <imageView userInteractionEnabled="NO" contentMode="top" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Gso-Qx-6KO">
