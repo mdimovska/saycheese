@@ -115,12 +115,13 @@
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:cellIdentity];
     if (!cell)
         cell = [[LeveyPopListViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellIdentity];
-    
+      cell.imageView.frame = CGRectMake(0, 0, 35, 35);
     if ([_options[indexPath.row] respondsToSelector:@selector(objectForKey:)]) {
+       
          [[Utils getInstance] setImageViewRound:cell.imageView];
         NSString *ImageURL = _options[indexPath.row][@"img"];
         NSData *imageData = [NSData dataWithContentsOfURL:[NSURL URLWithString:ImageURL]];
-        cell.imageView.contentMode = UIViewContentModeScaleAspectFit;
+        cell.imageView.contentMode = UIViewContentModeScaleAspectFill;
         cell.imageView.image = [UIImage imageWithData:imageData];
        // cell.imageView.image = _options[indexPath.row][@"img"];
         cell.textLabel.text = _options[indexPath.row][@"text"];

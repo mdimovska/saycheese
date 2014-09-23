@@ -157,26 +157,26 @@ NSString * userIdInPhotoController = @"";
 }
 
 -(void) showLikesPopup: (id) sender{
- 
-    NSMutableArray* options = [[NSMutableArray alloc]init];
-    
-    if(photoModel[@"likes"] != nil){
+  if(nil != photoModel[@"likes"] && [photoModel[@"likes"]  count]>0){
+      
+      NSMutableArray* options = [[NSMutableArray alloc]init];
+      
         NSMutableArray * likesArray = photoModel[@"likes"];
         
         
         for(NSMutableDictionary* likeDictionary in likesArray){
             NSString* imgUrl =[[Utils getInstance] getFacebookPictureUrl:likeDictionary[@"userId"]];
             //NSString* imgUrl = [UIImage imageNamed:@"Icon-76.png"];
-            [options addObject: [NSDictionary dictionaryWithObjectsAndKeys:imgUrl,@"img", likeDictionary[@"firstName"],@"text", nil]];
+            [options addObject: [NSDictionary dictionaryWithObjectsAndKeys:imgUrl,@"img",[NSString stringWithFormat:@"%@ %@", likeDictionary[@"firstName"],likeDictionary[@"lastName"]] ,@"text", nil]];
             
         }
+        
+        LeveyPopListView *lplv = [[LeveyPopListView alloc] initWithTitle:@"Likes" options:options handler:^(NSInteger anIndex) {
+            //  _infoLabel.text = [NSString stringWithFormat:@"You have selected %@", _options[anIndex]];
+        }];
+        //    lplv.delegate = self;
+        [lplv showInView:self.view animated:YES];
     }
-    
-    LeveyPopListView *lplv = [[LeveyPopListView alloc] initWithTitle:@"Likes" options:options handler:^(NSInteger anIndex) {
-        //  _infoLabel.text = [NSString stringWithFormat:@"You have selected %@", _options[anIndex]];
-    }];
-    //    lplv.delegate = self;
-    [lplv showInView:self.view animated:YES];
     
 }
 
