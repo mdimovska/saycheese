@@ -11,8 +11,11 @@
 
 @interface BIDPhotoViewController : UIViewController
 - (IBAction)popupController:(id)sender;
+- (IBAction)deletePhoto:(id)sender;
+
 @property (nonatomic, strong) IBOutlet UILabel *nameLabel;
 @property (nonatomic, strong) IBOutlet UILabel *dateLabel;
+@property (nonatomic, strong) IBOutlet UIBarButtonItem *deleteButton;
 //@property (nonatomic, strong) IBOutlet UILabel *captionLabel; //not neccesary for now
 @property (nonatomic, strong) IBOutlet UIButton *numOfLikesLabel;
 @property (nonatomic, strong) IBOutlet  AsyncImageView* imageViewFriendPicture;

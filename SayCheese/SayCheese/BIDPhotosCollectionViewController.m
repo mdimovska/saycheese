@@ -82,8 +82,7 @@ static NSString * const reuseIdentifier = @"photosTableCell";
     [[UIApplication sharedApplication] setStatusBarHidden:NO];
     self.navigationController.navigationBar.topItem.title = @"Photos";
     photosArray = [[Utils getInstance]getUserPhotosFromPrefs];
-  
-  //  [self.collectionView reloadData];
+  [self.collectionView reloadData];
 }
 
 

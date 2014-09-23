@@ -371,7 +371,6 @@ bool isCancelRequestSent;
             }
             [sender setEnabled:YES];
             isFriendRequestSending = NO;
-
             
         } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
             NSLog(@"Error adding friend: %@", error);

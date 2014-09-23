@@ -21,19 +21,29 @@
 @synthesize imageViewFriendPicture;
 @synthesize imageViewFriendUploadedPhoto;
 @synthesize numOfLikesLabel;
+@synthesize deleteButton;
 NSString * userIdInPhotoController = @"";
+bool isRemovePhotoRequestSending;
+
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    NSDictionary * a = [NSDictionary dictionaryWithDictionary:photoModel];
+    isRemovePhotoRequestSending = NO;
     userIdInPhotoController = [[Utils getInstance] getLoggedInUserId];
     if(nil != photoModel){
         [self initViews];
     }
-    
+    if([userIdInPhotoController isEqualToString:photoModel[@"userId"]]){
+        //can delete photo
+        [deleteButton setEnabled:YES];
+        [deleteButton setTintColor: [UIColor whiteColor]];
+    }else{
+        [deleteButton setEnabled:NO];
+        [deleteButton setTintColor: [UIColor clearColor]];
+    }
     
     [self.navigationItem setHidesBackButton:YES];
-
+    
     
     // Do any additional setup after loading the view.
     [self setNeedsStatusBarAppearanceUpdate];
@@ -60,13 +70,10 @@ NSString * userIdInPhotoController = @"";
                                             blue:((float) 0.0f)
                                            alpha:0.5];
     
-  
-   // [self.view addSubview:view];
+    
+    // [self.view addSubview:view];
     
     [[UIApplication sharedApplication] setStatusBarStyle: UIStatusBarStyleLightContent];
-
-    
-    
 }
 
 -(UIStatusBarStyle)preferredStatusBarStyle{
@@ -95,7 +102,7 @@ NSString * userIdInPhotoController = @"";
         if([likesArray count]==1)
             [numOfLikesLabel setTitle:[NSString stringWithFormat:@"%lu like", (unsigned long)[likesArray count]] forState:UIControlStateNormal] ;
         else
-        [numOfLikesLabel setTitle:[NSString stringWithFormat:@"%lu likes", (unsigned long)[likesArray count]] forState:UIControlStateNormal] ;
+            [numOfLikesLabel setTitle:[NSString stringWithFormat:@"%lu likes", (unsigned long)[likesArray count]] forState:UIControlStateNormal] ;
         for(NSDictionary* likeDictionary in likesArray){
             if([likeDictionary[@"userId"] isEqualToString:userIdInPhotoController])
             {
@@ -106,9 +113,9 @@ NSString * userIdInPhotoController = @"";
         [numOfLikesLabel setTitle: @"0 likes" forState:UIControlStateNormal] ;
     }
     
-  //  [buttonLike setNeedsLayout];
-  //  [cell setNeedsLayout];
-
+    //  [buttonLike setNeedsLayout];
+    //  [cell setNeedsLayout];
+    
     
     if(
        likeFromUserExists)
@@ -157,10 +164,10 @@ NSString * userIdInPhotoController = @"";
 }
 
 -(void) showLikesPopup: (id) sender{
-  if(nil != photoModel[@"likes"] && [photoModel[@"likes"]  count]>0){
-      
-      NSMutableArray* options = [[NSMutableArray alloc]init];
-      
+    if(nil != photoModel[@"likes"] && [photoModel[@"likes"]  count]>0){
+        
+        NSMutableArray* options = [[NSMutableArray alloc]init];
+        
         NSMutableArray * likesArray = photoModel[@"likes"];
         
         
@@ -185,5 +192,66 @@ NSString * userIdInPhotoController = @"";
     [self.navigationController popViewControllerAnimated:YES];
 }
 
+- (IBAction)deletePhoto:(id)sender
+{
+    if(!isRemovePhotoRequestSending){
+        [sender setEnabled:NO];
+        isRemovePhotoRequestSending = YES;
+        NSLog(@"removing photo..");
+        //DELETE request
+        
+        NSString * url = [[Utils getInstance] removePhotoUrl];
+        
+        AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+        NSDictionary *parameters = @{@"photoId": photoModel[@"_id"] };
+        
+        manager.responseSerializer = [AFHTTPResponseSerializer serializer];
+        [manager DELETE:url parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
+            NSInteger code = [[operation response] statusCode];
+            
+            if(code == 200){
+                NSLog(@"photo successfully removed");
+                
+                NSMutableArray*  photosArray = [[Utils getInstance]getUserPhotosFromPrefs];
+                NSMutableDictionary* photoToBeRemoved;
+                for(NSMutableDictionary* likeDictionary in photosArray){
+                    if([likeDictionary[@"_id"] isEqualToString:photoModel[@"_id"]])
+                    {
+                        photoToBeRemoved = [NSMutableDictionary dictionaryWithDictionary:likeDictionary];
+                        break;
+                    }
+                }
+                if(photoToBeRemoved != nil){
+                    //exists -> should be removed
+                    
+                     NSMutableArray*  photosArrayNew   = [photosArray mutableCopy];
+                    [photosArrayNew removeObject:photoToBeRemoved];
+                    [[Utils getInstance]setUserPhotosToPrefs:photosArrayNew];
+                }
+                
+                [self.navigationController popViewControllerAnimated:YES];
+            }
+            else
+            {
+                [self showErrorMessage];
+            }
+            [sender setEnabled:YES];
+            isRemovePhotoRequestSending = NO;
+            
+        } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+            NSLog(@"Error removing photo: %@", error);
+            [sender setEnabled:YES];
+            isRemovePhotoRequestSending = NO;
+            [self showErrorMessage];
+        }];
+    }
+}
 
+-(void) showErrorMessage{
+    NSString *alertText;
+    NSString *alertTitle;
+    alertTitle = @"Something went wrong";
+    alertText = @"Could not remove photo";
+    [[Utils getInstance] showErrorMessage:alertTitle message: alertText];
+}
 @end

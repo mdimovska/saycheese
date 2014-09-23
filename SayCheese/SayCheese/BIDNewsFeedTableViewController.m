@@ -103,7 +103,7 @@ bool isLikeRequestSending;
     [self.navigationController setNavigationBarHidden:NO animated:animated];
     [[UIApplication sharedApplication] setStatusBarHidden:NO];
     self.navigationController.navigationBar.topItem.title = @"Say cheese";
-    newsFeedArray = [[Utils getInstance]getUserFriendsFromPrefs];
+   // newsFeedArray = [[Utils getInstance]getUserFriendsFromPrefs];
     [self.navigationItem setHidesBackButton:YES];
     
     
@@ -460,7 +460,7 @@ bool isLikeRequestSending;
         
         [self.tableView reloadData];
 
-        NSLog(@"JSON: %@", responseObject);
+       // NSLog(@"JSON: %@", responseObject);
         
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         NSLog(@"Error loading news feed: %@", error);

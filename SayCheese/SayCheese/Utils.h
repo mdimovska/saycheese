@@ -16,6 +16,7 @@
 
 - (NSString *) getFriendsUrl:(NSString*) userId;
 - (NSString *) getRegisterUrl;
+- (NSString*) removePhotoUrl;
 - (NSString*) findFriendsUrl:(NSString*) userId;
 - (NSString*) addContactUrl;
 - (NSString*) removeContactOrPendingRequestUrl;
@@ -36,6 +37,7 @@
 - (NSString* ) getLoggedInUserId;
 - (NSMutableArray*) getUserFriendsFromPrefs;
 - (void) setUserFriendsToPrefs: (NSMutableArray*) friendsArray;
+- (void) setUserPhotosToPrefs: (NSMutableArray*) photosArray;
 
 -(void) setImageViewRound:(UIImageView*) imageView;
 -(void) showErrorMessage: (NSString*) errorTitle message:(NSString*) message;

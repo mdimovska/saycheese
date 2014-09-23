@@ -73,10 +73,19 @@
     NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
     [prefs setObject:friendsArray forKey:@"userFriends"];
 }
-
+- (void) setUserPhotosToPrefs: (NSMutableArray*) photosArray
+{
+    NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
+    [prefs setObject:photosArray forKey:@"userPhotos"];
+}
 - (NSString*) getFriendsUrl:(NSString*) userId
 {
     return[[NSString stringWithFormat:@"%@/users/%@/contacts", [self getDefaultUrl], userId] stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding ];
+}
+- (NSString*) removePhotoUrl
+{
+    //param: photoId
+    return[[NSString stringWithFormat:@"%@/photos/photo", [self getDefaultUrl]] stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
 }
 
 - (NSString *) getFacebookPictureUrl:(NSString*) userId

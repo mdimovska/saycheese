@@ -352,13 +352,23 @@
                                 <nil key="highlightedColor"/>
                                 <color key="shadowColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                             </label>
-                            <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="xcP-wL-5nd">
-                                <rect key="frame" x="9" y="539" width="300" height="30"/>
-                                <state key="normal" title="0 likes">
-                                    <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
-                                    <color key="titleShadowColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
-                                </state>
-                            </button>
+                            <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" translucent="NO" translatesAutoresizingMaskIntoConstraints="NO" id="GAV-EQ-RIf">
+                                <rect key="frame" x="0.0" y="524" width="320" height="44"/>
+                                <color key="backgroundColor" red="0.078431372550000003" green="0.078431372550000003" blue="0.078431372550000003" alpha="0.0" colorSpace="calibratedRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="320" id="His-mI-oS8"/>
+                                    <constraint firstAttribute="height" constant="44" id="l9W-ga-Moe"/>
+                                </constraints>
+                                <items>
+                                    <barButtonItem style="plain" systemItem="flexibleSpace" id="pV2-Y7-co8"/>
+                                    <barButtonItem systemItem="trash" id="JaL-Tp-AaB">
+                                        <color key="tintColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                        <connections>
+                                            <action selector="deletePhoto:" destination="VbH-pA-yqc" id="umt-cv-7p3"/>
+                                        </connections>
+                                    </barButtonItem>
+                                </items>
+                            </toolbar>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="rTW-pa-SBE">
                                 <rect key="frame" x="290" y="9" width="22" height="22"/>
                                 <constraints>
@@ -372,26 +382,39 @@
                                     <action selector="popupController:" destination="VbH-pA-yqc" eventType="touchUpInside" id="2R9-vw-b1P"/>
                                 </connections>
                             </button>
+                            <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="xcP-wL-5nd">
+                                <rect key="frame" x="16" y="7" width="200" height="30"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="200" id="ntr-W4-aRm"/>
+                                </constraints>
+                                <state key="normal" title="0 likes">
+                                    <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                    <color key="titleShadowColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="PLy-G4-0qX" firstAttribute="leading" secondItem="yFI-JW-WuE" secondAttribute="leadingMargin" constant="-16" id="CkN-mz-fy0"/>
                             <constraint firstItem="PLy-G4-0qX" firstAttribute="top" secondItem="yFI-JW-WuE" secondAttribute="topMargin" id="Cza-14-9Hg"/>
-                            <constraint firstItem="xcP-wL-5nd" firstAttribute="leading" secondItem="yFI-JW-WuE" secondAttribute="leadingMargin" constant="-7" id="EtB-ek-t8J"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="GAV-EQ-RIf" secondAttribute="trailing" constant="-16" id="FRe-cM-q5U"/>
                             <constraint firstItem="mcW-bg-tdL" firstAttribute="leading" secondItem="yFI-JW-WuE" secondAttribute="leadingMargin" constant="-5" id="Ifq-qx-N3X"/>
                             <constraint firstAttribute="trailingMargin" secondItem="PLy-G4-0qX" secondAttribute="trailing" constant="-16" id="JzW-d2-CcN"/>
                             <constraint firstItem="mcW-bg-tdL" firstAttribute="top" secondItem="yFI-JW-WuE" secondAttribute="topMargin" constant="8" id="K8b-rC-Cc0"/>
-                            <constraint firstAttribute="trailingMargin" secondItem="xcP-wL-5nd" secondAttribute="trailing" constant="-5" id="cEw-oM-sZT"/>
                             <constraint firstItem="rTW-pa-SBE" firstAttribute="top" secondItem="yFI-JW-WuE" secondAttribute="topMargin" constant="9" id="hJS-b7-UuV"/>
+                            <constraint firstItem="2Jb-cd-bOA" firstAttribute="top" secondItem="GAV-EQ-RIf" secondAttribute="bottom" id="jE3-SU-6es"/>
+                            <constraint firstItem="GAV-EQ-RIf" firstAttribute="leading" secondItem="yFI-JW-WuE" secondAttribute="leadingMargin" constant="-16" id="nbH-QR-Zys"/>
                             <constraint firstItem="2Jb-cd-bOA" firstAttribute="top" secondItem="PLy-G4-0qX" secondAttribute="bottom" id="rRP-2L-F11"/>
                             <constraint firstItem="Tes-rC-oPx" firstAttribute="leading" secondItem="yFI-JW-WuE" secondAttribute="leadingMargin" constant="-5" id="sF2-bm-bs2"/>
                             <constraint firstItem="2Jb-cd-bOA" firstAttribute="top" secondItem="xcP-wL-5nd" secondAttribute="bottom" constant="1" id="upc-at-foY"/>
+                            <constraint firstItem="xcP-wL-5nd" firstAttribute="leading" secondItem="yFI-JW-WuE" secondAttribute="leadingMargin" id="yKV-Ir-i13"/>
                             <constraint firstAttribute="trailingMargin" secondItem="rTW-pa-SBE" secondAttribute="trailing" constant="-8" id="zVB-Cv-gBv"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="zRC-pz-6Wi"/>
                     <connections>
                         <outlet property="dateLabel" destination="Tes-rC-oPx" id="2VE-Rj-R5X"/>
+                        <outlet property="deleteButton" destination="JaL-Tp-AaB" id="dBX-Z9-ivp"/>
                         <outlet property="imageViewFriendPicture" destination="jeW-VT-PEf" id="av1-st-nK1"/>
                         <outlet property="imageViewFriendUploadedPhoto" destination="PLy-G4-0qX" id="P9f-9h-twm"/>
                         <outlet property="nameLabel" destination="mcW-bg-tdL" id="CJk-ww-d0d"/>
@@ -818,7 +841,7 @@
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
         <segue reference="xLW-04-dNp"/>
-        <segue reference="T93-Fi-cDt"/>
+        <segue reference="Jd2-B0-uge"/>
     </inferredMetricsTieBreakers>
     <color key="tintColor" red="0.08235294118" green="0.62745098040000002" blue="0.51764705879999995" alpha="1" colorSpace="deviceRGB"/>
 </document>
