@@ -103,12 +103,37 @@ NSString* userIdInFriendsController = @"";
     [self.navigationController setNavigationBarHidden:NO animated:animated];
     [[UIApplication sharedApplication] setStatusBarHidden:NO];
     self.navigationController.navigationBar.topItem.title = @"Friends";
-     friendsArray = [[Utils getInstance]getUserFriendsFromPrefs];
+   //  friendsArray = [[Utils getInstance]getUserFriendsFromPrefs];
+    [self getFriends];
+    
     [self.tableView reloadData];
 }
 
 -(UIStatusBarStyle)preferredStatusBarStyle{
     return UIStatusBarStyleLightContent;
+}
+
+-(void) getFriends{
+    NSLog(@"getting friends");
+    NSLog(@"userId: %@", userIdInFriendsController);
+    
+    NSString *url = [[Utils getInstance] getFriendsUrl: userIdInFriendsController];
+    
+    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+    [manager GET: url parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        
+        NSLog(@"getting friends finished");
+        NSLog(@"JSON (friends): %@", responseObject);
+        
+        friendsArray =[NSMutableArray arrayWithArray: responseObject];
+        
+        [[Utils getInstance] setUserFriendsToPrefs:friendsArray];
+        [self.tableView reloadData];
+        
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        NSLog(@"Error getting friends: %@", error);
+        [[Utils getInstance] showErrorMessage:@"Something went wrong" message:@"Could not get user info"];
+    }];
 }
 
 

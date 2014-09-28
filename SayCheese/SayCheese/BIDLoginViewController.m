@@ -19,7 +19,7 @@
 @implementation BIDLoginViewController
 
 @synthesize loginView;
-bool isRegistering = NO;
+bool isRegistering;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -33,6 +33,7 @@ bool isRegistering = NO;
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    isRegistering = NO;
     // Do any additional setup after loading the view.cs
     
     loginView.readPermissions = @[@"public_profile", @"email", @"user_friends"]; //new
@@ -44,6 +45,7 @@ bool isRegistering = NO;
                             user:(id<FBGraphUser>)user {
     NSLog(@"loginViewFetchedUserInfo");
     if(!isRegistering){
+        NSLog(@"registering......");
         isRegistering = YES;
         NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
         NSDictionary *dictionary= [prefs dictionaryForKey:@"userInfo"];
@@ -74,6 +76,9 @@ bool isRegistering = NO;
             UIViewController *myController = [self.storyboard instantiateViewControllerWithIdentifier:@"TabBarController"];
             [self.navigationController pushViewController: myController animated:YES];
         }
+    }
+    else{
+        NSLog(@"isRegistering = YES");
     }
     
 }

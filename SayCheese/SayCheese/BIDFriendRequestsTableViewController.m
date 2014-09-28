@@ -34,7 +34,7 @@ bool isCancelRequestSent;
 {
     [super viewDidLoad];
     self.tableView.allowsMultipleSelectionDuringEditing = NO;
-
+    
     isCancelRequestSent = NO;
     hasTaskStarted = NO;
     friendRequestsArray = [[NSMutableArray alloc] init];
@@ -84,7 +84,7 @@ bool isCancelRequestSent;
     static NSString *CellIdentifier = @"friendRequestsTableCell";
     
     BIDFriendRequestsTableViewCell *cell = [tableView
-                                        dequeueReusableCellWithIdentifier:CellIdentifier];
+                                            dequeueReusableCellWithIdentifier:CellIdentifier];
     if (cell == nil) {
         cell = [[BIDFriendRequestsTableViewCell alloc]
                 initWithStyle:UITableViewCellStyleDefault
@@ -94,9 +94,9 @@ bool isCancelRequestSent;
     
     //add click handler and button tag (tag = number of row clicked)
     cell.addButton.tag = indexPath.row;
-        result =[friendRequestsArray objectAtIndex: [indexPath row]];
-        [cell.addButton addTarget:self action:@selector(acceptFriendClicked:) forControlEvents:UIControlEventTouchUpInside];
-
+    result =[friendRequestsArray objectAtIndex: [indexPath row]];
+    [cell.addButton addTarget:self action:@selector(acceptFriendClicked:) forControlEvents:UIControlEventTouchUpInside];
+    
     cell.nameLabel.text = [[result[@"firstName"] stringByAppendingString: @" "] stringByAppendingString:result[@"lastName"]];
     
     [[Utils getInstance] setImageViewRound:cell.imageViewFriendPicture];
@@ -123,53 +123,53 @@ bool isCancelRequestSent;
 }
 
 /*
-// Override to support conditional editing of the table view.
-- (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    // Return NO if you do not want the specified item to be editable.
-    return YES;
-}
-*/
+ // Override to support conditional editing of the table view.
+ - (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath
+ {
+ // Return NO if you do not want the specified item to be editable.
+ return YES;
+ }
+ */
 
 /*
-// Override to support editing the table view.
-- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    if (editingStyle == UITableViewCellEditingStyleDelete) {
-        // Delete the row from the data source
-        [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
-    } else if (editingStyle == UITableViewCellEditingStyleInsert) {
-        // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
-    }   
-}
-*/
+ // Override to support editing the table view.
+ - (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath
+ {
+ if (editingStyle == UITableViewCellEditingStyleDelete) {
+ // Delete the row from the data source
+ [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
+ } else if (editingStyle == UITableViewCellEditingStyleInsert) {
+ // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
+ }
+ }
+ */
 
 /*
-// Override to support rearranging the table view.
-- (void)tableView:(UITableView *)tableView moveRowAtIndexPath:(NSIndexPath *)fromIndexPath toIndexPath:(NSIndexPath *)toIndexPath
-{
-}
-*/
+ // Override to support rearranging the table view.
+ - (void)tableView:(UITableView *)tableView moveRowAtIndexPath:(NSIndexPath *)fromIndexPath toIndexPath:(NSIndexPath *)toIndexPath
+ {
+ }
+ */
 
 /*
-// Override to support conditional rearranging of the table view.
-- (BOOL)tableView:(UITableView *)tableView canMoveRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    // Return NO if you do not want the item to be re-orderable.
-    return YES;
-}
-*/
+ // Override to support conditional rearranging of the table view.
+ - (BOOL)tableView:(UITableView *)tableView canMoveRowAtIndexPath:(NSIndexPath *)indexPath
+ {
+ // Return NO if you do not want the item to be re-orderable.
+ return YES;
+ }
+ */
 
 /*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
-{
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
+ #pragma mark - Navigation
+ 
+ // In a storyboard-based application, you will often want to do a little preparation before navigation
+ - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
+ {
+ // Get the new view controller using [segue destinationViewController].
+ // Pass the selected object to the new view controller.
+ }
+ */
 
 -(void) getFriendRequests{
     NSLog(@"get friend requests called");
@@ -191,7 +191,7 @@ bool isCancelRequestSent;
         NSLog(@"Error getting friend requests: %@", error);
         [[Utils getInstance] showErrorMessage:@"Something went wrong" message:@"Could not get friend requests"];
     }];
-            
+    
 }
 
 - (void)acceptFriendClicked: (id)sender {
@@ -208,11 +208,18 @@ bool isCancelRequestSent;
         
         //post request for adding friend...
         NSLog(@"sending friend request");
+      
         
+       
+        //  [self removeFriendRequestAndReloadData:rowIndex];
+        //remove friend from requests list (users are friends now!)
+        
+        
+     
         NSString *url = [[Utils getInstance] acceptFriendUrl:userId1];
         AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
         NSDictionary *parameters = @{ @"contactId": contactId };
-        
+     
         manager.responseSerializer = [AFHTTPResponseSerializer serializer];
         [manager POST:url parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
             NSLog(@"Response: %@", responseObject);
@@ -220,38 +227,54 @@ bool isCancelRequestSent;
             NSInteger code = [[operation response] statusCode];
             
             if(200 == code){
+                
                 NSLog(@"friend %@ accepted" , contactId);
-              //  [self removeFriendRequestAndReloadData:rowIndex];
+                //  [self removeFriendRequestAndReloadData:rowIndex];
+                //remove friend from requests list (users are friends now!)
+                
                 //remove friend from requests list (users are friends now!)
                 NSMutableArray * requestsArrayNew = [friendRequestsArray mutableCopy];
+                
+                /*
+                 //not ok with this.....
+                 NSMutableArray* userFriendsArray = [[Utils getInstance] getUserFriendsFromPrefs];
+                 NSMutableDictionary * dictionaryFriend =[requestsArrayNew objectAtIndex:rowIndex];
+                 [userFriendsArray addObject:dictionaryFriend];
+                 [[Utils getInstance]setUserFriendsToPrefs:userFriendsArray];
+                */
+                
+                [requestsArrayNew removeObjectAtIndex: rowIndex];
+                friendRequestsArray = [[NSMutableArray alloc] init];
+                friendRequestsArray = [NSMutableArray arrayWithArray:requestsArrayNew];
+            
+                NSArray *deleteIndexPaths = [NSArray arrayWithObjects:
+                                             [NSIndexPath indexPathForRow:rowIndex inSection:0],
+                                             nil];
+                
+                [self.tableView beginUpdates];
+                [self.tableView deleteRowsAtIndexPaths:deleteIndexPaths withRowAnimation:UITableViewRowAnimationFade];
+                [self.tableView endUpdates];
+                /*
+                
+                NSMutableArray*  requestsArrayNew = [friendRequestsArray mutableCopy];
                 
                 NSMutableArray* userFriendsArray = [[Utils getInstance] getUserFriendsFromPrefs];
                 NSMutableDictionary * dictionaryFriend =[requestsArrayNew objectAtIndex:rowIndex];
                 [userFriendsArray addObject:dictionaryFriend];
-                
+                [[Utils getInstance]setUserFriendsToPrefs:userFriendsArray];
                 
                 [requestsArrayNew removeObjectAtIndex: rowIndex];
                 friendRequestsArray = [[NSMutableArray alloc] init];
                 friendRequestsArray = [NSMutableArray arrayWithArray:requestsArrayNew];
                 
-                // [self.tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
-                
-                //new
-                /*
-                 
                 NSArray *deleteIndexPaths = [NSArray arrayWithObjects:
                                              [NSIndexPath indexPathForRow:rowIndex inSection:0],
                                              nil];
                 
-                 
                 [self.tableView beginUpdates];
                 [self.tableView deleteRowsAtIndexPaths:deleteIndexPaths withRowAnimation:UITableViewRowAnimationFade];
                 [self.tableView endUpdates];
-                
                 */
-                [self.tableView reloadData];
-                
-                [[Utils getInstance]setUserFriendsToPrefs:userFriendsArray];
             }
             else
             {
@@ -270,23 +293,25 @@ bool isCancelRequestSent;
          ];
         //[sender setEnabled:YES];
         
-            }
+    }
 }
 -(void) removeFriendRequestAndReloadData:(NSInteger) rowIndex
 {
     //remove friend from requests list (users are friends now!)
     NSMutableArray * requestsArrayNew = [friendRequestsArray mutableCopy];
- 
+    
+  /*
     NSMutableArray* userFriendsArray = [[Utils getInstance] getUserFriendsFromPrefs];
     NSMutableDictionary * dictionaryFriend =[requestsArrayNew objectAtIndex:rowIndex];
     [userFriendsArray addObject:dictionaryFriend];
     [[Utils getInstance]setUserFriendsToPrefs:userFriendsArray];
+    */
     
     [requestsArrayNew removeObjectAtIndex: rowIndex];
     friendRequestsArray = [[NSMutableArray alloc] init];
     friendRequestsArray = [NSMutableArray arrayWithArray:requestsArrayNew];
     
-   // [self.tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
+   // [[Utils getInstance]setUserFriendsToPrefs:requestsArrayNew];
     
     //new
     NSArray *deleteIndexPaths = [NSArray arrayWithObjects:
@@ -326,12 +351,13 @@ bool isCancelRequestSent;
         
         //post request for cancel pending request...
         
+        
         NSString *url = [[Utils getInstance] removeContactOrPendingRequestUrl];
         
         AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
         NSDictionary *parameters = @{@"userId": userId,
                                      @"contactId": contactId
-                                    };
+                                     };
         
         manager.responseSerializer = [AFHTTPResponseSerializer serializer];
         [manager POST:url parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
@@ -356,8 +382,6 @@ bool isCancelRequestSent;
                 [self.tableView deleteRowsAtIndexPaths:deleteIndexPaths withRowAnimation:UITableViewRowAnimationFade];
                 [self.tableView endUpdates];
                 
-                //update userPreferences
-                
             }
             else
             {
@@ -368,9 +392,11 @@ bool isCancelRequestSent;
             NSLog(@"Error canceling request: %@", error);
             [[Utils getInstance] showErrorMessage:@"Something went wrong" message:@"Could not cancel request"];
             isCancelRequestSent = NO;
-          }
-        ];
+        }
+         ];
         //[sender setEnabled:YES];
+        
+        
     }
 }
 

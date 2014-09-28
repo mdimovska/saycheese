@@ -266,11 +266,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "SayCheese/BIDFriendsTableViewController.m"
-            timestampString = "431825145.366844"
+            timestampString = "433639650.286028"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "143"
-            endingLineNumber = "143"
+            startingLineNumber = "168"
+            endingLineNumber = "168"
             landmarkName = "-tableView:cellForRowAtIndexPath:"
             landmarkType = "5">
          </BreakpointContent>
@@ -504,11 +504,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "SayCheese/BIDFriendRequestsTableViewController.m"
-            timestampString = "431777917.332257"
+            timestampString = "433638233.469542"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "219"
-            endingLineNumber = "219"
+            startingLineNumber = "226"
+            endingLineNumber = "226"
             landmarkName = "-acceptFriendClicked:"
             landmarkType = "5">
          </BreakpointContent>
@@ -728,11 +728,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "SayCheese/BIDFriendsTableViewController.m"
-            timestampString = "431825145.366844"
+            timestampString = "433639650.286028"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "111"
-            endingLineNumber = "111"
+            startingLineNumber = "113"
+            endingLineNumber = "113"
             landmarkName = "-preferredStatusBarStyle"
             landmarkType = "5">
          </BreakpointContent>
