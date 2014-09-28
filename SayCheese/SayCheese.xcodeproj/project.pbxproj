@@ -14,6 +14,7 @@
 		4E0CC96719AA2D16009392DE /* MessageUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4E0CC96619AA2D16009392DE /* MessageUI.framework */; };
 		4E0E8F5D19CF4A3000B197F9 /* BIDPhotosCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E0E8F5C19CF4A3000B197F9 /* BIDPhotosCollectionViewCell.m */; };
 		4E0E8F6319CF4B6300B197F9 /* BIDPhotosCollectionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E0E8F6219CF4B6300B197F9 /* BIDPhotosCollectionViewController.m */; };
+		4E0FD68519D89437007C0780 /* FacebookSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4E0FD68419D89437007C0780 /* FacebookSDK.framework */; };
 		4E76493C19BD2C6F00B105E8 /* TTTTimeIntervalFormatter.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E76493B19BD2C6F00B105E8 /* TTTTimeIntervalFormatter.m */; };
 		4E76496719BDB26E00B105E8 /* Icon-40.png in Resources */ = {isa = PBXBuildFile; fileRef = 4E76495F19BDB26E00B105E8 /* Icon-40.png */; };
 		4E76496819BDB26E00B105E8 /* Icon-40@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4E76496019BDB26E00B105E8 /* Icon-40@2x.png */; };
@@ -37,7 +38,6 @@
 		4E936602199E542B00107C7E /* CoreImage.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4E936601199E542B00107C7E /* CoreImage.framework */; };
 		4E936604199E543200107C7E /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4E936603199E543200107C7E /* AVFoundation.framework */; };
 		4E936606199E543700107C7E /* CoreVideo.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4E936605199E543700107C7E /* CoreVideo.framework */; };
-		4E96789D19B21682001EF6A7 /* FacebookSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4E96789C19B21682001EF6A7 /* FacebookSDK.framework */; };
 		4E9678A019B22D62001EF6A7 /* BIDLoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E96789F19B22D62001EF6A7 /* BIDLoginViewController.m */; };
 		4E9678A319B2486C001EF6A7 /* BIDTabBarController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E9678A219B2486C001EF6A7 /* BIDTabBarController.m */; };
 		4E9678A619B24AC6001EF6A7 /* BIDUserAccountViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E9678A519B24AC6001EF6A7 /* BIDUserAccountViewController.m */; };
@@ -114,6 +114,7 @@
 		4E0E8F5C19CF4A3000B197F9 /* BIDPhotosCollectionViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BIDPhotosCollectionViewCell.m; sourceTree = "<group>"; };
 		4E0E8F6119CF4B6300B197F9 /* BIDPhotosCollectionViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BIDPhotosCollectionViewController.h; sourceTree = "<group>"; };
 		4E0E8F6219CF4B6300B197F9 /* BIDPhotosCollectionViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BIDPhotosCollectionViewController.m; sourceTree = "<group>"; };
+		4E0FD68419D89437007C0780 /* FacebookSDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = FacebookSDK.framework; sourceTree = "<group>"; };
 		4E76493A19BD2C6F00B105E8 /* TTTTimeIntervalFormatter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TTTTimeIntervalFormatter.h; sourceTree = "<group>"; };
 		4E76493B19BD2C6F00B105E8 /* TTTTimeIntervalFormatter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TTTTimeIntervalFormatter.m; sourceTree = "<group>"; };
 		4E76495F19BDB26E00B105E8 /* Icon-40.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon-40.png"; sourceTree = "<group>"; };
@@ -141,7 +142,6 @@
 		4E936601199E542B00107C7E /* CoreImage.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreImage.framework; path = System/Library/Frameworks/CoreImage.framework; sourceTree = SDKROOT; };
 		4E936603199E543200107C7E /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
 		4E936605199E543700107C7E /* CoreVideo.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreVideo.framework; path = System/Library/Frameworks/CoreVideo.framework; sourceTree = SDKROOT; };
-		4E96789C19B21682001EF6A7 /* FacebookSDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = FacebookSDK.framework; sourceTree = "<group>"; };
 		4E96789E19B22D62001EF6A7 /* BIDLoginViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BIDLoginViewController.h; sourceTree = "<group>"; };
 		4E96789F19B22D62001EF6A7 /* BIDLoginViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BIDLoginViewController.m; sourceTree = "<group>"; };
 		4E9678A119B2486C001EF6A7 /* BIDTabBarController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BIDTabBarController.h; sourceTree = "<group>"; };
@@ -233,12 +233,12 @@
 				4E936602199E542B00107C7E /* CoreImage.framework in Frameworks */,
 				4E936600199E542200107C7E /* AssetsLibrary.framework in Frameworks */,
 				4E9365FE199E541900107C7E /* CoreMedia.framework in Frameworks */,
-				4E96789D19B21682001EF6A7 /* FacebookSDK.framework in Frameworks */,
 				4E9365FC199E540E00107C7E /* QuartzCore.framework in Frameworks */,
 				4E9365FA199E540600107C7E /* ImageIO.framework in Frameworks */,
 				4EA02B03199CE46B00937E34 /* CoreGraphics.framework in Frameworks */,
 				4EA02B01199CE46B00937E34 /* Foundation.framework in Frameworks */,
 				1F1E4472D1B8449CB373A4B4 /* libPods.a in Frameworks */,
+				4E0FD68519D89437007C0780 /* FacebookSDK.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -278,7 +278,7 @@
 		4EA02AFF199CE46B00937E34 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				4E96789C19B21682001EF6A7 /* FacebookSDK.framework */,
+				4E0FD68419D89437007C0780 /* FacebookSDK.framework */,
 				4E0CC96619AA2D16009392DE /* MessageUI.framework */,
 				4E0CC96419AA2CFE009392DE /* Social.framework */,
 				4E936605199E543700107C7E /* CoreVideo.framework */,

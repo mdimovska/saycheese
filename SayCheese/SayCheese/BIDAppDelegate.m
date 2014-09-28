@@ -253,9 +253,6 @@
             [prefs setObject:dictionary forKey:@"userInfo"];
             
             [self register:dictionary];
-    
-            UINavigationController *navigationController = (UINavigationController*) self.window.rootViewController;
-            [[[navigationController viewControllers] objectAtIndex:0] performSegueWithIdentifier:@"TabBarControllerSequeIdentifier" sender:self];
      
     
         } else {
