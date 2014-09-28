@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6245" systemVersion="13F34" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="hQu-8W-Q3Y">
     <dependencies>
-        <deployment defaultVersion="1808" identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6238"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
@@ -428,7 +427,7 @@
         <!--Tab Bar Controller-->
         <scene sceneID="igQ-Gq-Svl">
             <objects>
-                <tabBarController definesPresentationContext="YES" id="N98-p7-Djr" customClass="BIDTabBarController" sceneMemberID="viewController">
+                <tabBarController storyboardIdentifier="TabBarController" definesPresentationContext="YES" id="N98-p7-Djr" customClass="BIDTabBarController" sceneMemberID="viewController">
                     <navigationItem key="navigationItem" id="yju-c6-TgX"/>
                     <nil key="simulatedBottomBarMetrics"/>
                     <tabBar key="tabBar" contentMode="scaleToFill" id="oRP-rp-eBC">
@@ -841,7 +840,7 @@
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
         <segue reference="xLW-04-dNp"/>
-        <segue reference="Jd2-B0-uge"/>
+        <segue reference="T93-Fi-cDt"/>
     </inferredMetricsTieBreakers>
     <color key="tintColor" red="0.08235294118" green="0.62745098040000002" blue="0.51764705879999995" alpha="1" colorSpace="deviceRGB"/>
 </document>

@@ -59,23 +59,9 @@ bool isLikeRequestSending;
     self.navigationController.navigationBar.translucent = NO;
     self.navigationController.navigationBar.topItem.title = @"Say cheese";
     
-    
-   // self.navigationController.view.backgroundColor = [[Utils getInstance]greenColor];
-    
-  
-    /*
-    //set white title of view
-    self.navigationController.navigationBar.titleTextAttributes = [NSDictionary dictionaryWithObject:[UIColor  whiteColor] forKey:NSForegroundColorAttributeName];
-    
-  
-    self.navigationController.navigationBar.barTintColor = [[Utils getInstance]greenColor];
-    self.navigationController.navigationBar.tintColor = [UIColor whiteColor];
-    */
-    
     [[UIApplication sharedApplication] setStatusBarStyle: UIStatusBarStyleLightContent];
-    
-    
 }
+
 -(void) logout{
     [FBSession.activeSession closeAndClearTokenInformation];
     NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
@@ -86,8 +72,6 @@ bool isLikeRequestSending;
     [[UIStoryboard storyboardWithName:@"Main" bundle:nil]instantiateViewControllerWithIdentifier:@"loginViewController"];
     [[self navigationController] pushViewController:loginViewController
                                      animated:YES];
-    
-    
 }
 
 - (void)didReceiveMemoryWarning
@@ -126,6 +110,8 @@ bool isLikeRequestSending;
     [super viewDidAppear:animated];
     
     self.navigationController.navigationBar.topItem.title = @"Say cheese";
+    
+    self.tableView.contentInset = UIEdgeInsetsMake(0.0f, 0.0f, 44.0f, 0.0f);
     //   if(!areFriendsLoaded)
     [self getNewsFeed];
     //  else{

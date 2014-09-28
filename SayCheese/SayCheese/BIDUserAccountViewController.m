@@ -73,9 +73,8 @@ NSString* userId;
         userNameLabel.text = userDictionary[@"user"][@"name"];
         userId = userDictionary[@"user"][@"id"];
         //load the image
-        NSURL *URL = [NSURL URLWithString:userDictionary[@"user"][@"picture"]];
-        URL=[[Utils getInstance]makePictureUrl:
-             userId]; //FIX
+        NSURL *URL =[[Utils getInstance]makePictureUrl:
+             userId];
         imageViewUserPicture.imageURL = URL;
         imageViewUploadedPhoto1.clipsToBounds = YES;
         imageViewUploadedPhoto2.clipsToBounds = YES;
@@ -234,13 +233,16 @@ NSString* userId;
 -(void) viewDidAppear:(BOOL)animated
 {
     [super viewDidAppear:animated];
+    /*
     if(!areFriendsLoaded)
         [self getFriends];
     else{
         friendsArray = [[Utils getInstance] getUserFriendsFromPrefs];
         [self fillFriendsImageViews];
     }
+    */
     //  if(!arePhotosLoaded)
+    [self getFriends];
     [self getPhotos];
     //   else{
     //  photosArray = [[Utils getInstance] get];

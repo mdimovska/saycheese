@@ -11,7 +11,7 @@
 #import "Utils.h"
 #import "AFHTTPRequestOperationManager.h"
 
-@implementation BIDAppDelegate
+@implementation BIDAppDelegate 
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
@@ -28,7 +28,8 @@
     */
     
     
-    
+    //old
+    /*
     // Whenever a person opens the app, check for a cached session
     if (FBSession.activeSession.state == FBSessionStateCreatedTokenLoaded) {
         
@@ -42,6 +43,7 @@
                                           [self sessionStateChanged:session state:state error:error];
                                       }];
     }
+    */
     
     return YES;
 }
@@ -51,7 +53,16 @@
             openURL:(NSURL *)url
   sourceApplication:(NSString *)sourceApplication
          annotation:(id)annotation
+
 {
+    // attempt to extract a token from the url
+    return [FBAppCall handleOpenURL:url
+                  sourceApplication:sourceApplication
+                    fallbackHandler:^(FBAppCall *call) {
+                        NSLog(@"In fallback handler");
+                    }];
+
+    /* //old
     // Note this handler block should be the exact same as the handler passed to any open calls.
     [FBSession.activeSession setStateChangeHandler:
      ^(FBSession *session, FBSessionState state, NSError *error) {
@@ -62,6 +73,7 @@
          [appDelegate sessionStateChanged:session state:state error:error];
      }];
     return [FBAppCall handleOpenURL:url sourceApplication:sourceApplication];
+    */
 }
 
 - (void)applicationWillResignActive:(UIApplication *)application
