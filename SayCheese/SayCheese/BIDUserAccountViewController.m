@@ -62,15 +62,15 @@ NSString* userId;
     
     //set placeholder image or cell won't update when image is loaded
     imageViewUserPicture.image = [UIImage imageNamed:@"default_user1.jpg"];
-    imageViewUploadedPhoto1.image = [UIImage imageNamed:@"default_user1.jpg"];
-    imageViewUploadedPhoto2.image = [UIImage imageNamed:@"default_user1.jpg"];
+    imageViewUploadedPhoto1.image = nil;
+    imageViewUploadedPhoto2.image = nil;
     
     // Do any additional setup after loading the view.
     prefs = [NSUserDefaults standardUserDefaults];
     userDictionary = [[Utils getInstance]getUserDictionary];
     
     if(userDictionary){
-        userNameLabel.text = userDictionary[@"user"][@"name"];
+        userNameLabel.text = [NSString stringWithFormat:@"%@ %@", userDictionary[@"user"][@"first_name"], userDictionary[@"user"][@"last_name"]];
         userId = userDictionary[@"user"][@"id"];
         //load the image
         NSURL *URL =[[Utils getInstance]makePictureUrl:
@@ -177,6 +177,12 @@ NSString* userId;
     labelNameFriendPicture3.text = @"";
 }
 
+-(void) clearPhotos
+{
+    imageViewUploadedPhoto1.image = nil;
+    imageViewUploadedPhoto2.image = nil;
+}
+
 -(void) fillFriendsImageViews{
     [self clearFriends];
     
@@ -190,7 +196,7 @@ NSString* userId;
         labelNameFriendPicture1.text = user1[@"firstName"];
     }
     if([friendsArray count] > 1){
-        imageViewFriendPicture2.image = [UIImage imageNamed:@"default_user.jpg"];
+        imageViewFriendPicture2.image = [UIImage imageNamed:@"default_user1.jpg"];
         NSDictionary *user2 = [friendsArray objectAtIndex:[friendsArray count]-2];
         NSURL *URL = [NSURL URLWithString:user2[@"pictureUrl"]];
         [[Utils getInstance]makePictureUrl:user2[@"userId"]];
@@ -198,7 +204,7 @@ NSString* userId;
         labelNameFriendPicture2.text = user2[@"firstName"];
     }
     if([friendsArray count] > 2){
-        imageViewFriendPicture3.image = [UIImage imageNamed:@"default_user.jpg"];
+        imageViewFriendPicture3.image = [UIImage imageNamed:@"default_user1.jpg"];
         NSDictionary *user3 = [friendsArray objectAtIndex:[friendsArray count]-3];
         NSURL *URL = [NSURL URLWithString:user3[@"pictureUrl"]];
         [[Utils getInstance]makePictureUrl:user3[@"userId"]];
@@ -209,18 +215,18 @@ NSString* userId;
 }
 
 -(void) fillPhotosImageViews{
-    // [self clearFriends];
+    [self clearPhotos];
     
     if([photosArray count] > 0){
-        imageViewUploadedPhoto1.image = [UIImage imageNamed:@"default_user1.jpg"];
-        NSDictionary *photo = [photosArray objectAtIndex: [photosArray count]-1];
+        imageViewUploadedPhoto1.image = [UIImage imageNamed:@"loading.gif"];
+        NSDictionary *photo = [photosArray objectAtIndex: 0];
         
        NSURL * URL=  [[Utils getInstance]getSaycheesePictureUrl:photo[@"photoUrl"] userId:userId];
         imageViewUploadedPhoto1.imageURL = URL;
     }
     if([photosArray count] > 1){
-        imageViewUploadedPhoto2.image = [UIImage imageNamed:@"default_user1.jpg"];
-        NSDictionary *photo = [photosArray objectAtIndex: [photosArray count]-2];
+        imageViewUploadedPhoto2.image = [UIImage imageNamed:@"loading.gif"];
+        NSDictionary *photo = [photosArray objectAtIndex: 1];
         
         NSURL *URL = [NSURL URLWithString:photo[@"photoUrl"]];
         URL=  [[Utils getInstance]getSaycheesePictureUrl:photo[@"photoUrl"] userId:userId];

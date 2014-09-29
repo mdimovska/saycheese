@@ -204,7 +204,7 @@ bool isLikeRequestSending;
     
     cell.imageViewFriendPicture.imageURL = [[Utils getInstance]makePictureUrl:result[@"userId"]];
     
-    cell.imageViewFriendUploadedPhoto.image = [UIImage imageNamed:@"default_user1.jpg"]; //loading.....
+    cell.imageViewFriendUploadedPhoto.image = [UIImage imageNamed:@"loading.gif"]; //loading.....
     NSURL *photoUrl =[[Utils getInstance] getSaycheesePictureUrl:result[@"photoUrl"] userId:result[@"userId"]];
     
      cell.imageViewFriendUploadedPhoto.imageURL = photoUrl;
